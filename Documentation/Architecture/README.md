@@ -1,6 +1,6 @@
 # Architecture
 
-Architecture for this system is developed using [C4 model](https://c4model.com/)  at [draw.io](https://draw.io/). Using attached library [C4-Model-Lib.xml](C4-Model-Lib.xml)
+Architecture for this system is developed using [C4 model](https://c4model.com/)  at [draw.io](https://draw.io/) with [C4-Model-Lib.xml](C4-Model-Lib.xml) library.
 
 ## Level 1 - System Context
 
