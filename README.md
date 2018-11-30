@@ -1,5 +1,6 @@
 # PBAI
 
+## Shortcuts
 - [Getting started](https://github.com/kkolodziejczak/PBAI/wiki/Getting-started)
 - [Team](https://github.com/kkolodziejczak/PBAI/wiki/Team)
 - [WorkFlow](https://github.com/kkolodziejczak/PBAI/wiki/WorkFlow)
