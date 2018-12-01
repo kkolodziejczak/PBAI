@@ -11,6 +11,9 @@ Architecture for this system is developed using [C4 model](https://c4model.com/)
 <img src="Level2-Containers.svg">
 
 ## Level 3 - Components
+### Web Application Component
+### Database Component
+### API Application Component
 
 ## Level 4 - Code
 There will be no Code diagram because codebase is changing in rapid pease and it is useless to maintain it with every change.
