@@ -11,8 +11,12 @@ Architecture for this system is developed using [C4 model](https://c4model.com/)
 <img src="Level2-Containers.svg">
 
 ## Level 3 - Components
+
 ### Web Application Component
+<img src="Level3-WebApplication-Components.svg">
+
 ### Database Component
+
 ### API Application Component
 
 ## Level 4 - Code
