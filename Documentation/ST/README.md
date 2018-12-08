@@ -27,6 +27,7 @@ Ta część profilu zabezpieczeń zawiera opis przedmiotu oceny (TOE), rodzaj pr
 Przedmiotem oceny, rozważanym w niniejszym dokumencie, jest pięć komponentów: "Login, Register, My Documents, Upload Document, Exchange Keys", wchodzące w skład Document Exchange System — system dzielenia się zaszyfrowanymi plikami pomiędzy użytkownikami.
 
 <img src="Level3-WebApplication-Components.svg">
+<<<<<<< HEAD
 
 
 ### Login - komponent odpowiada za:
@@ -63,3 +64,5 @@ Przedmiotem oceny, rozważanym w niniejszym dokumencie, jest pięć komponentów
 - moduł odpowiedzialny za wymianę klucza pomiędzy użytkownikami za pomocą protokołu Diffiego-Hellmana;
 - użytkownik wybiera docelowego odbiorcę, któremu zostanie przesłany klucz szyfrujący plik z wykorzystaniem protokołu Diffiego-Hellmana - służy do ustalenia wspólnego tajnego klucza przy użyciu publicznych środków komunikacji. Następnie ten klucz jest szyfrowany ustalonym wcześniej przez obie strony tajnym kluczem, z kolei potem odbiorca odszyfrowuje klucz i może go wykorzystać do pobrania udostępnionych mu zasobów;
 - klucz symetryczny zapewniający dostęp do współdzielonego pliku jest szyfrowany za pomocą tajnego klucza asymetrycznego.
+=======
+>>>>>>> 7d12075... Added system description - part1  #8
