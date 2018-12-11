@@ -62,4 +62,7 @@ Przedmiotem oceny, rozważanym w niniejszym dokumencie, jest pięć komponentów
 ### Exchange Keys - komponent odpowiada za:
 
 - wymianę klucza pomiędzy użytkownikami za pomocą protokołu Diffiego-Hellmana;
-- pobranie od użytkownika docelowego odbiorcy, któremu zostanie przesłany klucz szyfrujący plik z wykorzystaniem protokołu Diffiego-Hellmana (służy on do ustalenia wspólnego tajnego klucza przy użyciu publicznych środków komunikacji; następnie ten klucz jest szyfrowany ustalonym wcześniej przez obie strony tajnym kluczem, z kolei potem odbiorca odszyfrowuje klucz i może go wykorzystać do pobrania udostępnionych mu zasobów - klucz symetryczny zapewniający dostęp do współdzielonego pliku jest szyfrowany za pomocą tajnego klucza asymetrycznego).
+- pobranie od użytkownika klucza szyfrującego plik;
+- pobranie od użytkownika docelowego odbiorcy, któremu zostanie przesłany klucz szyfrujący plik z wykorzystaniem protokołu Diffiego-Hellmana (służy do ustalenia wspólnego tajnego klucza przy użyciu publicznych środków komunikacji);
+- zaszyfrowanie klucza do pliku ustalonym wcześniej przez obie strony za pomocą protokołu Diffiego-Hellmana tajnym kluczem;
+- odszyfrowanie klucza do pliku w celu skorzystania z udostępnionych zasobów.
