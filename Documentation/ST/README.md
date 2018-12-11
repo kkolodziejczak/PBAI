@@ -26,7 +26,9 @@ Ta część profilu zabezpieczeń zawiera opis przedmiotu oceny (TOE), rodzaj pr
 
 Przedmiotem oceny, rozważanym w niniejszym dokumencie, jest pięć komponentów: "Login, Register, My Documents, Upload Document, Exchange Keys", wchodzące w skład Document Exchange System — system dzielenia się zaszyfrowanymi plikami pomiędzy użytkownikami.
 
-<img src="../Architecture/Level3-WebApplication-Components.svg">
+<p align="center">
+	<img src="../Architecture/Level3-WebApplication-Components.svg">
+</p>
 
 ### Login - komponent odpowiada za:
 
@@ -34,31 +36,30 @@ Przedmiotem oceny, rozważanym w niniejszym dokumencie, jest pięć komponentów
 - logowanie z wykorzystaniem protokołu HTTPS.
 
 
-### Register
+### Register - komponent odpowiada za:
 
 - rejestrację użytkownika do systemu (użytkownik podaje login, hasło, powtórzone hasło i adres e-mail);
-- weryfikuje poprawność wprowadzonych danych;
-- tworzy nowe konto użytkownika po uprzednim spełnieniu wymagań dotyczących rejestracji;
-- rejestracja z wykorzystaniem protokołu HTTPS.
+- weryfikację poprawności wprowadzonych danych;
+- tworzenie nowego konta użytkownika po uprzednim spełnieniu wymagań dotyczących rejestracji;
+- rejestrację z wykorzystaniem protokołu HTTPS.
 
 
-### My Documents
+### My Documents - komponent odpowiada za:
 
 - zarządzanie dokumentami, których właścicielem jest zalogowany użytkownik;
 - nadawanie uprawnień dostępu do poszczególnych, zaszyfrowanych dokumentów konkretnym użytkownikom;
-- komunikacja użytkownika z wykorzystaniem protokołu HTTPS.
+- komunikację z użytkownikiem z wykorzystaniem protokołu HTTPS.
 
 
-### Upload Document
+### Upload Document - komponent odpowiada za:
 
 - wysyłanie pliku uprzednio zaszyfrowanego kluczem symetrycznym;
-- użytkownik podaje datę i godzinę wygaśnięcia pliku;
-- użytkownik zarządza listą osób uprawnionych do korzystania z pliku;
-- komunikacja użytkownika z wykorzystaniem protokołu HTTPS.
+- pobranie od użytkownika daty i godziny wygaśnięcia pliku;
+- zarządzanie przez użytkownika listą osób uprawnionych do korzystania z pliku;
+- komunikację z użytkownikiem z wykorzystaniem protokołu HTTPS.
 
 
-### Exchange Keys
+### Exchange Keys - komponent odpowiada za:
 
-- moduł odpowiedzialny za wymianę klucza pomiędzy użytkownikami za pomocą protokołu Diffiego-Hellmana;
-- użytkownik wybiera docelowego odbiorcę, któremu zostanie przesłany klucz szyfrujący plik z wykorzystaniem protokołu Diffiego-Hellmana - służy do ustalenia wspólnego tajnego klucza przy użyciu publicznych środków komunikacji. Następnie ten klucz jest szyfrowany ustalonym wcześniej przez obie strony tajnym kluczem, z kolei potem odbiorca odszyfrowuje klucz i może go wykorzystać do pobrania udostępnionych mu zasobów;
-- klucz symetryczny zapewniający dostęp do współdzielonego pliku jest szyfrowany za pomocą tajnego klucza asymetrycznego.
+- wymianę klucza pomiędzy użytkownikami za pomocą protokołu Diffiego-Hellmana;
+- pobranie od użytkownika docelowego odbiorcy, któremu zostanie przesłany klucz szyfrujący plik z wykorzystaniem protokołu Diffiego-Hellmana (służy on do ustalenia wspólnego tajnego klucza przy użyciu publicznych środków komunikacji; następnie ten klucz jest szyfrowany ustalonym wcześniej przez obie strony tajnym kluczem, z kolei potem odbiorca odszyfrowuje klucz i może go wykorzystać do pobrania udostępnionych mu zasobów - klucz symetryczny zapewniający dostęp do współdzielonego pliku jest szyfrowany za pomocą tajnego klucza asymetrycznego).
