@@ -15,7 +15,7 @@ Krzysztof Kołodziejczak, Patryk Piotrowski, Patryk Prokurat, Jakub Dyba,
 Artur Ziemba, Bartosz Gawdzis, Albert Liberski, Mateusz Gnyp<br>
 <b>Status głosowania:</b> CC Version: 1.0 (Grudzień 2018)<br>
 <b>Ogólny status:</b> Draft<br>
-<b>Numer wersji:</b> 1.0
+<b>Numer wersji:</b> 1.0<br>
 <b>Słowa kluczowe:</b> szyfrowanie/deszyfrowanie danych, współdzielenie danych, klucz symetryczny, klucz asymetryczny, protokół Diffiego-Hellmana.<br>
 
 # Opis przedmiotu oceny
@@ -26,7 +26,7 @@ Ta część profilu zabezpieczeń zawiera opis przedmiotu oceny (TOE), rodzaj pr
 
 Przedmiotem oceny, rozważanym w niniejszym dokumencie, jest pięć komponentów: "Login, Register, My Documents, Upload Document, Exchange Keys", wchodzące w skład Document Exchange System — system dzielenia się zaszyfrowanymi plikami pomiędzy użytkownikami.
 
-<img src="Level3-WebApplication-Components.svg">
+<img src="../Architecture/Level3-WebApplication-Components.svg">
 
 ### Login - komponent odpowiada za:
 
