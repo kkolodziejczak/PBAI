@@ -2,6 +2,41 @@
 
 Aplikacja ma służyć do bezpiecznego dzielenia się między sobą poufnymi plikami. Po wysłaniu na serwer plików zaszyfrowanych za pomocą klucza symetrycznego, użytkownik będzie mógł ustawić datę i godzinę wygaśnięcia pliku oraz zarządzać listą osób uprawnionych do jego odczytu. Służący do tego klucz symetryczny zostanie wtedy zaszyfrowany i przekazany według protokołu Diffiego-Hellmana.
 
+### UC1 - Rejestracja
+
+### UC2 - Logowanie
+Po połączeniu się z serwerem i otwarciu aplikacji w przeglądarce, użytkownik musi się zalogować do systemu. Ma to na celu identyfikację i potwierdzenie tożsamości osoby korzystającej z aplikacji. Zalogowanie się jest konieczne - niezalogowany użytkownik nie może wykonać w systemie żadnych operacji.
+1. Wymagania: brak
+2. Scenariusz główny:
+- Przeglądarka wyświetla formularz logowania
+- Użytkownik wpisuje poprawne dane do formularza logowania
+- Użytkownik wybiera opcję “Zaloguj”
+- System sprawdza poprawność danych i wyświetla główny widok aplikacji
+3. Scenariusz alternatywny 1:
+- Przeglądarka wyświetla formularz logowania
+- Użytkownik wpisuje niepoprawne dane do formularza logowania
+- Użytkownik wybiera opcję “Zaloguj”
+- System wyświetla komunikat o wprowadzeniu błędnych danych
+4. Scenariusz alternatywny 2:
+- Przeglądarka wyświetla formularz logowania
+- Użytkownik niepoprawnie wpisuje dane do formularza logowania
+- Użytkownik wybiera opcję “Zaloguj”
+- System wyświetla komunikat o błędnym wypełnieniu formularza
+5. Scenariusz alternatywny 3:
+- Przeglądarka wyświetla formularz logowania
+- Użytkownik wpisuje poprawny login, ale niepoprawne hasło do formularza logowania
+- Użytkownik wybiera opcję “Zaloguj”
+- System wyświetla komunikat o wprowadzeniu błędnych danych
+- Użytkownik 2 razy ponownie wpisuje niepoprawne hasło
+- Po 3-krotnej próbie podania niepoprawnego hasła system blokuje użytkownikowi dostęp do konta na 1 godzinę
+
+### UC3 - Wysyłanie dokumentu
+
+### UC4 - Zarządzanie dokumentami
+
+### UC5 - Wylogowanie
+
+
 # Charakterystyka użytkowników aplikacji
 
 ### 1. Użytkownicy
