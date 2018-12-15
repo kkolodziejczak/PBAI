@@ -5,11 +5,20 @@
 ## 1. Architektura aplikacji
 
 <p align="center">
-<img src="../Architecture/Level3-APIApplication-Components.svg">
+<img src="../Architecture/Level2-Containers.svg">
 </p>
 
+Architektura aplikacji składa się z trzech głównych komponentów:
+* Web Application - front-end [React.js]
+* API Application - back-end [Node.js]
+* Database i CacheDatabase - serwer bazodanowy przechowujący dane (dane użytkowników, zaszyfrowane dokumenty) [MongoDB]
 
-Architektura aplikacji składa się z 8 głównych komponentów:
+
+### 1.1 API Application Component
+
+<p align="center">
+<img src="../Architecture/Level3-APIApplication-Components.svg">
+</p>
 
 ### Web Application
 Jest to komponent odpowiedzialny za komunikację użytkownika z systemem. Jest odpowiedzialny za pobieranie danych od użytkownika oraz przekazanie ich do back-endu. Następnie back-end aplikacji na podstawie tych danych wykonuje określone zadanie i przekazuje wynik końcowy z powrotem do Web Application.
@@ -58,3 +67,36 @@ Przechowuje rekordy o użytkownikach znajdujących się w systemie wraz z poziom
 ### Cache Database
 
 Baza danych szybkiego dostępu - przechowuje kopię bazy danych i jest stosowana w celu zwiększenia efektywności i wydajności działania systemu. Pełni rolę pamięci podręcznej bazy danych - pamięć szybkiego dostępu.
+
+
+
+## 2. Stany aplikacji
+
+Główna część aplikacji - aplikacja serwerowa z dostępem przez przeglądarkę internetową, napisana w języku JavaScript (Front-end React.js; Back-end Node.js) jest obsługiwana przez chmurę Amazon Web Services (AWS).
+
+
+## 3. Zasoby aplikacji
+
+Aplikacja działa na chmurze Amazon Web Services - jest to bezpieczna platforma usług w chmurze oferującą moc obliczeniową, hosting bazy danych, usługi dostarczania treści (content delivery) i wiele innych produktów i usług pomagających w łatwym skalowaniu i wzroście biznesu.
+
+
+## 4. Sposób obsługi błędów
+W przypadku wystąpienia błędów aplikacji po stronie użytkownika lub po stronie klienta, procedura obsługi błędów wygląda następująco:
+- Wystąpienie błędu lub nieobsługiwanego wyjątku;
+- Zapisanie informacji o kodzie błędu z danymi, które te błędy wywołały do pliku logu znajdującego się w katalogu Application/ErrorLogs;
+- Przekazanie ogólnej informacji o błędzie z kodem błędu użytkownikowi - wyświetlenie komunikatu.
+
+## 5. Przechowywane dane
+
+W ramach działania aplikacji dane przechowywane są w dwóch magazynch:
+
+* Pamięć dyskowa w chmurze Amazon Web Services - zasoby zarządzające aplikacją po stronie serwera, logi systemowe, zabezpieczona kopia bazy danych.
+* Baza danych - przechowywanie wszelkich informacji dotyczących systemu takich jak:
+    * Dane użytkownika systemu - login, hasło - hasło zabezpieczone hashem: SHA-512, adres e-mail, przypisana grupa użytkownika;
+    * Grupy użytkowników - użytkownik, administrator;
+    * Zaszyfrowane kluczem symetrycznym dokumenty z odnośnikiem do właściciela pliku, z listą uprawnionych do pobrania zasobu użytkowników oraz znacznikiem czasowym (timestamp) ustalającym czas wygaśnięcia pliku, klucze deszyfrujące nie są zapisywane w obrębie systemu bazodanowego.
+
+
+## 6. Dostęp do bazy danych
+
+W aplikacji występuje zależność do systemu bazodanowego przechowującego dane o użytkownikach, ich uprawnieniach oraz zaszyfrowanych plikach. Komunikacja aplikacji ze strony serwerower z bazą danych odbywa się w lokalnym środowisku - dostęp do systemu bazodanowego jedynie wewnątrz infrastruktury serwera.
