@@ -11,7 +11,7 @@
 Architektura aplikacji składa się z trzech głównych komponentów:
 * Web Application - front-end [React.js]
 * API Application - back-end [Node.js]
-* Database i CacheDatabase - serwer bazodanowy przechowujący dane (dane użytkowników, zaszyfrowane dokumenty) [MongoDB]
+* Database - serwer bazodanowy przechowujący dane (dane użytkowników, zaszyfrowane dokumenty) [MongoDB]
 
 
 ### 1.1 API Application Component
@@ -33,11 +33,9 @@ Do zadań tego komponentu należy walidacja uprawnień użytkownika. Dla każdor
 - Czy użytkownik posiada wystarczające uprawnienia grupy do określonego zasobu systemu;
 - Czy ważność sesji połączeniowej dla użytkownika nie wygasła;
 
-
-
 ### Key Management
 
-Komponent zapewniający bezpieczne połączenie pomiędzy użytkownikami w celu przekazania klucza dostępu umożliwiającego odszyfrowanie udostępnionego pliku. Klucz dostępu jest szyfrowany kluczem symetrycznym i przekazany według protokołu Diffiego-Hellmana. System nie przechowuje klucza dostępu i jest znany jedynie przez właściciela udostępnianego pliku oraz osobom, którym został on przekazany. 
+Komponent zapewniający bezpieczne połączenie pomiędzy użytkownikami (nadawcy i odbiorcy) w celu przekazania klucza dostępu umożliwiającego odszyfrowanie udostępnionego pliku. Klucz dostępu jest szyfrowany kluczem symetrycznym i przekazany według protokołu Diffiego-Hellmana. System <b>nie przechowuje</b> w jakikolwiek sposób klucza dostępu do pliku i jest znany jedynie przez właściciela udostępnianych danych oraz osobom, którym został on przekazany.
 
 
 ### User Management
@@ -63,11 +61,6 @@ Komponent przechowujący znaczniki czasu (timestamp) wygasnięcia dokumentów. W
 ### Database
 
 Przechowuje rekordy o użytkownikach znajdujących się w systemie wraz z poziomem ich uprawnień, przypisania do grupy użytkowników oraz przypisanym im zasobów (pliki, dokumenty, czy są właścicielem zasobu). Przechowywane hasła dostępu do użytkowników są zabezpieczone hashem: SHA-512. Przechowywane są zaszyfrowane dokumenty ze znacznikiem czasu wygaśnięcia oraz z listą uprawnionych do odczytu użytkowników. Klucze deszyfrujące dokumenty nie są dostępne w systemie bazodanowym.
-
-### Cache Database
-
-Baza danych szybkiego dostępu - przechowuje kopię bazy danych i jest stosowana w celu zwiększenia efektywności i wydajności działania systemu. Pełni rolę pamięci podręcznej bazy danych - pamięć szybkiego dostępu.
-
 
 
 ## 2. Stany aplikacji
