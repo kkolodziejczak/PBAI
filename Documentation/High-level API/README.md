@@ -5,11 +5,20 @@
 ## 1. Architektura aplikacji
 
 <p align="center">
-<img src="../Architecture/Level3-APIApplication-Components.svg">
+<img src="../Architecture/Level2-Containers.svg">
 </p>
 
+Architektura aplikacji składa się z trzech głównych komponentów:
+* Web Application - front-end [React.js]
+* API Application - back-end [Node.js]
+* Database - serwer bazodanowy przechowujący dane (dane użytkowników, zaszyfrowane dokumenty) [MongoDB]
 
-Architektura aplikacji składa się z 8 głównych komponentów:
+
+### 1.1 API Application Component
+
+<p align="center">
+<img src="../Architecture/Level3-APIApplication-Components.svg">
+</p>
 
 ### Web Application
 Jest to komponent odpowiedzialny za komunikację użytkownika z systemem. Jest odpowiedzialny za pobieranie danych od użytkownika oraz przekazanie ich do back-endu. Następnie back-end aplikacji na podstawie tych danych wykonuje określone zadanie i przekazuje wynik końcowy z powrotem do Web Application.
@@ -24,11 +33,9 @@ Do zadań tego komponentu należy walidacja uprawnień użytkownika. Dla każdor
 - Czy użytkownik posiada wystarczające uprawnienia grupy do określonego zasobu systemu;
 - Czy ważność sesji połączeniowej dla użytkownika nie wygasła;
 
-
-
 ### Key Management
 
-Komponent zapewniający bezpieczne połączenie pomiędzy użytkownikami w celu przekazania klucza dostępu umożliwiającego odszyfrowanie udostępnionego pliku. Klucz dostępu jest szyfrowany kluczem symetrycznym i przekazany według protokołu Diffiego-Hellmana. System nie przechowuje klucza dostępu i jest znany jedynie przez właściciela udostępnianego pliku oraz osobom, którym został on przekazany. 
+Komponent zapewniający bezpieczne połączenie pomiędzy użytkownikami (nadawcy i odbiorcy) w celu przekazania klucza dostępu umożliwiającego odszyfrowanie udostępnionego pliku. Klucz dostępu jest szyfrowany kluczem symetrycznym i przekazany według protokołu Diffiego-Hellmana. System <b>nie przechowuje</b> w jakikolwiek sposób klucza dostępu do pliku i jest znany jedynie przez właściciela udostępnianych danych oraz osobom, którym został on przekazany.
 
 
 ### User Management
@@ -55,6 +62,34 @@ Komponent przechowujący znaczniki czasu (timestamp) wygasnięcia dokumentów. W
 
 Przechowuje rekordy o użytkownikach znajdujących się w systemie wraz z poziomem ich uprawnień, przypisania do grupy użytkowników oraz przypisanym im zasobów (pliki, dokumenty, czy są właścicielem zasobu). Przechowywane hasła dostępu do użytkowników są zabezpieczone hashem: SHA-512. Przechowywane są zaszyfrowane dokumenty ze znacznikiem czasu wygaśnięcia oraz z listą uprawnionych do odczytu użytkowników. Klucze deszyfrujące dokumenty nie są dostępne w systemie bazodanowym.
 
-### Cache Database
 
-Baza danych szybkiego dostępu - przechowuje kopię bazy danych i jest stosowana w celu zwiększenia efektywności i wydajności działania systemu. Pełni rolę pamięci podręcznej bazy danych - pamięć szybkiego dostępu.
+## 2. Stany aplikacji
+
+Główna część aplikacji - aplikacja serwerowa z dostępem przez przeglądarkę internetową, napisana w języku JavaScript (Front-end React.js; Back-end Node.js) jest obsługiwana przez chmurę Amazon Web Services (AWS).
+
+
+## 3. Zasoby aplikacji
+
+Aplikacja działa na chmurze Amazon Web Services - jest to bezpieczna platforma usług w chmurze oferującą moc obliczeniową, hosting bazy danych, usługi dostarczania treści (content delivery) i wiele innych produktów i usług pomagających w łatwym skalowaniu i wzroście biznesu.
+
+
+## 4. Sposób obsługi błędów
+W przypadku wystąpienia błędów aplikacji po stronie użytkownika lub po stronie klienta, procedura obsługi błędów wygląda następująco:
+- Wystąpienie błędu lub nieobsługiwanego wyjątku;
+- Zapisanie informacji o kodzie błędu z danymi, które te błędy wywołały do pliku logu znajdującego się w katalogu Application/ErrorLogs;
+- Przekazanie ogólnej informacji o błędzie z kodem błędu użytkownikowi - wyświetlenie komunikatu.
+
+## 5. Przechowywane dane
+
+W ramach działania aplikacji dane przechowywane są w dwóch magazynch:
+
+* Pamięć dyskowa w chmurze Amazon Web Services - zasoby zarządzające aplikacją po stronie serwera, logi systemowe, zabezpieczona kopia bazy danych.
+* Baza danych - przechowywanie wszelkich informacji dotyczących systemu takich jak:
+    * Dane użytkownika systemu - login, hasło - hasło zabezpieczone hashem: SHA-512, adres e-mail, przypisana grupa użytkownika;
+    * Grupy użytkowników - użytkownik, administrator;
+    * Zaszyfrowane kluczem symetrycznym dokumenty z odnośnikiem do właściciela pliku, z listą uprawnionych do pobrania zasobu użytkowników oraz znacznikiem czasowym (timestamp) ustalającym czas wygaśnięcia pliku, klucze deszyfrujące nie są zapisywane w obrębie systemu bazodanowego.
+
+
+## 6. Dostęp do bazy danych
+
+W aplikacji występuje zależność do systemu bazodanowego przechowującego dane o użytkownikach, ich uprawnieniach oraz zaszyfrowanych plikach. Komunikacja aplikacji ze strony serwerower z bazą danych odbywa się w lokalnym środowisku - dostęp do systemu bazodanowego jedynie wewnątrz infrastruktury serwera.
