@@ -275,7 +275,7 @@ id: idShare
 publicKey: publicKeyOriginUsera,
 crypted: zakodowane haslo wspolnym sekretem
 ```
-* sprawdza poprawnosc ponownie wyslanego klucza publiczegnego od uzytkownika udostepniajcego dokument. Jesli zgadza sie z poprzednio wyslanym ustaia crypted jako zakodowane haslo do dokumentu.
+* sprawdza poprawnosc ponownie wyslanego klucza publiczegnego od uzytkownika udostepniajcego dokument. Jesli zgadza sie z poprzednio wyslanym ustaia crypted jako zakodowane haslo do dokumentu. Zmienia state na 3.
 
 ### /shares/:id/3
 1.
