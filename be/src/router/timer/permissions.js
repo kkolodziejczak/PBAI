@@ -1,7 +1,7 @@
 const crateRouter = require('../../helpers/createRouter')
     , validJoiScheme = require('../../validators/validJoiScheme')
     , schemes = require('../../models/shemes')
-    , hasOwnerPremission = require('../../policies/hasOwnerPremission')
+    , hasOwnerPermission = require('../../policies/hasOwnerPermission')
     , authenticated = require('../../policies/authenticated')
     , canReadTimerPermission = require('../../policies/canReadTimerPermission')
     , canDeleteTimerPermission = require('../../policies/canDeleteTimerPermission')
@@ -16,7 +16,7 @@ module.exports = app => {
             id: schemes.id,
             sec: schemes.sec
         }, 'body'),
-        policy: [authenticated, hasOwnerPremission],
+        policy: [authenticated, hasOwnerPermission],
         handler: async function setPermissionTimer(req, res){
             const id = req.body.id
             try {
@@ -25,7 +25,7 @@ module.exports = app => {
                     id, config.PERMISSIONS_DATABASE_NAME
                 )
                 timer.invokeOnTime(app.eventEmitter)
-                return res.json(timer)
+                return res.end()
             }
             catch(err){
                 if (err === TimersCollection.timerAlreadyExistsError){

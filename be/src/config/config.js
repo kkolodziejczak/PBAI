@@ -50,7 +50,6 @@ exports.optional = {
     "DOCUMENTS_DATABASE_NAME": "documents_collection",
     "SHARES_DATABASE_NAME": "shares_collection",
     "CHECK_COMMON_PASSWORDS": true,
-    "HTTPS": false,
     "SSL_CERT_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-cert.pem'),
     "SSL_KEY_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-key.pem'),
     "NO_CACHE": true,

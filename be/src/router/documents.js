@@ -35,7 +35,9 @@ module.exports = app => {
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
             if (!req.user.isAdmin && req.body.permission && req.body.permission.type !== permissionTypes.owner){
-                document.permissions = [ req.body.permission._id ]
+                const myPermission = req.body.permission || await DocumentsCollection.getUsersPermissionsToDocument(req.params.id, req.user._id)
+                const owner = await DocumentsCollection.getDocumentOwnerPermission(req.params.id)
+                document.permissions = [myPermission, owner].filter(p=>p!==undefined).map(p=>p._id)
             }
             return res.json(document)
         }
