@@ -1,0 +1,22 @@
+FROM node:latest
+
+# Create app directory
+WORKDIR /be/app
+
+# Install app dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy app source code
+COPY . .
+
+WORKDIR /be/app/src/adminMongo
+RUN npm install
+
+WORKDIR /be/app
+
+RUN npm i -g concurrently
+
+#Expose port and start application
+EXPOSE 8080
+CMD [ "npm", "run", "start" ]

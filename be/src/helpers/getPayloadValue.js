@@ -1,0 +1,1 @@
+module.exports = (req, key) => req.body[key] || req.params[key] || req.query[key]
