@@ -1,68 +1,113 @@
-# How to generate ssl keys
-1. openssl genrsa -out ssl-key.pem 1024
-2. openssl req -new -key ssl-key.pem -out certrequest.csr
-3. openssl x509 -req -in certrequest.csr -signkey ssl-key.pem -out ssl-cert.pem
-4. Put path to ssl-key and ssl-cert in config file
+# WARNING 
+apka moze sypac bledy jakby co wysylac logi apki NODE_ENV ustawic na dev oraz USERS_CAN_READ_LOGS na true aby logi bylo dostepne dla wszysktich na roucie /logs
 
-# todo - napisac albertowi
-jesli ze jesli typ uzytkownika to admin niech doda w menu czy gdzies dodatkowe linki do routow: /logs, /db, oraz wybor logiu uzytkownika dla ktorego zmieniaja sie dane przy formularzu do zmiany danych, czy mozeliwosc usuniecia uzytkownika
-
-# Jak odpalic WSZYSTKO
+# Jak odpalic
 przestawic dockera na linuxowe containery i uruchomic  
+```
 docker-compose up
+```
 pierwszy raz trwa okolo 5 min potem juz pare sec (trzeba pobrac imagsy)
-lub recznie majac uruchomione mongo i podajac adres w zmeinnej dla mongo
-npm i 
-cd src/adminMongo
-npm i
-npm i -g concurently
-npm start
 
-# Jak zmieniac zmienne srodowiskowe?
-Lista zmiennych srodowiskowych zarowno opcjonalnych jak i wymaganych znajdziesz w src/config/config.js. 
-todo opisac zmienne
-Aby zmienic wartosci uzyj pliku .env (dla zmiennych we wszystkich nazwyach srodowiska)
-lub odpowiedno w pliku .env_<nazwa-srodowiska> np dla srodowiska "dev" lub "production" (zmiene te pokryja globalnie ustawione zmienne w pliku .env dla wszsystkich srodowisk)
+# Zmienne srodowiskowe
+## Ustawienie zmiennych
+Aby zmienic wartosci uzyj pliku .env (dla zmiennych we wszystkich nazwyach srodowiska (NODE_ENV))
+lub odpowiedno w pliku .env_<nazwa-srodowiska> np dla srodowiska "dev" lub "production" (zmiene te pokryja globalnie ustawione zmienne w pliku .env)
 Nazwa zmiennej srodowsiska powinna byc globalnie ustawiona w twoim systemie (lub ide) pod nazwa NODE_ENV. (zalecane nazwy to "dev", "production", "tests")
 
+## Zmienne wymagane
+```json
+"NODE_ENV",
+"PORT",
+"PORT_MONGO_ADMIN",
+"MONGO_CONNECTION_STRING",
+```
+
+## Zmienne opcjonalne
+po : ich domyślne wartości
+```json
+"APP_PUBLIC": path.join(process.cwd(), `src`, `public`),
+    "LOG_LEVEL": 'trace', // info, debug, trace
+    "LOG_BODY": true,
+    "LOG_TEMPLATE": false /** */|| path.join(process.cwd(), 'src', 'assets', 'log-template.html')/**/,
+    "SESSION_SECRET": "OaMBtTO1UGw3ZCuPNdYU",
+    "COOKIE_MAX_AGE": 1000*60*60*24,
+    "GENERATED_ROUTES_FILE": path.join(process.cwd(), 'routes.txt'),
+    "TIMERS_DATABASE_NAME": "timers_collection",
+    "USERSS_DATABASE_NAME": "users_collection",
+    "PERMISSIONS_DATABASE_NAME": "permissions_collection",
+    "DOCUMENTS_DATABASE_NAME": "documents_collection",
+    "SHARES_DATABASE_NAME": "shares_collection",
+    "CHECK_COMMON_PASSWORDS": true,
+    "HTTPS": false,
+    "SSL_CERT_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-cert.pem'),
+    "SSL_KEY_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-key.pem'),
+    "NO_CACHE": true,
+    "LIMITER": true,
+    "CORS": true,
+    "STORE_SESSION_ON_MONGO": true,
+    "ADMIN_SECRET": "7jWIWmPkuPBR74yTmdNh",
+    "REJECT_BLACKLISTED_PASSWORDS": true,
+    "SERVE_LOGS": false /** */|| path.join(__dirname, '..', 'logs.html'),
+    "MAX_TIMER_SEC": 60*60*24*365, // one year
+    "DH_PRIME_LENGTH": 2048,
+    "CRYPTO_MOCKED": true,
+    "USERS_CAN_READ_LOGS": true
+```
+
+
 # Routes
-Routes sa generowane do pliku routes.txt co uruchomienie.
+Routes sa generowane do pliku routes.txt co uruchomienie.  
 
-kazdy route moze dodatkowo zwrocic 500 ze byl error na serwerze lb 404 nie ma routa lub 404 jesli byl zly payload, 404 wraca tez jeli nie masz praw aby wejsc na route, 200 wraca jak wszystko poszlo okay
+## Jak czytac readme
+Przykladowy opis route'a:  
+## /path
+### /resource
+* metoda
+* dostep
+* request payload
+  ```
+  ...obiekt
+  ```
+* opis 
+* inne zwroty
 
-Opisy zawieraja:
-/route 
-/path (jesli jest) - metoda
-prawa dostepu
-{...request payload}
-inne responses
-opis
+Kazdy route moze zwrocic:
+* 200 - wykonano pomyślnie
+* 401 - brak wymaganej autoryzacji
+* 404 - nie znaleziono lub brak dostępu
+* 400 - nie właściwy payload lub jego wartości
+* 500 - błąd serwera (dla srodowiska 'production' brak opisu bledu)
 
-Admin moze wejsc wszedzie, noAccess znaczy ze moze tam wejsc tylko admin
+Admin moze wykonac kazdy request bez wzgledu na jego dostep. Pobiera on tez dokumenty oraz udostepnienia wszystkich uzytkownikow. Dostep noAccess znaczy ze moze tam wejsc tylko admin.
 
 ## /auth
-- put
-notAuthenticated
-validJoiScheme({
+1.
+* put
+* notAuthenticated
+* body
+  ```
     login: schemes.login,
     password: schemes.password,
     password_confirmation: schemes.password_confirmation,
     admin: schemes.isAdmin // tylko jesli chemy utworzyc admina musi to byc sekretne haslo z configa!!
-}, 'body'), + haslo nie jest na liscie czestych hasel
-Tworzy nowego usera
-409 (login zajety)
+  ```
+* tworzy nowe konto
+* 409 (login zajety) 
 
-- post
-notAuthenticated
-validJoiScheme({
+2.
+* post
+* notAuthenticated
+* body 
+  ```
     login: schemes.login,
     password: schemes.password,
-}, 'body')
-autentykacja usera
+  ```
+* loguje usera
 
-- delete
-authenticated
-wylogowuje usera
+3.
+* delete
+* authenticated
+* wylogowuje usera
 
 ## /db
 - get
@@ -176,7 +221,7 @@ authenticated, tylko dla uzytkownika ktoremu udostepniamy dokmuent
 }, 'params')]
 przyjmuje pubic key od uzytkownika ktoremu udsotepniamy dokument. public key jest przyjmowany w celu potwerdzenia ze podal dobre haslo. zwraca {crypted} ktore moze byc odkodowane wspolnym secretem lub 400 jesli haslo jest zle
 
-## premissions 
+## /premissions 
 -delete
 authenticated, hasOwnerPremission
 validation: validJoiScheme({
@@ -209,55 +254,22 @@ usuwa timer
 
 # wazne
 1.usuniecie premissji wlasciciela dokumentu usuwa presmisje wszystkim usera ktorzy mogli go czytac
-2. apka moze sypac bledy jakby co wysylac do mnie logi apki - NODE_ENV ustawic na dev oraz USERS_CAN_READ_LOGS na true aby logi bylo dostepne dla wszysktich po /logs!!!!!!
 
 ## /logs
 get dla admina zeby dostac logi
 
-nie zrbilem funckjonalnosci ze jak 3 razy poda zle haslo przy udostepnainiu to udostepnienie zostanie uniewaznione - nie chce mi sie juz
-
 # FAQ
-1. Jak utworzyc konto admina?
-Do payloadu rejestracji dodac pole admin o wartosci rownej zawartosci zmiennej srodowiskowej ADMIN_SECRET
+## Jak utworzyc konto admina?
+Do payloadu rejestracji dodac pole "admin" o wartosci rownej zawartosci zmiennej srodowiskowej ADMIN_SECRET
 
-2. Zmiana typu konta
+## Zmiana typu konta
 Nie ma obecnie takiej mozliwosci
 
-# zmienne srodowiskowe
-
-exports.required = [
-    "NODE_ENV",
-    "PORT",
-    "PORT_MONGO_ADMIN",
-    "MONGO_CONNECTION_STRING",
-]
-
-exports.optional = {
-    "APP_PUBLIC": path.join(process.cwd(), `src`, `public`),
-    "LOG_LEVEL": 'trace', // info, debug, trace
-    "LOG_BODY": true,
-    "LOG_TEMPLATE": false /** */|| path.join(process.cwd(), 'src', 'assets', 'log-template.html')/**/,
-    "SESSION_SECRET": "OaMBtTO1UGw3ZCuPNdYU",
-    "COOKIE_MAX_AGE": 1000*60*60*24,
-    "GENERATED_ROUTES_FILE": path.join(process.cwd(), 'routes.txt'),
-    "TIMERS_DATABASE_NAME": "timers_collection",
-    "USERSS_DATABASE_NAME": "users_collection",
-    "PERMISSIONS_DATABASE_NAME": "permissions_collection",
-    "DOCUMENTS_DATABASE_NAME": "documents_collection",
-    "SHARES_DATABASE_NAME": "shares_collection",
-    "CHECK_COMMON_PASSWORDS": true,
-    "HTTPS": false,
-    "SSL_CERT_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-cert.pem'),
-    "SSL_KEY_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-key.pem'),
-    "NO_CACHE": true,
-    "LIMITER": true,
-    "CORS": true,
-    "STORE_SESSION_ON_MONGO": true,
-    "ADMIN_SECRET": "7jWIWmPkuPBR74yTmdNh",
-    "REJECT_BLACKLISTED_PASSWORDS": true,
-    "SERVE_LOGS": false /** */|| path.join(__dirname, '..', 'logs.html'),
-    "MAX_TIMER_SEC": 60*60*24*365, // one year
-    "DH_PRIME_LENGTH": 2048,
-    "CRYPTO_MOCKED": true,
-    "USERS_CAN_READ_LOGS": true
-}
+## Jak ustawic certyfikat i klucz dla https
+Generacja kluczy:
+```
+openssl genrsa -out ssl-key.pem 1024
+openssl req -new -key ssl-key.pem -out certrequest.csr
+openssl x509 -req -in certrequest.csr -signkey ssl-key.pem -out ssl-cert.pem
+```
+Ustawic odpowiednie sciezki w configu
