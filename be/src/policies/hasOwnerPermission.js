@@ -3,14 +3,14 @@ const httpStatuses = require('http-status-codes')
     , PermissionsCollection = require('../models/PermissionsCollection')
     , DocumentsCollection = require('../models/DocumentsCollection')
 
-module.exports = async function hasOwnerPremission(req, res){
+module.exports = async function hasOwnerPermission(req, res){
     const id = getPayloadValue(req, 'id')
     const permission = await PermissionsCollection.findById(id)
     if (!permission){
         return httpStatuses.NOT_FOUND
     }
-    const ownerPremission = await DocumentsCollection.getDocumentOwnerPremission(permission.documentId)
-    if (!ownerPremission || ownerPremission.userId.toString() !== req.user._id.toString()){
+    const ownerPermission = await DocumentsCollection.getDocumentOwnerPermission(permission.documentId)
+    if (!ownerPermission || ownerPermission.userId.toString() !== req.user._id.toString()){
         return httpStatuses.NOT_FOUND
     }
 }

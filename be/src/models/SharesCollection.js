@@ -40,7 +40,7 @@ const mongoose = require('mongoose')
         ref: config.DOCUMENTS_DATABASE_NAME,
         required: true
     },
-    premissionId: {
+    permissionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: config.PERMISSIONS_DATABASE_NAME
     },
@@ -100,14 +100,14 @@ model.deleteShare = async function deleteShare(id, userId){
             share.destinationUserId = null
             await share.save()
         }
-        if (share.premissionId){
-            const premissionId = share.premissionId
-            share.premissionId = null
+        if (share.permissionId){
+            const permissionId = share.permissionId
+            share.permissionId = null
             await share.save()
             const PC = Object(PermissionsCollection).length
             ? PermissionsCollection
             : require('./PermissionsCollection')
-            await PC.deletePermission(premissionId)
+            await PC.deletePermission(permissionId)
         }
         return share.delete()
     }

@@ -4,8 +4,8 @@ const httpStatuses = require('http-status-codes')
 
 module.exports = async function documentOwner(req, res){
     const id = getPayloadValue(req, 'id')
-    const ownerPremission = await DocumentsCollection.getDocumentOwnerPremission(id)
-    if (!ownerPremission || ownerPremission.userId.toString() !== req.user._id.toString()){
+    const ownerPermission = await DocumentsCollection.getDocumentOwnerPermission(id)
+    if (!ownerPermission || ownerPermission.userId.toString() !== req.user._id.toString()){
         return httpStatuses.NOT_FOUND
     }
 }

@@ -1,10 +1,11 @@
 const crateRouter = require('../helpers/createRouter')
     , authenticated = require('../policies/authenticated')
-    , canReadPremission = require('../policies/canReadPremission')
-    , hasOwnerPremission = require('../policies/hasOwnerPremission')
+    , canReadPermission = require('../policies/canReadPermission')
+    , hasOwnerPermission = require('../policies/hasOwnerPermission')
     , validJoiScheme = require('../validators/validJoiScheme')
     , schemes = require('../models/shemes')
     , PermissionsCollection = require('../models/PermissionsCollection')
+    , SharesCollection = require('../models/SharesCollection')
     , permissionTypes = Object(require('../assets/permissionsTypes.json'))
     , UsersCollection = require('../models/UsersCollection')
     , httpStatuses = require('http-status-codes')
@@ -12,22 +13,34 @@ const crateRouter = require('../helpers/createRouter')
 module.exports = app => {
     return crateRouter([{
         method: "delete",
-        policy: [authenticated, hasOwnerPremission],
+        policy: [authenticated, hasOwnerPermission],
         validation: validJoiScheme({
             id: schemes.id
         }, 'body'),
         handler: async function putDocument(req, res, next){
-            await PermissionsCollection.deletePermission(req.body.id)
+            const permission = PermissionsCollection.findById(req.body.id)
+            if (!permission){
+                return res.sendStatus(httpStatuses.BAD_REQUEST)
+            }
+            if (permission.type==="o"){
+                await PermissionsCollection.deletePermission(req.body.id)
+                return res.end()
+            }
+            const share = await SharesCollection.find({permissionId: req.body.id})
+            if (!share){
+                return res.sendStatus(httpStatuses.BAD_REQUEST)
+            }
+            await SharesCollection.deleteShare(share._id, req.user._id)
             return res.end()
         }
     }, {
         route: "/:id?",
         method: "get",
-        policy: [authenticated, canReadPremission],
+        policy: [authenticated, canReadPermission],
         validation: validJoiScheme({
             id: schemes.idNotRequied
         }, 'params'),
-        handler: async function getPremissions(req, res, next){
+        handler: async function getPermissions(req, res, next){
             if (req.params.id){
                 const permission = req.body.permission || await PermissionsCollection.findById(id)
                 if (!permission){

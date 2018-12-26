@@ -80,7 +80,7 @@ model.deletePermission = async function deletePermission(id){
     const UC = Object.keys(UsersCollection).length 
     ? UsersCollection
     : require('./UsersCollection')
-    await UsersCollection.deletePermission(permission.userId, permission._id)
+    await UC.deletePermission(permission.userId, permission._id)
     await DocumentsCollection.deletePermission(permission.documentId, permission._id)
 }
 

@@ -11,7 +11,7 @@ const path = require('path')
     , UsersCollection = require('../models/UsersCollection')
     , PermissionsCollection = require('../models/PermissionsCollection')
     , httpStatuses = require('http-status-codes')
-    , premissionTypes = Object(require('../assets/permissionsTypes.json'))
+    , permissionTypes = Object(require('../assets/permissionsTypes.json'))
 
 module.exports = app => {
     return crateRouter([{
@@ -170,13 +170,16 @@ module.exports = app => {
             if (share.destinationUser.publicKey !== req.body.publicKey){
                 return res.sendState(httpStatuses.BAD_REQUEST)
             }
-            if (!share.premissionId){
-                share.premissionId = await PermissionsCollection.createNew(
-                    req.user._id, share.documentId, premissionTypes.reader
+            if (!share.permissionId){
+                share.permissionId = await PermissionsCollection.createNew(
+                    req.user._id, share.documentId, permissionTypes.reader
                 )
                 share.save()
             }
-            res.json({crypted: share.crypted})
+            res.json({
+                permissionId: share.permissionId,
+                crypted: share.crypted
+            })
         }
     }])
 }

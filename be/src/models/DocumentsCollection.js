@@ -30,17 +30,17 @@ model.createNew = async function createNew(userId, name, content){
     const PC = Object.keys(PermissionsCollection).length 
     ? PermissionsCollection
     : require('./PermissionsCollection')
-    const premission = await PC.createNew(
+    const permission = await PC.createNew(
         userId, document._id, permissionsTypes.owner
     )
-    document.permissions = [premission._id]
+    document.permissions = [permission._id]
     await document.save()
     log.debug(`Document ${document._id} created`)
     return document
 }
 
-model.getUsersPremissionsToDocument = 
-async function getUsersPremissionsToDocument(documentId, userId){
+model.getUsersPermissionsToDocument = 
+async function getUsersPermissionsToDocument(documentId, userId){
     const results = await model.findById(documentId)
     .populate({
         path: 'permissions',
@@ -50,19 +50,19 @@ async function getUsersPremissionsToDocument(documentId, userId){
     return results.permissions[0]
 }
 
-model.getDocumentOwnerPremission = async function getDocumentOwnerPremission(documentId){
+model.getDocumentOwnerPermission = async function getDocumentOwnerPermission(documentId){
     const results = await model.findById(documentId)
     .populate({
         path: 'permissions'
     })
-    const ownerPremission = results.permissions.filter(p=>p.type==="o")
-    return ownerPremission[0]
+    const ownerPermission = results.permissions.filter(p=>p.type==="o")
+    return ownerPermission[0]
 }
 
-model.deletePermissions = async function deletePermissions(documentId, premissionId){
+model.deletePermissions = async function deletePermissions(documentId, permissionId){
     const document = await model.findByIdAndUpdate(documentId, { 
         $pull: {
-            permissions: premissionId
+            permissions: permissionId
         }
     }, {new: true})
     if (document.permissions.length === 0){

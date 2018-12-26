@@ -5,7 +5,7 @@ const crateRouter = require('../helpers/createRouter')
 module.exports = app => {
     return crateRouter([{
         method: "get",
-        policy: noAccess,
+        policy: config.USERS_CAN_READ_LOGS ? [] : noAccess,
         handler: async function getLogs(req, res, next){
             if (!config.SERVE_LOGS){
                 return next()
