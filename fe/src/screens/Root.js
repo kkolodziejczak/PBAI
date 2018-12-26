@@ -3,7 +3,7 @@ import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import LoginScreen from './LoginScreen';
 import MainScreen from './MainScreen';
-import store from '../redux/store';
+import store from 'redux/store';
 import NotFoundScreen from './NotFoundScreen';
 
 class Root extends React.Component {
