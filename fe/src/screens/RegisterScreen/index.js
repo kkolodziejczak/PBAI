@@ -2,12 +2,13 @@ import React from 'react';
 import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import ScreenWrapper from 'components/ScreenWrapper';
-import {ROUTE_REGISTER} from 'constants/routes';
+import {ROUTE_LOGIN} from 'constants/routes';
 
-class LoginScreen extends React.Component {
+class RegisterScreen extends React.Component {
   state = {
     login: '',
     password: '',
+    password_confirmation: '',
   };
 
   submit = e => {
@@ -20,14 +21,14 @@ class LoginScreen extends React.Component {
 
   _renderFooter = () => (
     <span>
-      Don't have account yet? <Link to={ROUTE_REGISTER}>Register</Link>
+      Go to <Link to={ROUTE_LOGIN}>login</Link>
     </span>
   );
 
   render() {
-    const {login, password} = this.state;
+    const {login, password, password_confirmation} = this.state;
     return (
-      <ScreenWrapper title="Login" titleCenter maxWidth={500}>
+      <ScreenWrapper title="Register" titleCenter maxWidth={500}>
         <form onSubmit={this.submit} className="clearfix">
           <FormGroup controlId="login">
             <ControlLabel>Login</ControlLabel>
@@ -49,6 +50,16 @@ class LoginScreen extends React.Component {
             />
             <FormControl.Feedback />
           </FormGroup>
+          <FormGroup controlId="password">
+            <ControlLabel>Confirm password</ControlLabel>
+            <FormControl
+              type="text"
+              value={password_confirmation}
+              placeholder="Repeat password"
+              onChange={e => this.handleChange('password_confirmation', e)}
+            />
+            <FormControl.Feedback />
+          </FormGroup>
           <Button type="submit" bsStyle="primary" className="pull-right">
             Submit
           </Button>
@@ -59,4 +70,4 @@ class LoginScreen extends React.Component {
   }
 }
 
-export {LoginScreen};
+export {RegisterScreen};

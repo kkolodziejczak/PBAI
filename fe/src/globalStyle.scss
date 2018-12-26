@@ -1,0 +1,24 @@
+body {
+  background-color: #dadada;
+  color: black;
+  font-size: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+svg {
+  pointer-events: none;
+}
+
+.form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.auth-footer {
+  margin-top: 10px;
+}

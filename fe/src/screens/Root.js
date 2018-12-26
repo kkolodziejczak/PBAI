@@ -1,18 +1,20 @@
 import React from 'react';
 import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import LoginScreen from './LoginScreen';
-import MainScreen from './MainScreen';
 import store from 'redux/store';
-import NotFoundScreen from './NotFoundScreen';
+import rootSaga from 'redux/sagas/index';
+import * as screen from './index';
+import * as route from 'constants/routes';
+
+store.runSaga(rootSaga);
 
 class Root extends React.Component {
   _renderRouter = () => (
     <Router>
       <Switch>
-        <Route exact path="/" component={LoginScreen} />
-        <Route exact path="/main" component={MainScreen} />
-        <Route path="*" component={NotFoundScreen} />
+        <Route exact path={route.ROUTE_LOGIN} component={screen.LoginScreen} />
+        <Route exact path={route.ROUTE_REGISTER} component={screen.RegisterScreen} />
+        <Route path="*" component={screen.NotFoundScreen} />
       </Switch>
     </Router>
   );
