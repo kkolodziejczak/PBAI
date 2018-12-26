@@ -117,7 +117,7 @@ password: schemes.password,
 
 3.
 * delete
-* authenticated
+* dostep: authenticated
 * wylogowuje usera
 
 ## db
