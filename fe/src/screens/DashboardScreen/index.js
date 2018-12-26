@@ -4,6 +4,7 @@ import {compose} from 'redux';
 import {withRouter} from 'react-router-dom';
 import {userActions} from 'redux/actions/user';
 import {ROUTE_LOGIN} from 'constants/routes';
+import NavMenu from 'components/NavMenu';
 import ScreenWrapper from 'components/ScreenWrapper';
 
 class DashboardScreenComponent extends React.Component {
@@ -15,8 +16,17 @@ class DashboardScreenComponent extends React.Component {
     }
   }
 
+  _renderContent() {
+    return null;
+  }
+
   render() {
-    return <ScreenWrapper title="Dashboard Screen">fgasgf</ScreenWrapper>;
+    return (
+      <React.Fragment>
+        <NavMenu />
+        <ScreenWrapper>{this._renderContent()}</ScreenWrapper>
+      </React.Fragment>
+    );
   }
 }
 

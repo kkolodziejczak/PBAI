@@ -1,6 +1,6 @@
-export const USER_SET_TOKEN = 'USER_SET_TOKEN';
-
 export const prefix = {
   REGISTER: 'REGISTER',
   LOGIN: 'LOGIN',
 };
+
+export const USER_LOGOUT = 'USER_LOGOUT';

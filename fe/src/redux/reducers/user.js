@@ -1,6 +1,6 @@
 import {handleActions} from 'redux-actions';
 import {createReducers, createInitialState} from 'helpers/redux';
-import {prefix} from 'constants/actionTypes';
+import {prefix, USER_LOGOUT} from 'constants/actionTypes';
 
 const initialState = {
   ...createInitialState(prefix.REGISTER),
@@ -11,6 +11,10 @@ const user = handleActions(
   {
     ...createReducers(prefix.REGISTER),
     ...createReducers(prefix.LOGIN, 'isLoggedIn'),
+    [USER_LOGOUT]: state => ({
+      ...state,
+      isLoggedIn: false,
+    }),
   },
   initialState,
 );
