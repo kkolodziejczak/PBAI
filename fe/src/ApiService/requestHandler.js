@@ -91,7 +91,7 @@ class RequestHandler {
     // if (status < 200 || status > 300) {
     //   new Error(`Invalid status ${status}`);
     // }
-    return response;
+    return {response, status};
   }
 }
 

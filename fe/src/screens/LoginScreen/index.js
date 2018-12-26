@@ -1,11 +1,13 @@
 import React from 'react';
 import Spinner from 'react-activity/lib/Spinner';
-import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
+import {FormGroup, ControlLabel, FormControl, Button, HelpBlock} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {userActions} from 'redux/actions/user';
 import {Link} from 'react-router-dom';
 import ScreenWrapper from 'components/ScreenWrapper';
 import {ROUTE_REGISTER} from 'constants/routes';
 
-class LoginScreen extends React.Component {
+class LoginScreenComponent extends React.Component {
   state = {
     form: {
       login: '',
@@ -13,8 +15,26 @@ class LoginScreen extends React.Component {
     },
   };
 
+  get inputs() {
+    return [
+      {
+        name: 'login',
+        label: 'Login',
+        type: 'text',
+        placeholder: 'Enter login',
+      },
+      {
+        name: 'password',
+        label: 'Password',
+        type: 'password',
+        placeholder: 'Enter password',
+      },
+    ];
+  }
+
   submit = e => {
     e.preventDefault();
+    this.props.login(this.state.form);
   };
 
   handleChange(key, e) {
@@ -27,31 +47,32 @@ class LoginScreen extends React.Component {
     </span>
   );
 
+  _renderInputs = () =>
+    this.inputs.map((input, i) => {
+      const {name, label, placeholder, type} = input;
+      const {error} = this.props;
+      return (
+        <FormGroup key={i} controlId={name} validationState={error && error[name] ? 'error' : null}>
+          <ControlLabel>{label}</ControlLabel>
+          <FormControl
+            type={type}
+            value={this.state.form[name]}
+            placeholder={placeholder}
+            onChange={e => this.handleChange(name, e)}
+          />
+          {error && error[name] && (
+            <HelpBlock>
+              <span className="error">{error[name]}</span>
+            </HelpBlock>
+          )}
+        </FormGroup>
+      );
+    });
   render() {
-    const {login, password} = this.state.form;
     return (
       <ScreenWrapper title="Login" titleCenter maxWidth={500}>
         <form onSubmit={this.submit} className="clearfix">
-          <FormGroup controlId="login">
-            <ControlLabel>Login</ControlLabel>
-            <FormControl
-              type="text"
-              value={login}
-              placeholder="Enter login"
-              onChange={e => this.handleChange('login', e)}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-          <FormGroup controlId="password">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              type="text"
-              value={password}
-              placeholder="Enter password"
-              onChange={e => this.handleChange('password', e)}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
+          {this._renderInputs()}
           <Button type="submit" bsStyle="primary" className="pull-right">
             {this.props.loading ? <Spinner color="white" /> : 'Submit'}
           </Button>
@@ -61,5 +82,19 @@ class LoginScreen extends React.Component {
     );
   }
 }
+const mapStateToProps = ({user}) => ({
+  error: user.loginError,
+  loading: user.loginLoading,
+  success: user.loginSuccess,
+});
+
+const mapDispatchToProps = dispatch => ({
+  login: payload => dispatch(userActions.loginRequest(payload)),
+});
+
+const LoginScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LoginScreenComponent);
 
 export {LoginScreen};
