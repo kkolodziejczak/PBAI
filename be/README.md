@@ -50,7 +50,8 @@ po dwukropku ich domyślne wartości
 "MAX_TIMER_SEC": 60*60*24*365, // one year
 "DH_PRIME_LENGTH": 2048,
 "CRYPTO_MOCKED": true,
-"USERS_CAN_READ_LOGS": true
+"USERS_CAN_READ_LOGS": true,
+"PRINT_CONFIG": true // level debug 
 ```
 
 # Routes

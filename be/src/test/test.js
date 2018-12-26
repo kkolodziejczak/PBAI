@@ -24,20 +24,12 @@ function cleanDatabase() {
     return new Promise(res=>mongoose.connection.db.dropDatabase(res))
 }
 
-function closeServer(server){
-    return new Promise(res=>{
-        server.close(res)
-        setTimeout(()=>{
-            res(process.exit(0))
-        }, 5000)
-    })    
-}
-
 describe('Testing service', ()=>{
     before(async ()=>{
         const express = await app()
         config.server = express.server
         config.app = express.app
+        config.close = express.close
         await ensureConnection()
         await cleanDatabase()
         config.users = await populate()
@@ -53,6 +45,6 @@ describe('Testing service', ()=>{
 
     after(async ()=>{
         await cleanDatabase()
-        await closeServer(config.server)    
+        config.server.close()    
     })
 })

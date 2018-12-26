@@ -3,7 +3,10 @@ const path = require('path')
     , randomstring = require("randomstring")
 
 const string2Int = s => +s
-const boleanOrString = s=> s==='true'?true:s==='false'?false:s
+const boleanOrString = s=> { 
+    s = s.toLowerCase ? s.toLowerCase() : s
+    return s==='true'?true:s==='false'?false:s
+}
 const toBolean = p => {
     if (typeof p === typeof ""){
         p = p.toLowerCase()
@@ -77,20 +80,22 @@ exports.optional = {
     "MAX_TIMER_SEC": 60*60*24*365, // one year
     "DH_PRIME_LENGTH": 2048,
     "CRYPTO_MOCKED": true,
-    "USERS_CAN_READ_LOGS": true
+    "USERS_CAN_READ_LOGS": true,
+    "PRINT_CONFIG": true, // level debug
 }
 
 exports.parsers = {
     "NODE_ENV": toLower,
     "LOG_LEVEL": toLower,
-    "LOG_BODY": toBolean,
-    "STORE_SESSION_ON_MONGO": toBolean,
-    "HTTPS": toBolean,
-    "NO_CACHE": toBolean,
-    "CORS": toBolean,
-    "CRYPTO_MOCKED": toBolean,
-    "LIMITER": toBolean,
-    "USERS_CAN_READ_LOGS": toBolean,
+    "LOG_BODY": boleanOrString,
+    "PRINT_CONFIG": boleanOrString,
+    "STORE_SESSION_ON_MONGO": boleanOrString,
+    "HTTPS": boleanOrString,
+    "NO_CACHE": boleanOrString,
+    "CORS": boleanOrString,
+    "CRYPTO_MOCKED": boleanOrString,
+    "LIMITER": boleanOrString,
+    "USERS_CAN_READ_LOGS": boleanOrString,
     "PORT": string2Int,
     "PORT_MONGO_ADMIN": string2Int,
     "COOKIE_MAX_AGE": string2Int,
