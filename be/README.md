@@ -6,7 +6,18 @@ przestawic dockera na linuxowe containery i uruchomic
 ```
 docker-compose up
 ```
-pierwszy raz trwa okolo 5 min potem juz pare sec (trzeba pobrac imagsy)
+pierwszy raz trwa okolo 5 min potem juz pare sec (trzeba pobrac imagsy). Nastepnie zagladamy na \<http|https\>://localhost:\<port\>/
+
+# Testy
+Uruchomienie autotestow
+```
+npm test
+```
+Sprawdzenie pokrycia testami
+```
+npm run coverage
+```
+Otrzymujemy wynik w konsoli oraz w przegladarce
 
 # Zmienne srodowiskowe
 ## Ustawienie zmiennych
@@ -179,7 +190,7 @@ login: schemes.login // login uzytkownika komu udostepnia dokument
 "prime": pWalgorytmieDH,
 "generator": gWalgorytmieDH
 ```
-2. 
+1. 
 * get
 * dostep: authenticated
 * zwraca liste id obiektow share uzytkownika
