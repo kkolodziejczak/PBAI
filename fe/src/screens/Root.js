@@ -1,7 +1,8 @@
 import React from 'react';
 import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import store from 'redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store, persistor} from 'redux/store';
 import rootSaga from 'redux/sagas/index';
 import * as screen from './index';
 import * as route from 'constants/routes';
@@ -21,7 +22,13 @@ class Root extends React.Component {
   );
 
   render() {
-    return <Provider store={store}>{this._renderRouter()}</Provider>;
+    return (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          {this._renderRouter()}
+        </PersistGate>
+      </Provider>
+    );
   }
 }
 
