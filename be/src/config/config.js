@@ -3,7 +3,20 @@ const path = require('path')
     , randomstring = require("randomstring")
 
 const string2Int = s => +s
-const toBolean = p => !!p
+const boleanOrString = s=> s==='true'?true:s==='false'?false:s
+const toBolean = p => {
+    if (typeof p === typeof ""){
+        p = p.toLowerCase()
+        if (p==='false'){
+            return false
+        }
+        if (p==='true'){
+            return true
+        }
+    }
+    return !!p
+}
+    
 const toLower = s => String(s).toLowerCase()
 
 const isDir = d => {
@@ -11,6 +24,8 @@ const isDir = d => {
         return `${d} is not a valid directory`
     }
 }
+const isFilePathValidIfTrue = f => toBolean(f)===true ? isFilePathValid(f) : null
+const fileExistsIfTrue = f => toBolean(f)===true ? fileExists(f) : null
 const isFilePathValid = f => isDir(path.dirname(f))
 const fileExists = f => { 
     if (!fs.existsSync(f)){
@@ -38,18 +53,18 @@ exports.required = [
 
 exports.optional = {
     "APP_PUBLIC": path.join(process.cwd(), `src`, `public`),
-    "LOG_LEVEL": 'trace', // info, debug, trace
+    "LOG_LEVEL": 'trace', // no, info, debug, trace
     "LOG_BODY": true,
     "LOG_TEMPLATE": false /** */|| path.join(process.cwd(), 'src', 'assets', 'log-template.html')/**/,
     "SESSION_SECRET": "OaMBtTO1UGw3ZCuPNdYU",
     "COOKIE_MAX_AGE": 1000*60*60*24,
-    "GENERATED_ROUTES_FILE": path.join(process.cwd(), 'routes.txt'),
+    "GENERATED_ROUTES_FILE": false || path.join(process.cwd(), 'routes.txt'),
     "TIMERS_DATABASE_NAME": "timers_collection",
     "USERSS_DATABASE_NAME": "users_collection",
     "PERMISSIONS_DATABASE_NAME": "permissions_collection",
     "DOCUMENTS_DATABASE_NAME": "documents_collection",
     "SHARES_DATABASE_NAME": "shares_collection",
-    "CHECK_COMMON_PASSWORDS": true,
+    "HTTPS": true,
     "SSL_CERT_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-cert.pem'),
     "SSL_KEY_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-key.pem'),
     "NO_CACHE": true,
@@ -69,8 +84,8 @@ exports.parsers = {
     "NODE_ENV": toLower,
     "LOG_LEVEL": toLower,
     "LOG_BODY": toBolean,
-    "CHECK_COMMON_PASSWORDS": toBolean,
     "STORE_SESSION_ON_MONGO": toBolean,
+    "HTTPS": toBolean,
     "NO_CACHE": toBolean,
     "CORS": toBolean,
     "CRYPTO_MOCKED": toBolean,
@@ -79,17 +94,22 @@ exports.parsers = {
     "PORT": string2Int,
     "PORT_MONGO_ADMIN": string2Int,
     "COOKIE_MAX_AGE": string2Int,
-    "MAX_TIMER_SEC": string2Int
+    "MAX_TIMER_SEC": string2Int,
+    "GENERATED_ROUTES_FILE": boleanOrString,
+    "SSL_CERT_FILE": boleanOrString,
+    "SSL_KEY_FILE": boleanOrString,
+    "LOG_TEMPLATE": boleanOrString,
+    "SERVE_LOGS": boleanOrString
 }
 
 exports.validators = {
     "APP_PUBLIC": isDir,
-    "GENERATED_ROUTES_FILE": isFilePathValid,
+    "GENERATED_ROUTES_FILE": isFilePathValidIfTrue,
     "PORT": isNumber,
     "COOKIE_MAX_AGE": isNumber,
     "MAX_TIMER_SEC": n=>isNumber(n) || isMoreThan(n, 60),
-    "LOG_TEMPLATE": fileExists,
-    "SERVE_LOGS": p => (p!==false && isFilePathValid(p)) ? `Invalid path to file ${p}` : undefined,
-    "SSL_CERT_FILE": fileExists, 
-    "SSL_KEY_FILE": fileExists,
+    "LOG_TEMPLATE": fileExistsIfTrue,
+    "SERVE_LOGS":  isFilePathValidIfTrue,
+    "SSL_CERT_FILE": fileExistsIfTrue, 
+    "SSL_KEY_FILE": fileExistsIfTrue,
 }

@@ -2,6 +2,7 @@ const colors = require('colors')
     , fs = require('fs-extra')
     , config = require('../config')
     , LEVELS = Object.freeze({
+        no: 4,
         info: 3,
         debug: 2,
         trace: 1

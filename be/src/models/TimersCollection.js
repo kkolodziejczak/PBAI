@@ -66,6 +66,9 @@ model.deleteTimer = async function deleteTimer(id){
         if (!timer){
             throw new Error('')
         }
+        if (!Object.keys(objectModels[timer.objectModelName]).length){
+            objectModels[timer.objectModelName] = require(`./${timer.objectModelName}`)
+        }
         await objectModels[timer.objectModelName].findByIdAndUpdate(timer.object, { $set: {timer: undefined}})
         await timer.delete()
         return timer
@@ -83,6 +86,9 @@ model.createNew = async function createNew(type, params, ms, objectId, objectMod
         when: new Date().getTime() + ms
     })
     try {
+        if (!Object.keys(objectModels[timer.objectModelName]).length){
+            objectModels[timer.objectModelName] = require(`./${timer.objectModelName}`)
+        }
         const object = await objectModels[objectModelName].findById(objectId)
         if (object.timer){
             throw model.timerAlreadyExistsError

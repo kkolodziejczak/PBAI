@@ -1,10 +1,9 @@
-
+let UsersCollection = require('./UsersCollection')
+    , DocumentsCollection = require('./DocumentsCollection')
+    , SharesCollection = require('./SharesCollection')
 const mongoose = require('mongoose')
 , createModel = require('../helpers/createModel')
 , config = require('../config')
-, UsersCollection = require('./UsersCollection')
-, DocumentsCollection = require('./DocumentsCollection')
-, SharesCollection = require('./SharesCollection')
 , permissionsTypes = Object(require('../assets/permissionsTypes.json'))
 , permissionsTypesEnum = Object.keys(permissionsTypes).map(k=>permissionsTypes[k])
 , permissions = new mongoose.Schema({
@@ -40,14 +39,17 @@ model.createNew = async function createNew(userId, documentId, type){
     const permission = await createModel(model, {
         userId, documentId, type
     })
-    const UC = Object.keys(UsersCollection).length 
-    ? UsersCollection
-    : require('./UsersCollection')
-    await UC.findByIdAndUpdate(userId, {
+    if (!Object.keys(UsersCollection).length){
+        UsersCollection = require('./UsersCollection')
+    }
+    await UsersCollection.findByIdAndUpdate(userId, {
         $push: {
             permissions: permission._id
         }
     })
+    if (!Object.keys(DocumentsCollection).length){
+        DocumentsCollection = require('./DocumentsCollection')
+    }
     await DocumentsCollection.findByIdAndUpdate(documentId, {
         $push: {
             permissions: permission._id
@@ -75,12 +77,18 @@ model.deletePermission = async function deletePermission(id){
         )
     }
     if (permission.shareId){
+        if (!Object.keys(SharesCollection).length){
+            SharesCollection = require('./SharesCollection')
+        }
         await SharesCollection.deleteShare(permission.shareId)
     }
-    const UC = Object.keys(UsersCollection).length 
-    ? UsersCollection
-    : require('./UsersCollection')
-    await UC.deletePermission(permission.userId, permission._id)
+    if (!Object.keys(UsersCollection).length){
+        UsersCollection = require('./UsersCollection')
+    }
+    await UsersCollection.deletePermission(permission.userId, permission._id)
+    if (!Object.keys(DocumentsCollection).length){
+        DocumentsCollection = require('./DocumentsCollection')
+    }
     await DocumentsCollection.deletePermission(permission.documentId, permission._id)
 }
 
