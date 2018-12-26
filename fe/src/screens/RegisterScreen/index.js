@@ -1,73 +1,106 @@
 import React from 'react';
-import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
+import {FormGroup, ControlLabel, FormControl, Button, HelpBlock} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import {userActions} from 'redux/actions/user';
+import Spinner from 'react-activity/lib/Spinner';
+import {connect} from 'react-redux';
 import ScreenWrapper from 'components/ScreenWrapper';
 import {ROUTE_LOGIN} from 'constants/routes';
 
-class RegisterScreen extends React.Component {
+class RegisterScreenComponent extends React.PureComponent {
   state = {
-    login: '',
-    password: '',
-    password_confirmation: '',
+    form: {
+      login: '',
+      password: '',
+      password_confirmation: '',
+    },
   };
+
+  get inputs() {
+    return [
+      {
+        name: 'login',
+        label: 'Login',
+        type: 'text',
+        placeholder: 'Enter login',
+      },
+      {
+        name: 'password',
+        label: 'Password',
+        type: 'password',
+        placeholder: 'Enter password',
+      },
+      {
+        name: 'password_confirmation',
+        label: 'Confirm password',
+        type: 'password',
+        placeholder: 'Repeat password',
+      },
+    ];
+  }
 
   submit = e => {
     e.preventDefault();
+    this.props.register(this.state.form);
+    //TODO: handle submit success
   };
 
   handleChange(key, e) {
-    this.setState({[key]: e.target.value});
+    this.setState({form: {...this.state.form, [key]: e.target.value}});
   }
 
-  _renderFooter = () => (
-    <span>
-      Go to <Link to={ROUTE_LOGIN}>login</Link>
-    </span>
-  );
+  _renderInputs = () =>
+    this.inputs.map((input, i) => {
+      const {name, label, placeholder, type} = input;
+      const {error} = this.props;
+      return (
+        <FormGroup key={i} controlId="login" validationState={error && error[name] ? 'error' : null}>
+          <ControlLabel>{label}</ControlLabel>
+          <FormControl
+            type={type}
+            value={this.state.form[name]}
+            placeholder={placeholder}
+            onChange={e => this.handleChange(name, e)}
+          />
+          {error && error[name] && (
+            <HelpBlock>
+              <span className="error">{error[name]}</span>
+            </HelpBlock>
+          )}
+        </FormGroup>
+      );
+    });
 
   render() {
-    const {login, password, password_confirmation} = this.state;
     return (
       <ScreenWrapper title="Register" titleCenter maxWidth={500}>
         <form onSubmit={this.submit} className="clearfix">
-          <FormGroup controlId="login">
-            <ControlLabel>Login</ControlLabel>
-            <FormControl
-              type="text"
-              value={login}
-              placeholder="Enter login"
-              onChange={e => this.handleChange('login', e)}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-          <FormGroup controlId="password">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              type="text"
-              value={password}
-              placeholder="Enter password"
-              onChange={e => this.handleChange('password', e)}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-          <FormGroup controlId="password">
-            <ControlLabel>Confirm password</ControlLabel>
-            <FormControl
-              type="text"
-              value={password_confirmation}
-              placeholder="Repeat password"
-              onChange={e => this.handleChange('password_confirmation', e)}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
+          {this._renderInputs()}
           <Button type="submit" bsStyle="primary" className="pull-right">
-            Submit
+            {this.props.loading ? <Spinner color="white" /> : 'Submit'}
           </Button>
         </form>
-        {this._renderFooter()}
+        <span>
+          Go to <Link to={ROUTE_LOGIN}>login</Link>
+        </span>
       </ScreenWrapper>
     );
   }
 }
+
+const mapStateToProps = ({user}) => ({
+  error: user.registerError,
+  loading: user.registerLoading,
+  success: user.registerSuccess,
+});
+
+const mapDispatchToProps = dispatch => ({
+  register: payload => dispatch(userActions.registerRequest(payload)),
+});
+
+const RegisterScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(RegisterScreenComponent);
 
 export {RegisterScreen};

@@ -1,17 +1,16 @@
-import {USER_SET_TOKEN} from 'constants/actionTypes';
+import {handleActions} from 'redux-actions';
+import {createReducers, createInitialState} from 'helpers/redux';
+import {prefix} from 'constants/actionTypes';
 
 const initialState = {
-  token: null,
+  ...createInitialState(prefix.REGISTER),
 };
 
-function user(state = initialState, action) {
-  const {type, payload} = action;
-  switch (type) {
-    case USER_SET_TOKEN:
-      return {...state, token: payload};
-    default:
-      return state;
-  }
-}
+const user = handleActions(
+  {
+    ...createReducers(prefix.REGISTER),
+  },
+  initialState,
+);
 
 export default user;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from 'react-activity/lib/Spinner';
 import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import ScreenWrapper from 'components/ScreenWrapper';
@@ -6,8 +7,10 @@ import {ROUTE_REGISTER} from 'constants/routes';
 
 class LoginScreen extends React.Component {
   state = {
-    login: '',
-    password: '',
+    form: {
+      login: '',
+      password: '',
+    },
   };
 
   submit = e => {
@@ -15,7 +18,7 @@ class LoginScreen extends React.Component {
   };
 
   handleChange(key, e) {
-    this.setState({[key]: e.target.value});
+    this.setState({form: {...this.state.form, [key]: e.target.value}});
   }
 
   _renderFooter = () => (
@@ -25,7 +28,7 @@ class LoginScreen extends React.Component {
   );
 
   render() {
-    const {login, password} = this.state;
+    const {login, password} = this.state.form;
     return (
       <ScreenWrapper title="Login" titleCenter maxWidth={500}>
         <form onSubmit={this.submit} className="clearfix">
@@ -50,7 +53,7 @@ class LoginScreen extends React.Component {
             <FormControl.Feedback />
           </FormGroup>
           <Button type="submit" bsStyle="primary" className="pull-right">
-            Submit
+            {this.props.loading ? <Spinner color="white" /> : 'Submit'}
           </Button>
         </form>
         {this._renderFooter()}

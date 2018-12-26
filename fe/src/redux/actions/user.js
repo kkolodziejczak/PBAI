@@ -1,8 +1,6 @@
-import {USER_SET_TOKEN} from 'constants/actionTypes';
+import {createActions} from 'helpers/redux';
+import {prefix} from 'constants/actionTypes';
 
-export function actionSetUserToken(payload) {
-  return {
-    type: USER_SET_TOKEN,
-    payload,
-  };
-}
+export const userActions = {
+  ...createActions(prefix.REGISTER),
+};

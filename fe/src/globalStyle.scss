@@ -22,3 +22,14 @@ svg {
 .auth-footer {
   margin-top: 10px;
 }
+
+.error {
+  font-size: 12px;
+}
+
+button[type='submit'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+}

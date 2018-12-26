@@ -3,4 +3,5 @@ import * as user from './user';
 
 export default function* root() {
   yield fork(user.login);
+  yield fork(user.register);
 }
