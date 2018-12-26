@@ -1,11 +1,13 @@
 import React from 'react';
+import {compose} from 'redux';
 import Spinner from 'react-activity/lib/Spinner';
 import {FormGroup, ControlLabel, FormControl, Button, HelpBlock} from 'react-bootstrap';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {userActions} from 'redux/actions/user';
 import {Link} from 'react-router-dom';
 import ScreenWrapper from 'components/ScreenWrapper';
-import {ROUTE_REGISTER} from 'constants/routes';
+import {ROUTE_REGISTER, ROUTE_DASHBOARD} from 'constants/routes';
 
 class LoginScreenComponent extends React.Component {
   state = {
@@ -14,6 +16,12 @@ class LoginScreenComponent extends React.Component {
       password: '',
     },
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.success) {
+      this.props.history.push(ROUTE_DASHBOARD);
+    }
+  }
 
   get inputs() {
     return [
@@ -92,9 +100,12 @@ const mapDispatchToProps = dispatch => ({
   login: payload => dispatch(userActions.loginRequest(payload)),
 });
 
-const LoginScreen = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+const LoginScreen = compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
 )(LoginScreenComponent);
 
 export {LoginScreen};

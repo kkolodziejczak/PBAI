@@ -11,7 +11,7 @@ export function* login() {
     const {payload} = yield take(getActionName(prefix.LOGIN, suffix.REQUEST));
     const {response, status} = yield call(apiUserLogin, payload);
     if (statusIsValid(status)) {
-      yield put(userActions.loginSuccess());
+      yield put(userActions.loginSuccess(true));
     } else {
       let error;
       if (status === 401) {

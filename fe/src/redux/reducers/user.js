@@ -4,13 +4,13 @@ import {prefix} from 'constants/actionTypes';
 
 const initialState = {
   ...createInitialState(prefix.REGISTER),
-  ...createInitialState(prefix.LOGIN),
+  ...createInitialState(prefix.LOGIN, 'isLoggedIn'),
 };
 
 const user = handleActions(
   {
     ...createReducers(prefix.REGISTER),
-    ...createReducers(prefix.LOGIN),
+    ...createReducers(prefix.LOGIN, 'isLoggedIn'),
   },
   initialState,
 );
