@@ -26,7 +26,7 @@ Nazwa zmiennej srodowsiska powinna byc globalnie ustawiona w twoim systemie (lub
 po dwukropku ich domyślne wartości
 ```json
 "APP_PUBLIC": path.join(process.cwd(), `src`, `public`),
-"LOG_LEVEL": 'trace', // info, debug, trace
+"LOG_LEVEL": 'trace', // no, info, debug, trace
 "LOG_BODY": true,
 "LOG_TEMPLATE": false /** */|| path.join(process.cwd(), 'src', 'assets', 'log-template.html')/**/,
 "SESSION_SECRET": "OaMBtTO1UGw3ZCuPNdYU",
@@ -37,7 +37,6 @@ po dwukropku ich domyślne wartości
 "PERMISSIONS_DATABASE_NAME": "permissions_collection",
 "DOCUMENTS_DATABASE_NAME": "documents_collection",
 "SHARES_DATABASE_NAME": "shares_collection",
-"CHECK_COMMON_PASSWORDS": true,
 "HTTPS": false,
 "SSL_CERT_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-cert.pem'),
 "SSL_KEY_FILE": path.join(process.cwd(), `src`, `assets`, 'ssl-key.pem'),
@@ -51,7 +50,8 @@ po dwukropku ich domyślne wartości
 "MAX_TIMER_SEC": 60*60*24*365, // one year
 "DH_PRIME_LENGTH": 2048,
 "CRYPTO_MOCKED": true,
-"USERS_CAN_READ_LOGS": true
+"USERS_CAN_READ_LOGS": true,
+"PRINT_CONFIG": true // level debug 
 ```
 
 # Routes

@@ -3,7 +3,7 @@ const log = require('./src/helpers/log')
 
 app()
 .then(exp=>
-    log.info(`Server is listening on port ${exp.server.address().port}`)
+    log.info(`Server is working on (${exp.protocol}) port ${exp.server.address().port}`)
 )
 .catch(e=>
     process.env.NODE_ENV !== 'production'

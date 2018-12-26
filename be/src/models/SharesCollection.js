@@ -1,8 +1,8 @@
+let UsersCollection = require('./UsersCollection')
+    , PermissionsCollection = require('./PermissionsCollection')
 const mongoose = require('mongoose')
 , createModel = require('../helpers/createModel')
 , config = require('../config')
-, UsersCollection = require('./UsersCollection')
-, PermissionsCollection = require('./PermissionsCollection')
 , diffieHellman = config.CRYPTO_MOCKED 
     ? Object({
         getPrime: ()=> "r+pGR+exWIBfvd48XIYB16qtXILdw2524DlFB0s7O6R76dxlOnRNYUfF2dS11ZC5nXe4X5DI8VDYrmtAPvc73FTynaNk25kt0Yreh8BCR3JYlJNMQZavalHBJOIPrvNChg31mQGK6SMzD1ECHR/7mt6A75S1vnBFgLuMoYwLDqxpKtDCFhd3j8YUyu8dU4kvFZfCwmqYxqHdqpkLXi06uzsFM0CXvhgaPD9qRpcDh54NjThpt/UfT4Dygm9Uj0Nlxw+Nwr4MmSHlbSDS6lZNOytJXwkiHxNHlE6j16Fe+ZvmJRMX+WUUahaTLdFfE4nbJJ1KGV+PMBA642aj+Ydfkw==", 
@@ -72,10 +72,10 @@ model.createNew = async function createNew(originUserId, destinationUserId, docu
         generator: diffieHellman.getGenerator('base64')
     })
     try{
-        const UC = Object.keys(UsersCollection).length 
-        ? UsersCollection 
-        : require('./UsersCollection')
-        await UC.updateMany(
+        if (!Object.keys(UsersCollection).length){
+            UsersCollection = require('./UsersCollection')
+        }
+        await UsersCollection.updateMany(
             { _id: { $in: [originUserId, destinationUserId] } },
             { $push: { shares: share._id } }
         )
@@ -89,13 +89,13 @@ model.createNew = async function createNew(originUserId, destinationUserId, docu
 
 model.deleteShare = async function deleteShare(id, userId){
     const share = await model.findById(id)
-    const UC = Object(UsersCollection).length
-    ? UsersCollection
-    : require('./UsersCollection')
+    if (!Object.keys(UsersCollection).length){
+        UsersCollection = require('./UsersCollection')
+    }
     if (!userId || (share.originUser && userId.toString() === share.originUser.id.toString())){
         if (share.originUser && share.destinationUser){
-            await UC.deleteShare(share.originUser.id, share._id)
-            await UC.deleteShare(share.destinationUser.id, share._id)
+            await UsersCollection.deleteShare(share.originUser.id, share._id)
+            await UsersCollection.deleteShare(share.destinationUser.id, share._id)
             share.originUser = null
             share.destinationUserId = null
             await share.save()
@@ -104,15 +104,15 @@ model.deleteShare = async function deleteShare(id, userId){
             const permissionId = share.permissionId
             share.permissionId = null
             await share.save()
-            const PC = Object(PermissionsCollection).length
-            ? PermissionsCollection
-            : require('./PermissionsCollection')
-            await PC.deletePermission(permissionId)
+            if (!Object.keys(PermissionsCollection).length){
+                PermissionsCollection = require('./PermissionsCollection')
+            }
+            await PermissionsCollection.deletePermission(permissionId)
         }
         return share.delete()
     }
     if (userId.toString() === share.destinationUser.id.toString()){
-        await UC.deleteShare(share.destinationUser.id, share._id)
+        await UsersCollection.deleteShare(share.destinationUser.id, share._id)
         share.state = states.rejected
         await share.save()
     }

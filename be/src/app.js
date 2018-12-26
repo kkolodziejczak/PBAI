@@ -6,6 +6,7 @@ const express = require('express')
     , middlewares = require('./middlewares')
     , router = require('./router')
     , app = express()
+    , log = require('./helpers/log')
  
 module.exports = async ()=>{
     app.set('port', config.PORT)
@@ -13,6 +14,8 @@ module.exports = async ()=>{
 
     await middlewares(app)
     await router(app)
+
+    config.PRINT_CONFIG && Object.keys(config).forEach(key=>log.debug(`$${key}=${config[key]}`))
 
     return new Promise(async res=>{
         const server = (
@@ -24,7 +27,7 @@ module.exports = async ()=>{
             : http.createServer(app)
         )
         .listen(
-            app.get('port'), () => res({server, app})
+            app.get('port'), () => res({server, app, protocol: config.HTTPS?'https':'http'})
         )
     })
 }

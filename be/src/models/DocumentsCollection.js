@@ -1,6 +1,6 @@
 
+let PermissionsCollection = require('./PermissionsCollection')
 const mongoose = require('mongoose')
-    , PermissionsCollection = require('./PermissionsCollection')
     , permissionsTypes = Object(require('../assets/permissionsTypes.json'))
     , createModel = require('../helpers/createModel')
     , log = require('../helpers/log')
@@ -26,11 +26,10 @@ model.createNew = async function createNew(userId, name, content){
     const document = await createModel(model, {
         content, name, owner: userId, 
     })
-    // circular dependency workaround
-    const PC = Object.keys(PermissionsCollection).length 
-    ? PermissionsCollection
-    : require('./PermissionsCollection')
-    const permission = await PC.createNew(
+    if (!Object.keys(PermissionsCollection).length){
+        PermissionsCollection = require('./PermissionsCollection')
+    }
+    const permission = await PermissionsCollection.createNew(
         userId, document._id, permissionsTypes.owner
     )
     document.permissions = [permission._id]

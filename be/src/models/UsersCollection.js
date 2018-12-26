@@ -79,9 +79,15 @@ model.deleteShare = function deleteShare(userId, shareId){
 
 model.deleteUser = async function deleteUser(query){
     const user = model.findOne(query)
+    if (!Object.keys(PermissionsCollection).length){
+        PermissionsCollection = require(`./PermissionsCollection`)
+    }
     await Promise.all(user.permissions.map(
         permission=>PermissionsCollection.deletePermission(permission._id))
     )
+    if (!Object.keys(SharesCollection).length){
+        SharesCollection = require(`./SharesCollection`)
+    }
     await Promise.all(user.shares.map(
         share=>SharesCollection.deleteShare(share._id))
     )

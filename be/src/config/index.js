@@ -1,6 +1,6 @@
 const dotenv = require('dotenv')
+    , fs = require('fs-extra')
     , requirements = require('./config')
-    , log = require('../helpers/log')
     , criticalError = require('../helpers/criticalError')
 
 let config = null
@@ -16,17 +16,23 @@ function init(){
         const val = typeof parser === typeof (()=>{}) ? parser(v) : v
         const validator = requirements.validators[k]
         const error = typeof validator === typeof (()=>{}) && requirements.validators[k](val)
-        error && criticalError(error)
+        error && criticalError(`Invalid ${k}`, error)
         configBuilder[k] = val
     }
 
+    const initialNodeEnv = process.env.NODE_ENV
     dotenv.config()
+    if (initialNodeEnv){
+        process.env.NODE_ENV = initialNodeEnv
+    }
+
     if (!process.env.hasOwnProperty("NODE_ENV"))
         criticalError(`Required environment variable NODE_ENV is not set`)
 
-    if (process.env.NODE_ENV !== 'production'){
+    const envSpecificConfigFilePath = './.env_' + process.env.NODE_ENV
+    if (fs.existsSync(envSpecificConfigFilePath)){
         dotenv.config({
-            path: './.env_' + process.env.NODE_ENV
+            path: envSpecificConfigFilePath
         })
     }
 
@@ -49,10 +55,10 @@ function init(){
             return target[k]
         },
         set(target, k){
-            log.error(`cannot set config variables`)
+            criticalError(`cannot set config variables`)
         },
         deleteProperty(target, k) {
-            log.error(`cannot delete config variables`)
+            criticalError(`cannot delete config variables`)
         }
     })
 
