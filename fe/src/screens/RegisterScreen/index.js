@@ -54,7 +54,7 @@ class RegisterScreenComponent extends React.PureComponent {
       const {name, label, placeholder, type} = input;
       const {error} = this.props;
       return (
-        <FormGroup key={i} controlId="login" validationState={error && error[name] ? 'error' : null}>
+        <FormGroup key={i} controlId={name} validationState={error && error[name] ? 'error' : null}>
           <ControlLabel>{label}</ControlLabel>
           <FormControl
             type={type}
