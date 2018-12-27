@@ -1,5 +1,5 @@
-# WARNING 
-apka moze sypac bledy jakby co wysylac logi apki NODE_ENV ustawic na dev oraz USERS_CAN_READ_LOGS na true aby logi bylo dostepne dla wszysktich na roucie /logs
+# TODO
+testy: permissions, shares, timer, uncomment rest
 
 # Jak odpalic
 przestawic dockera na linuxowe containery i uruchomic  
@@ -406,6 +406,7 @@ newLogin: schemes.loginNotRequired,
 newPassword: schemes.passwordNotRequired
 ```
 * zmieia dane uzytkownika login/lub wlasne - mozna zmienic login lub/i haslo
+* zwraca 409 jesli nowy login jest zajetyw
 3.
 * delete
 * dostep: noAccess

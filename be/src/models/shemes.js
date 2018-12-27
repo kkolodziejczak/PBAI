@@ -3,7 +3,7 @@ const Joi = require('joi')
 
 const login = Joi.string().alphanum().min(3).max(30)
 
-const password = Joi.string().regex(/^[a-zA-Z0-9]{3,40}$/).required()
+const password = Joi.string().regex(/^[a-zA-Z0-9]{3,40}$/)
 
 const id = Joi
 

@@ -172,7 +172,7 @@ module.exports = app => {
             }
             if (!share.permissionId){
                 share.permissionId = await PermissionsCollection.createNew(
-                    req.user._id, share.documentId, permissionTypes.reader
+                    req.user._id, share.documentId, permissionTypes.reader, share._id
                 )
                 share.save()
             }
