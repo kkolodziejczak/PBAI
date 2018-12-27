@@ -9,9 +9,13 @@ const fs = require('fs');
 
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
+const API_BASE_URL = 'http://localhost:8080'
 
 module.exports = function(proxy, allowedHost) {
   return {
+    proxy: {
+      '/': 'API_BASE_URL'
+    },
     // WebpackDevServer 2.4.3 introduced a security fix that prevents remote
     // websites from potentially accessing local content through DNS rebinding:
     // https://github.com/webpack/webpack-dev-server/issues/887
