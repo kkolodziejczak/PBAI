@@ -13,14 +13,10 @@ class RequestHandler {
   _getHeaders(options, image) {
     let headers = {
       Accept: 'application/json',
+      Cache: 'no-cache',
     };
     if (!image) {
       headers['Content-Type'] = 'application/json';
-    }
-
-    const {token} = options;
-    if (token) {
-      headers['auth-token'] = token;
     }
     return headers;
   }
@@ -60,6 +56,9 @@ class RequestHandler {
     const dev = process.env.NODE_ENV === 'development'; //displaying console logs only on dev
     let request = {
       method: method.toUpperCase(),
+      // credentials: 'include',
+      // credentials: 'same-origin',
+      // mode: 'cors',
       headers: this._getHeaders(options, image),
     };
     let url = API_BASE_URL + path;
@@ -73,8 +72,10 @@ class RequestHandler {
     dev && console.log('Request -->', {url, request});
     let res = null;
     res = await fetch(url, request);
+    console.log('RES1', res);
     const status = res && res.status;
     const resText = res && (await res.text());
+    console.log('RES2', resText);
     let response = null;
     try {
       if (resText.includes('{')) {

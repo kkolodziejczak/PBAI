@@ -4,6 +4,7 @@ import {compose} from 'redux';
 import {Button} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom';
 import {userActions} from 'redux/actions/user';
+import {apiGetUsers} from 'ApiService/apiGetUsers';
 import {documentActions} from 'redux/actions/document';
 import {ROUTE_LOGIN} from 'constants/routes';
 import Dropzone from 'components/Dropzone';
@@ -14,7 +15,9 @@ import ScreenWrapper from 'components/ScreenWrapper';
 class DashboardScreenComponent extends React.Component {
   dropzone = null;
 
-  componentDidMount() {
+  async componentDidMount() {
+    const users = await apiGetUsers();
+    console.log('USERS', users);
     const {clearLoginForm, isLoggedIn, history} = this.props;
     clearLoginForm();
     if (!isLoggedIn) {
