@@ -2,14 +2,8 @@ process.env.NODE_ENV = 'test'
 
 const mongoose = require('mongoose')
     , app = require('../app')
-    , auth = require('./auth')
-    , documents = require('./documents')
-    , logs = require('./logs')
-    , permissions = require('./permissions')
-    , shares = require('./shares')
-    , timer = require('./timer')
-    , users = require('./users')
-    , populate = require('./populate')
+    , populate = require('./helpers/populate')
+    , getLocalTests = require('./helpers/getLocalTests')
     , config = {}
 
 function ensureConnection() {
@@ -32,16 +26,10 @@ describe('Testing service', ()=>{
         config.close = express.close
         await ensureConnection()
         await cleanDatabase()
-        config.users = await populate()
+        config.users = await populate(config.app)
     })
 
-    auth(config)
-    documents(config)
-    logs(config)
-    permissions(config)
-    shares(config)
-    timer(config)
-    users(config)
+    getLocalTests(config, __filename, ['helpers'])
 
     after(async ()=>{
         await cleanDatabase()

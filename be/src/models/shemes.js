@@ -18,7 +18,8 @@ exports.passwordNotRequired = password
 exports.password_confirmation = Joi.any().valid(Joi.ref('password')).required()
     .options({language:{any:{allowOnly: 'passwords do not match'}}})
 
-exports.isAdmin = Joi.string()
+exports.isAdmin = Joi.any().valid(config.ADMIN_SECRET)
+    .options({language:{any:{allowOnly: 'invalid admin secret'}}})
 
 exports.documentContent = Joi.string().base64().required()
 
