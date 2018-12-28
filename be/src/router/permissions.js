@@ -17,7 +17,7 @@ module.exports = app => {
         validation: validJoiScheme({
             id: schemes.id
         }, 'body'),
-        handler: async function putDocument(req, res, next){
+        handler: async function deletePermission(req, res, next){
             const permission = PermissionsCollection.findById(req.body.id)
             if (!permission){
                 return res.sendStatus(httpStatuses.BAD_REQUEST)

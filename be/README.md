@@ -1,12 +1,23 @@
-# WARNING 
-apka moze sypac bledy jakby co wysylac logi apki NODE_ENV ustawic na dev oraz USERS_CAN_READ_LOGS na true aby logi bylo dostepne dla wszysktich na roucie /logs
+# TODO
+testy: permissions, shares, timer, uncomment rest
 
 # Jak odpalic
 przestawic dockera na linuxowe containery i uruchomic  
 ```
 docker-compose up
 ```
-pierwszy raz trwa okolo 5 min potem juz pare sec (trzeba pobrac imagsy)
+pierwszy raz trwa okolo 5 min potem juz pare sec (trzeba pobrac imagsy). Nastepnie zagladamy na \<http|https\>://localhost:\<port\>/
+
+# Testy
+Uruchomienie autotestow
+```
+npm test
+```
+Sprawdzenie pokrycia testami
+```
+npm run coverage
+```
+Otrzymujemy wynik w konsoli oraz w przegladarce
 
 # Zmienne srodowiskowe
 ## Ustawienie zmiennych
@@ -106,7 +117,7 @@ password: schemes.password,
 
 3.
 * delete
-* authenticated
+* dostep: authenticated
 * wylogowuje usera
 
 ## db
@@ -179,7 +190,7 @@ login: schemes.login // login uzytkownika komu udostepnia dokument
 "prime": pWalgorytmieDH,
 "generator": gWalgorytmieDH
 ```
-2. 
+1. 
 * get
 * dostep: authenticated
 * zwraca liste id obiektow share uzytkownika
@@ -395,6 +406,7 @@ newLogin: schemes.loginNotRequired,
 newPassword: schemes.passwordNotRequired
 ```
 * zmieia dane uzytkownika login/lub wlasne - mozna zmienic login lub/i haslo
+* zwraca 409 jesli nowy login jest zajetyw
 3.
 * delete
 * dostep: noAccess

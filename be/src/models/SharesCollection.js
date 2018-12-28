@@ -92,12 +92,12 @@ model.deleteShare = async function deleteShare(id, userId){
     if (!Object.keys(UsersCollection).length){
         UsersCollection = require('./UsersCollection')
     }
-    if (!userId || (share.originUser && userId.toString() === share.originUser.id.toString())){
+    if (userId && share.originUser.id && userId.toString() === share.originUser.id.toString()){
         if (share.originUser && share.destinationUser){
             await UsersCollection.deleteShare(share.originUser.id, share._id)
             await UsersCollection.deleteShare(share.destinationUser.id, share._id)
-            share.originUser = null
-            share.destinationUserId = null
+            share.originUser.id = null
+            share.destinationUser.id = null
             await share.save()
         }
         if (share.permissionId){
@@ -107,11 +107,11 @@ model.deleteShare = async function deleteShare(id, userId){
             if (!Object.keys(PermissionsCollection).length){
                 PermissionsCollection = require('./PermissionsCollection')
             }
-            await PermissionsCollection.deletePermission(permissionId)
+            await PermissionsCollection.deletePermission(permissionId, userId)
         }
         return share.delete()
     }
-    if (userId.toString() === share.destinationUser.id.toString()){
+    if (share.destinationUser.id && userId.toString() === share.destinationUser.id.toString()){
         await UsersCollection.deleteShare(share.destinationUser.id, share._id)
         share.state = states.rejected
         await share.save()

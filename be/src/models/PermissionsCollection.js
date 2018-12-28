@@ -35,9 +35,12 @@ const mongoose = require('mongoose')
 
 const model = mongoose.model(config.PERMISSIONS_DATABASE_NAME, permissions)
 
-model.createNew = async function createNew(userId, documentId, type){
+model.createNew = async function createNew(userId, documentId, type, shareId=undefined){
+    if (type==="r" && shareId===undefined){
+        throw new Error('Cannot create premission for reader without share object')
+    }
     const permission = await createModel(model, {
-        userId, documentId, type
+        userId, documentId, type, shareId
     })
     if (!Object.keys(UsersCollection).length){
         UsersCollection = require('./UsersCollection')
@@ -58,29 +61,25 @@ model.createNew = async function createNew(userId, documentId, type){
     return permission
 }
 
-model.deletePermission = async function deletePermission(id){
+model.deletePermission = async function deletePermission(id, userId){
     const permission = await model.findById(id)
-    if (permission.type = permissionsTypes.owner){
-        let readers = await permission.populate({
-            path: 'documentId'
-        }).populate({
+    if (permission.type === permissionsTypes.owner){
+        let readers = await DocumentsCollection.findById(permission.documentId)
+        .populate({
             path: 'permissions'
         })
-        readers = Array.isArray(readers) ? readers.permissions : [readers] 
         
-        await Promise.all(readers
+        await Promise.all(
+            readers.permissions
             .filter(permission=>permission.type==="r")
-            .map(
-            async permission=>{
-                deletePermission(permission._id)
-            })
+            .map(async permission=>deletePermission(permission._id, userId))
         )
     }
     if (permission.shareId){
         if (!Object.keys(SharesCollection).length){
             SharesCollection = require('./SharesCollection')
         }
-        await SharesCollection.deleteShare(permission.shareId)
+        await SharesCollection.deleteShare(permission.shareId, userId)
     }
     if (!Object.keys(UsersCollection).length){
         UsersCollection = require('./UsersCollection')
@@ -89,7 +88,7 @@ model.deletePermission = async function deletePermission(id){
     if (!Object.keys(DocumentsCollection).length){
         DocumentsCollection = require('./DocumentsCollection')
     }
-    await DocumentsCollection.deletePermission(permission.documentId, permission._id)
+    await DocumentsCollection.deletePermissions(permission.documentId, permission._id)
 }
 
 module.exports = model

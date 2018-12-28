@@ -82,6 +82,7 @@ exports.optional = {
     "CRYPTO_MOCKED": true,
     "USERS_CAN_READ_LOGS": true,
     "PRINT_CONFIG": true, // level debug
+    "NODE_NO_WARNINGS": "1"
 }
 
 exports.parsers = {

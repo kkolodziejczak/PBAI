@@ -105,6 +105,9 @@ function info(...args){
 }
 
 function warn(...args){
+    if (process.env.NODE_NO_WARNINGS==="1"){
+        return
+    }
     return logWithProvider('yellow', ...['WARNING:', ...args])
 }
 

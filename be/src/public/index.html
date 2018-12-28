@@ -7,6 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<script>
+    function f1(){
+        fetch('http://localhost:8080/auth', {
+            method: 'POST', 
+            body: JSON.stringify({
+                "login": "etst",
+                "password": "asdkhabdkhahdkfasd"
+            }), 
+            headers:{
+                'Content-Type': 'application/json'
+            }
+            })
+            .then(res =>{try{return res.json()}catch(e){return res}})
+            .then(response => console.log('Success f1:', response))
+            .catch(error => console.error('Error: f1', error))
+    }
+
+    function f2(){
+        fetch('http://localhost:8080/users', {
+            method: 'GET',
+            }).then(res => res.json())
+            .then(response => console.log('Success: f2', JSON.stringify(response)))
+            .catch(error => console.error('Error: f2', error));
+    }
+</script>
+
+
     <p>my app</p>
+    <input id="clickMe" type="button" value="f1" onclick="f1();" />
+    <input id="clickMe" type="button" value="f2" onclick="f2();" />
 </body>
 </html>

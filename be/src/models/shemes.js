@@ -3,7 +3,7 @@ const Joi = require('joi')
 
 const login = Joi.string().alphanum().min(3).max(30)
 
-const password = Joi.string().regex(/^[a-zA-Z0-9]{3,40}$/).required()
+const password = Joi.string().regex(/^[a-zA-Z0-9]{3,40}$/)
 
 const id = Joi
 
@@ -18,7 +18,8 @@ exports.passwordNotRequired = password
 exports.password_confirmation = Joi.any().valid(Joi.ref('password')).required()
     .options({language:{any:{allowOnly: 'passwords do not match'}}})
 
-exports.isAdmin = Joi.string()
+exports.isAdmin = Joi.any().valid(config.ADMIN_SECRET)
+    .options({language:{any:{allowOnly: 'invalid admin secret'}}})
 
 exports.documentContent = Joi.string().base64().required()
 

@@ -4,6 +4,7 @@ const crateRouter = require('../helpers/createRouter')
     , validJoiScheme = require('../validators/validJoiScheme')
     , schemes = require('../models/shemes')
     , UsersCollection = require('../models/UsersCollection')
+    , httpStatuses = require('http-status-codes')
 
 module.exports = app => {
     return crateRouter([{
@@ -34,19 +35,27 @@ module.exports = app => {
             },
         ], 
         handler: async function changeUserInfo(req, res, next){
+            if (!req.body.newLogin && !req.body.newPassword){
+                return res.sendStatus(httpStatuses.BAD_REQUEST)
+            }
             const update = {}
             if (req.body.newLogin){
+                if (await UsersCollection.findOne({login: req.body.newLogin})){
+                    return res.sendStatus(httpStatuses.CONFLICT)
+                }
                 update.login = req.body.newLogin 
             }
             if (req.body.newPassword){
                 update.password = req.user.generateHash(req.body.newPassword)
             }
-            if (Object.keys(update).length){
-                await UsersCollection.findOneAndUpdate({
-                    login: req.body.login || req.user.login
-                }, update)
+            if(!await UsersCollection.findOneAndUpdate({
+                login: req.body.login || req.user.login
+            }, update)){
+                return res.sendStatus(httpStatuses.NOT_FOUND)
             }
-            req.user = {...user, ...update}
+            if (!req.body.login){
+                req.user = {...req.user, ...update}
+            }
             return res.end()
         }
     }, {
@@ -56,7 +65,10 @@ module.exports = app => {
             login: schemes.login
         }, 'body'),
         handler: async function authorization(req, res, next){
-            await UsersCollection.deleteUser({login: req.body.login})
+            const user = await UsersCollection.deleteUser({login: req.body.login})
+            if (!user){
+                return res.sendStatus(httpStatuses.NOT_FOUND)
+            }
             if (req.body.login === req.user.login){
                 return res.redirect('/auth')
             }

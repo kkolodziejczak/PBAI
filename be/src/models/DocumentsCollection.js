@@ -42,11 +42,10 @@ model.getUsersPermissionsToDocument =
 async function getUsersPermissionsToDocument(documentId, userId){
     const results = await model.findById(documentId)
     .populate({
-        path: 'permissions',
-        $match: {userId},
-        options: { limit: 1 }
+        path: 'permissions'
     })
-    return results.permissions[0]
+    const permissions = results.permissions.filter(permission=>permission.userId.toString()===userId.toString())
+    return permissions.length ? permissions[0] : undefined
 }
 
 model.getDocumentOwnerPermission = async function getDocumentOwnerPermission(documentId){
