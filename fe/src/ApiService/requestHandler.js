@@ -1,5 +1,3 @@
-import {API_BASE_URL} from 'constants/config';
-
 class RequestHandler {
   static instance = null;
 
@@ -61,7 +59,7 @@ class RequestHandler {
       // mode: 'cors',
       headers: this._getHeaders(options, image),
     };
-    let url = API_BASE_URL + path;
+    let url = path;
     if (method.toUpperCase() !== 'GET') {
       const body = this._getBody(options, image);
       request.body = body === '{}' ? null : body;
