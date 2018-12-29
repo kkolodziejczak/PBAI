@@ -17,6 +17,13 @@ class LoginScreenComponent extends React.Component {
     },
   };
 
+  componentDidMount() {
+    const {isLoggedIn, history} = this.props;
+    if (isLoggedIn) {
+      history.push(ROUTE_DASHBOARD);
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.success) {
       this.props.history.push(ROUTE_DASHBOARD);
@@ -70,7 +77,7 @@ class LoginScreenComponent extends React.Component {
           />
           {error && error[name] && (
             <HelpBlock>
-              <span className="error">{error[name]}</span>
+              <span className='error'>{error[name]}</span>
             </HelpBlock>
           )}
         </FormGroup>
@@ -78,11 +85,11 @@ class LoginScreenComponent extends React.Component {
     });
   render() {
     return (
-      <ScreenWrapper title="Login" titleCenter maxWidth={500}>
-        <form onSubmit={this.submit} className="clearfix">
+      <ScreenWrapper title='Login' titleCenter maxWidth={500}>
+        <form onSubmit={this.submit} className='clearfix'>
           {this._renderInputs()}
-          <Button type="submit" bsStyle="primary" className="pull-right">
-            {this.props.loading ? <Spinner color="white" /> : 'Submit'}
+          <Button type='submit' bsStyle='primary' className='pull-right'>
+            {this.props.loading ? <Spinner color='white' /> : 'Submit'}
           </Button>
         </form>
         {this._renderFooter()}
@@ -94,6 +101,7 @@ const mapStateToProps = ({user}) => ({
   error: user.loginError,
   loading: user.loginLoading,
   success: user.loginSuccess,
+  isLoggedIn: user.isLoggedIn,
 });
 
 const mapDispatchToProps = dispatch => ({

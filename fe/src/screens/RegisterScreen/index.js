@@ -1,11 +1,12 @@
 import React from 'react';
 import {FormGroup, ControlLabel, FormControl, Button, HelpBlock} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import {compose} from 'redux';
+import {Link, withRouter} from 'react-router-dom';
 import {userActions} from 'redux/actions/user';
 import Spinner from 'react-activity/lib/Spinner';
 import {connect} from 'react-redux';
 import ScreenWrapper from 'components/ScreenWrapper';
-import {ROUTE_LOGIN} from 'constants/routes';
+import {ROUTE_LOGIN, ROUTE_DASHBOARD} from 'constants/routes';
 
 class RegisterScreenComponent extends React.PureComponent {
   state = {
@@ -39,6 +40,13 @@ class RegisterScreenComponent extends React.PureComponent {
     ];
   }
 
+  componentDidMount() {
+    const {isLoggedIn, history} = this.props;
+    if (isLoggedIn) {
+      history.push(ROUTE_DASHBOARD);
+    }
+  }
+
   submit = e => {
     e.preventDefault();
     this.props.register(this.state.form);
@@ -64,7 +72,7 @@ class RegisterScreenComponent extends React.PureComponent {
           />
           {error && error[name] && (
             <HelpBlock>
-              <span className="error">{error[name]}</span>
+              <span className='error'>{error[name]}</span>
             </HelpBlock>
           )}
         </FormGroup>
@@ -73,11 +81,11 @@ class RegisterScreenComponent extends React.PureComponent {
 
   render() {
     return (
-      <ScreenWrapper title="Register" titleCenter maxWidth={500}>
-        <form onSubmit={this.submit} className="clearfix">
+      <ScreenWrapper title='Register' titleCenter maxWidth={500}>
+        <form onSubmit={this.submit} className='clearfix'>
           {this._renderInputs()}
-          <Button type="submit" bsStyle="primary" className="pull-right">
-            {this.props.loading ? <Spinner color="white" /> : 'Submit'}
+          <Button type='submit' bsStyle='primary' className='pull-right'>
+            {this.props.loading ? <Spinner color='white' /> : 'Submit'}
           </Button>
         </form>
         <span>
@@ -92,15 +100,19 @@ const mapStateToProps = ({user}) => ({
   error: user.registerError,
   loading: user.registerLoading,
   success: user.registerSuccess,
+  isLoggedIn: user.isLoggedIn,
 });
 
 const mapDispatchToProps = dispatch => ({
   register: payload => dispatch(userActions.registerRequest(payload)),
 });
 
-const RegisterScreen = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+const RegisterScreen = compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
 )(RegisterScreenComponent);
 
 export {RegisterScreen};
