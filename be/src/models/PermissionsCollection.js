@@ -89,6 +89,7 @@ model.deletePermission = async function deletePermission(id, userId){
         DocumentsCollection = require('./DocumentsCollection')
     }
     await DocumentsCollection.deletePermissions(permission.documentId, permission._id)
+    await permission.delete()
 }
 
 module.exports = model

@@ -10,10 +10,5 @@ module.exports = {
         windowMs: 5*60*1000, 
         max: 200,
         delayMs: 0
-    })),
-    someotherLimiterExamplePolicy: handler(new RateLimit({
-        windowMs: 5*60*1000, 
-        max: 10,
-        delayMs: 0
     }))
 }

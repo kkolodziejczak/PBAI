@@ -5,7 +5,7 @@ const crateRouter = require('../helpers/createRouter')
     , validJoiScheme = require('../validators/validJoiScheme')
     , schemes = require('../models/shemes')
     , PermissionsCollection = require('../models/PermissionsCollection')
-    , SharesCollection = require('../models/SharesCollection')
+    , DocumentsCollection = require('../models/DocumentsCollection')
     , permissionTypes = Object(require('../assets/permissionsTypes.json'))
     , UsersCollection = require('../models/UsersCollection')
     , httpStatuses = require('http-status-codes')
@@ -18,20 +18,22 @@ module.exports = app => {
             id: schemes.id
         }, 'body'),
         handler: async function deletePermission(req, res, next){
-            const permission = PermissionsCollection.findById(req.body.id)
-            if (!permission){
-                return res.sendStatus(httpStatuses.BAD_REQUEST)
-            }
-            if (permission.type==="o"){
-                await PermissionsCollection.deletePermission(req.body.id)
+            try{
+                const permission = await PermissionsCollection.findById(req.body.id)
+                if (!permission){
+                    throw new Error()
+                }
+                let userId = req.user._id
+                if (req.user.isAdmin){
+                    const ownerPermission = await DocumentsCollection.getDocumentOwnerPermission(permission.documentId)
+                    userId = ownerPermission.userId
+                }
+                await PermissionsCollection.deletePermission(req.body.id, userId)
                 return res.end()
             }
-            const share = await SharesCollection.find({permissionId: req.body.id})
-            if (!share){
+            catch(e){
                 return res.sendStatus(httpStatuses.BAD_REQUEST)
             }
-            await SharesCollection.deleteShare(share._id, req.user._id)
-            return res.end()
         }
     }, {
         route: "/:id?",
@@ -42,11 +44,23 @@ module.exports = app => {
         }, 'params'),
         handler: async function getPermissions(req, res, next){
             if (req.params.id){
-                const permission = req.body.permission || await PermissionsCollection.findById(id)
-                if (!permission){
+                try{
+                    const permission = req.body.permission || await PermissionsCollection.findById(req.params.id)
+                    if (!permission){
+                        throw new Error()
+                    }
+                    return res.json({
+                        id: permission._id.toString(),
+                        userId: permission.userId.toString(),
+                        documentId: permission.documentId.toString(),
+                        shareId: permission.shareId ? permission.shareId.toString() : undefined,
+                        type: permission.type,
+                        timer: permission.timer ? permission.timer.toString() : undefined
+                    })
+                }
+                catch(e){
                     return res.sendStatus(httpStatuses.NOT_FOUND)
                 }
-                return res.json(permission)
             }
             if (!req.user.isAdmin){
                 const user = await UsersCollection.findById(req.user._id)

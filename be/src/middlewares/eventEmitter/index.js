@@ -1,5 +1,5 @@
 const EventEmitter = require('events')
-    , CallsCollection = require('../../models/TimersCollection')
+    , TimersCollection = require('../../models/TimersCollection')
     , events = require('./events')
     , log = require('../../helpers/log')
 
@@ -7,8 +7,7 @@ function emitHandler(util){
     return async options => {
         log.trace(`Executing ${util.name} with params:`, options.params)
         return util(options.params)
-        .then(resolve)
-        .catch(reject)
+        .catch(err=>log.warn("emit error: ", err))
     }
 }
 
@@ -20,11 +19,9 @@ module.exports = async app => {
         app.eventEmitter.on(type, emitHandler(events.handlers[type]))
     }
 
-    const retrieved = await CallsCollection.find({}) || []
+    const retrieved = await TimersCollection.find({}) || []
     log.info(`${retrieved.length} calls has been restored`)
-    retrieved.forEach(call =>
-        call.invokeOnTime(app.eventEmitter)
-        .then(output=>log.debug(`restored call id: "${call._id}" has finished execution output:`, output))
-        .catch(err=>log.error(`restored call id: "${call._id}" has thown an error: ${err.name}: ${err.message}`))
+    retrieved.forEach(timer =>
+        timer.invokeOnTime(app.eventEmitter)
     )
 }

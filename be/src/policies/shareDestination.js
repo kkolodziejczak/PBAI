@@ -7,8 +7,13 @@ module.exports = async function shareIncluded(req, res){
     if (!id){
         return
     }
-    const share = req.body.share || await SharesCollection.findById(id)
-    if (!share || share.state === -1 || share.destinationUser.id.toString() !== req.user._id.toString()){
+    try {
+        const share = req.body.share || await SharesCollection.findById(id)
+        if (!share || share.state === -1 || share.destinationUser.id.toString() !== req.user._id.toString()){
+            return httpStatuses.NOT_FOUND
+        }
+    }
+    catch (e){
         return httpStatuses.NOT_FOUND
     }
 }

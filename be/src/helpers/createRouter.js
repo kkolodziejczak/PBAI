@@ -35,7 +35,7 @@ function validate(validators){
         const validationError = validators && await runner(validators, req, res)
         if (validationError){
             res.status(400).json(validationError)
-            return log.trace(`Validation error ${validationError.join(', ')}`)
+            return log.trace(`Validation error ${validationError.join ? validationError.join(', ') : validationError}`)
         }
         return next()
     }

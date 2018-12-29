@@ -33,9 +33,7 @@ const mongoose = require('mongoose')
     }, {
         minimize: false
     })
-
-// populate bez typu Conversation.find().populate('creator', null, nazwakoleki).exec(callback);
-
+ 
 timers.methods.invokeOnTime = function invokeOnTime(emitter) {
     let ms = this.when - new Date()
     ms = ms < 0 ? 0 : ms
@@ -43,18 +41,24 @@ timers.methods.invokeOnTime = function invokeOnTime(emitter) {
     return new Promise((res, rej)=>{
         return setTimeout(async () => {
             log.debug(`timer id: "${this._id}" executing...`)
-            if (!await deleteTimer(this._id)){
-                const cancelMessage = `timer id "${this._id}" canceled`
+            if (!await model.deleteTimer(this._id)){
+                const cancelMessage = `timer id "${this._id}" has been canceled`
                 log.debug(cancelMessage)
-                return rej(cancelMessage)
+                return rej(model.timerCanceledError)
             }
             log.trace(`Emitting type: "${this.type}"`)
-            return emitter.emit(this.type, {
+            emitter.emit(this.type, {
                 params: this.params,
                 resolve: res,
                 reject: rej
             })
         }, ms)
+    })
+    .then(output=>log.debug(`timer: "${this._id}" has finished execution output:`, output))
+    .catch(err=>{
+        if (err!==model.timerCanceledError){
+            log.error(`timer: "${this._id}" has thown an error: ${err.name}: ${err.message}`)
+        }
     })
 }
 
@@ -78,9 +82,8 @@ model.deleteTimer = async function deleteTimer(id){
     }
 }
 
-model.timerAlreadyExistsError = new Error('Already has a timer or is invalid type')
 model.createNew = async function createNew(type, params, ms, objectId, objectModelName){
-    const timer = createModel(model, {
+    const timer = await createModel(model, {
         type, params, objectModelName, 
         object: objectId, 
         when: new Date().getTime() + ms
@@ -101,5 +104,8 @@ model.createNew = async function createNew(type, params, ms, objectId, objectMod
     }
     return timer
 }
+
+model.timerCanceledError = new Error('Timer canceled')
+model.timerAlreadyExistsError = new Error('Already has a timer or is invalid type')
 
 module.exports = model

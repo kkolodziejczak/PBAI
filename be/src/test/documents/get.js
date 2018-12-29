@@ -12,7 +12,7 @@ module.exports = function test(config){
             .get(`/documents/${id}`)
             .expect(200)
             .expect(hasProps({
-                _id: id.toString(),
+                id: id.toString(),
                 content: document.content,
                 name: document.name,
                 permissions: document.permissions.map(permission=>permission._id.toString())
@@ -27,7 +27,7 @@ module.exports = function test(config){
             .get(`/documents/${documentId}`)
             .expect(200)
             .expect(hasProps({
-                _id: document._id.toString(),
+                id: document._id.toString(),
                 content: document.content,
                 name: document.name,
                 permissions: [permissionId.toString(), ownerPermission._id.toString()]
@@ -52,7 +52,7 @@ module.exports = function test(config){
             .get(`/documents/${id}`)
             .expect(200)
             .expect(hasProps({
-                _id: id.toString(),
+                id: id.toString(),
                 content: document.content,
                 name: document.name,
                 permissions: document.permissions.map(permission=>permission._id.toString())

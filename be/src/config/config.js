@@ -3,21 +3,12 @@ const path = require('path')
     , randomstring = require("randomstring")
 
 const string2Int = s => +s
-const boleanOrString = s=> { 
+const toBoleanOrString = s=> { 
     s = s.toLowerCase ? s.toLowerCase() : s
-    return s==='true'?true:s==='false'?false:s
-}
-const toBolean = p => {
-    if (typeof p === typeof ""){
-        p = p.toLowerCase()
-        if (p==='false'){
-            return false
-        }
-        if (p==='true'){
-            return true
-        }
+    if (typeof s === typeof true) {
+        return s
     }
-    return !!p
+    return s==='true'?true:s==='false'?false:s
 }
     
 const toLower = s => String(s).toLowerCase()
@@ -27,8 +18,8 @@ const isDir = d => {
         return `${d} is not a valid directory`
     }
 }
-const isFilePathValidIfTrue = f => toBolean(f)===true ? isFilePathValid(f) : null
-const fileExistsIfTrue = f => toBolean(f)===true ? fileExists(f) : null
+const isFilePathValidIfTrue = f => toBoleanOrString(f)===true ? isFilePathValid(f) : null
+const fileExistsIfTrue = f => toBoleanOrString(f)===true ? fileExists(f) : null
 const isFilePathValid = f => isDir(path.dirname(f))
 const fileExists = f => { 
     if (!fs.existsSync(f)){
@@ -88,24 +79,24 @@ exports.optional = {
 exports.parsers = {
     "NODE_ENV": toLower,
     "LOG_LEVEL": toLower,
-    "LOG_BODY": boleanOrString,
-    "PRINT_CONFIG": boleanOrString,
-    "STORE_SESSION_ON_MONGO": boleanOrString,
-    "HTTPS": boleanOrString,
-    "NO_CACHE": boleanOrString,
-    "CORS": boleanOrString,
-    "CRYPTO_MOCKED": boleanOrString,
-    "LIMITER": boleanOrString,
-    "USERS_CAN_READ_LOGS": boleanOrString,
+    "LOG_BODY": toBoleanOrString,
+    "PRINT_CONFIG": toBoleanOrString,
+    "STORE_SESSION_ON_MONGO": toBoleanOrString,
+    "HTTPS": toBoleanOrString,
+    "NO_CACHE": toBoleanOrString,
+    "CORS": toBoleanOrString,
+    "CRYPTO_MOCKED": toBoleanOrString,
+    "LIMITER": toBoleanOrString,
+    "USERS_CAN_READ_LOGS": toBoleanOrString,
     "PORT": string2Int,
     "PORT_MONGO_ADMIN": string2Int,
     "COOKIE_MAX_AGE": string2Int,
     "MAX_TIMER_SEC": string2Int,
-    "GENERATED_ROUTES_FILE": boleanOrString,
-    "SSL_CERT_FILE": boleanOrString,
-    "SSL_KEY_FILE": boleanOrString,
-    "LOG_TEMPLATE": boleanOrString,
-    "SERVE_LOGS": boleanOrString
+    "GENERATED_ROUTES_FILE": toBoleanOrString,
+    "SSL_CERT_FILE": toBoleanOrString,
+    "SSL_KEY_FILE": toBoleanOrString,
+    "LOG_TEMPLATE": toBoleanOrString,
+    "SERVE_LOGS": toBoleanOrString
 }
 
 exports.validators = {

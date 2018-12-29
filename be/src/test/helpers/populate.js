@@ -22,7 +22,7 @@ const usersInfo = [{
     //2
     login: "owner",
     password: "owner",
-    documents: 3,
+    documents: 5,
     shares: [{
         getPartnerId: ()=>usersInfo[1].userObject._id,
         getDocumentId: ()=>usersInfo[2].documents[0]._id,
@@ -89,6 +89,194 @@ const usersInfo = [{
     //10
     login: "toBeChangedbyAdmin",
     password: "toBeChangedbyAdmin",
+}, {
+    //11
+    login: "partnerToDelete",
+    password: "partnerToDelete",
+    shared: [{
+        getDocumentId: ()=>usersInfo[12].documents[0]._id,
+        getPermissionId: ()=>usersInfo[12].shares[0].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[12].documents[1]._id,
+        getPermissionId: ()=>usersInfo[12].shares[1].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[12].documents[2]._id,
+        getPermissionId: ()=>usersInfo[12].shares[2].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[12].documents[3]._id,
+        getPermissionId: ()=>usersInfo[12].shares[3].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        getPermissionId: ()=>usersInfo[13].shares[0].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        getPermissionId: ()=>usersInfo[13].shares[1].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        getPermissionId: ()=>usersInfo[13].shares[2].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        getPermissionId: ()=>usersInfo[13].shares[3].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        getPermissionId: ()=>usersInfo[13].shares[4].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        getPermissionId: ()=>usersInfo[13].shares[5].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        getPermissionId: ()=>usersInfo[13].shares[6].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        getPermissionId: ()=>usersInfo[13].shares[7].permissionId,
+    }]
+}, {
+    //12
+    login: "ownerToDelete",
+    password: "ownerToDelete",
+    documents: 4,
+    shares: [{
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[12].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey"
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[12].documents[1]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey"
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[12].documents[2]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey"
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[12].documents[3]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey"
+    }]
+}, {
+    //13
+    login: "ownerToPost",
+    password: "ownerToPost",
+    documents: 1,
+    shares: [{
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey",
+        state: 0
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey",
+        state: 0
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey",
+        state: 1
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey",
+        state: 1
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey",
+        state: 2
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey",
+        state: 2
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey",
+        state: 3
+    }, {
+        getPartnerId: ()=>usersInfo[11].userObject._id,
+        getDocumentId: ()=>usersInfo[13].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey",
+        state: 3
+    }]
+}, {
+    //14
+    login: "partner1todelete",
+    password: "partner1todelete",
+    shared: [{
+        getDocumentId: ()=>usersInfo[16].documents[0]._id,
+        getPermissionId: ()=>usersInfo[16].shares[0].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[16].documents[1]._id,
+        getPermissionId: ()=>usersInfo[16].shares[2].permissionId,
+    }]
+}, {
+    //15
+    login: "partner2todelete",
+    password: "partner2todelete",
+    shared: [{
+        getDocumentId: ()=>usersInfo[16].documents[0]._id,
+        getPermissionId: ()=>usersInfo[16].shares[1].permissionId,
+    }]
+}, {
+    //16
+    login: "owdelner",
+    password: "owdelner",
+    documents: 2,
+    shares: [{
+        getPartnerId: ()=>usersInfo[14].userObject._id,
+        getDocumentId: ()=>usersInfo[16].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey"
+    }, {
+        getPartnerId: ()=>usersInfo[15].userObject._id,
+        getDocumentId: ()=>usersInfo[16].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey"
+    }, {
+        getPartnerId: ()=>usersInfo[14].userObject._id,
+        getDocumentId: ()=>usersInfo[16].documents[1]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey"
+    }]
+}, {
+    //17
+    login: "adsafefiowrhowo",
+    password: "ara4gadarga80e4a4g",
+    shared: [{
+        getDocumentId: ()=>usersInfo[18].documents[0]._id,
+        getPermissionId: ()=>usersInfo[18].shares[0].permissionId,
+    }, {
+        getDocumentId: ()=>usersInfo[18].documents[0]._id,
+        getPermissionId: ()=>usersInfo[18].shares[1].permissionId,
+    }]
+}, {
+    //18
+    login: "arga80e4a4g",
+    password: "arga80e4a4g",
+    documents: 1,
+    shares: [{
+        getPartnerId: ()=>usersInfo[17].userObject._id,
+        getDocumentId: ()=>usersInfo[18].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey"
+    }, {
+        getPartnerId: ()=>usersInfo[17].userObject._id,
+        getDocumentId: ()=>usersInfo[18].documents[0]._id,
+        ownerKey: "ownerKey",
+        partnerKey: "partnerKey"
+    }]
 }]
 
 module.exports = async function populate(app){
@@ -121,11 +309,14 @@ module.exports = async function populate(app){
             )
             share.originUser.publicKey = shares[i].ownerKey
             share.destinationUser.publicKey = shares[i].partnerKey
-            share.state = 4
-            const permission = await PermissionsCollection.createNew(
-                shares[i].getPartnerId(), shares[i].getDocumentId(), "r", share._id
-            )
-            share.permissionId = permission._id
+            share.state = shares[i].state!==undefined ? shares[i].state : 3
+            if (share.state===3){
+                share.crypted = 'SECRET'
+                const permission = await PermissionsCollection.createNew(
+                    shares[i].getPartnerId(), shares[i].getDocumentId(), "r", share._id
+                )
+                share.permissionId = permission._id
+            }
             await share.save()
             userInfo.shares.push(share)
         }

@@ -20,12 +20,12 @@ function cleanDatabase() {
 
 describe('Testing service', ()=>{
     before(async ()=>{
+        await ensureConnection()
+        await cleanDatabase()
         const express = await app()
         config.server = express.server
         config.app = express.app
         config.close = express.close
-        await ensureConnection()
-        await cleanDatabase()
         config.users = await populate(config.app)
     })
 

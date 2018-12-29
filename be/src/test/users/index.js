@@ -3,6 +3,6 @@ const getLocalTests = require('../helpers/getLocalTests')
 
 module.exports = function test(config){
     describe(path.parse(__dirname).name, ()=>{
-        //getLocalTests(config, __filename)
+        getLocalTests(config, __filename)
     })
 }

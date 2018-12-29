@@ -10,5 +10,6 @@
         "**/adminMongo/**"
     ],
     "javascript.updateImportsOnFileMove.enabled": "always",
-    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "git.ignoreLimitWarning": true
 }

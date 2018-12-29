@@ -1,14 +1,37 @@
-# TODO
-testy: permissions, shares, timer, uncomment rest
 
-# Jak odpalic
+
+# 1. Spis Treści
+[1. Spis Treści](#1-spis-treści)  
+[2. Jak odpalic](#2-jak-odpalic)  
+[3. Testy](#3-testy)  
+[4. Zmienne srodowiskowe](#4-zmienne-srodowiskowe)  
+[4.1. Ustawienie zmiennych](#41-ustawienie-zmiennych)  
+[4.2. Zmienne wymagane](#42-zmienne-wymagane)  
+[4.3. Zmienne opcjonalne](#43-zmienne-opcjonalne)  
+[5. Routes](#5-routes)  
+[5.1. Jak czytac readme](#51-jak-czytac-readme)  
+[5.2. path](#52-path)   
+[5.3. auth](#53-auth)  
+[5.4. db](#54-db)  
+[5.5. logs](#55-logs)  
+[5.6. documents](#56-documents)    
+[5.7. shares](#57-shares)  
+[5.8. permissions](#58-permissions)   
+[5.9. timer](#59-timer)  
+[5.10. users](#510-users)  
+[6. FAQ](#6-faq)  
+[6.1. Jak utworzyc konto admina?](#61-jak-utworzyc-konto-admina)  
+[6.2. Zmiana typu konta](#62-zmiana-typu-konta)  
+[6.3. Jak ustawic certyfikat i klucz dla https](#63-jak-ustawic-certyfikat-i-klucz-dla-https)
+
+# 2. Jak odpalic
 przestawic dockera na linuxowe containery i uruchomic  
 ```
 docker-compose up
 ```
 pierwszy raz trwa okolo 5 min potem juz pare sec (trzeba pobrac imagsy). Nastepnie zagladamy na \<http|https\>://localhost:\<port\>/
 
-# Testy
+# 3. Testy
 Uruchomienie autotestow
 ```
 npm test
@@ -19,13 +42,13 @@ npm run coverage
 ```
 Otrzymujemy wynik w konsoli oraz w przegladarce
 
-# Zmienne srodowiskowe
-## Ustawienie zmiennych
+# 4. Zmienne srodowiskowe
+## 4.1. Ustawienie zmiennych
 Aby zmienic wartosci uzyj pliku .env (dla zmiennych we wszystkich nazwyach srodowiska (NODE_ENV))
 lub odpowiedno w pliku .env_\<nazwa-srodowiska\> np dla srodowiska "dev" lub "production" (zmiene te pokryja globalnie ustawione zmienne w pliku .env).
-Nazwa zmiennej srodowsiska powinna byc globalnie ustawiona w twoim systemie (lub ide) pod nazwa NODE_ENV. (zalecane nazwy to "dev", "production", "tests")
+Nazwa zmiennej srodowsiska powinna byc globalnie ustawiona w twoim systemie (lub ide) pod nazwa NODE_ENV. (zalecane nazwy to "dev", "production", "test")
 
-## Zmienne wymagane
+## 4.2. Zmienne wymagane
 ```json
 "NODE_ENV",
 "PORT",
@@ -33,7 +56,7 @@ Nazwa zmiennej srodowsiska powinna byc globalnie ustawiona w twoim systemie (lub
 "MONGO_CONNECTION_STRING",
 ```
 
-## Zmienne opcjonalne
+## 4.3. Zmienne opcjonalne
 po dwukropku ich domyślne wartości
 ```json
 "APP_PUBLIC": path.join(process.cwd(), `src`, `public`),
@@ -65,13 +88,13 @@ po dwukropku ich domyślne wartości
 "PRINT_CONFIG": true // level debug 
 ```
 
-# Routes
+# 5. Routes
 Routes sa generowane do pliku routes.txt co uruchomienie. Mozecie je siegnac z dockera dzieki poleceniu dockera exec.
 
-## Jak czytac readme
+## 5.1. Jak czytac readme
 Przykladowy opis route'a:  
-## path
-### /path/resource
+## 5.2. path
+### 5.2.1. /path/resource
 * metoda
 * dostep: listaWarunkow
 * request payload
@@ -90,8 +113,8 @@ Kazdy route moze zwrocic:
 
 Admin moze wykonac kazdy request bez wzgledu na jego dostep. Pobiera on tez dokumenty oraz udostepnienia wszystkich uzytkownikow. Dostep noAccess znaczy ze moze tam wejsc tylko admin.
 
-## auth
-### /auth
+## 5.3. auth
+### 5.3.1. /auth
 1.
 * put
 * dostep: notAuthenticated
@@ -120,22 +143,22 @@ password: schemes.password,
 * dostep: authenticated
 * wylogowuje usera
 
-## db
-### /db
+## 5.4. db
+### 5.4.1. /db
 1.
 * get
 * dostep: noAccess
 * wysyla apke do zarzadzania baza danych
 
-## logs
-### /logs
+## 5.5. logs
+### 5.5.1. /logs
 1.
 * get
 * dostep: noAccess
 * wysyla logi serwera w postaci pliku html, zmienna srodowiskowa USERS_CAN_READ_LOGS moze zapewnic serwowanie dla wszystkich
 
-## documents
-### /documents
+## 5.6. documents
+### 5.6.1. /documents
 1.
 * put
 * dostep: authenticated
@@ -145,8 +168,12 @@ content: schemes.documentContent,
 name: schemes.documentName
 ```
 * dodaje nowy dokument dla uzytkownika. Content oznacza zakodowany juz dokument dokument w postaci base64
+* response body
+```
+id: idUtworzonegoDokumentu
+```
 
-### /documents/:id
+### 5.6.2. /documents/:id
 1.
 * get
 * dostep: authenticated, documentOwner || documentIsSharedForUser
@@ -157,16 +184,16 @@ id: idDokumentu
 * Przesyła dokument. Jesli uzytkownik jest wlascicielem w polu permissions otrzymuje id wszystkich dostepow do dokumentu. Jesli dokument jest mu tylko udostepniony widzi swoj permission oraz wlasciciela dokumentu.
 * response body
 ```
-"_id" : idDokumentu,
-"permissions" : [ 
+id : idDokumentu,
+permissions : [ 
     TablicaDostepow
 ],
-"content" : ZaszyfrowanyDokumentBase64,
-"name" : Nazwa
+content : ZaszyfrowanyDokumentBase64,
+name : Nazwa
 ```
 
-## shares
-### /shares
+## 5.7. shares
+### 5.7.1. /shares
 1.
 * put
 * dostep: authenticated, documentOwner
@@ -178,17 +205,17 @@ login: schemes.login // login uzytkownika komu udostepnia dokument
 * utworzenie obiektu udostepnienia dokumentu
 * response body
 ```
-"id": idObiektu,
-"originUser": {
-    "id": idUsera
+id: idObiektu,
+originUser: {
+    id: idUsera
 },
-"destinationUser": {
-    "id": IdUseraKtoremuUdostepniamy
+destinationUser: {
+    id: IdUseraKtoremuUdostepniamy
 },
-"state": statusUdostepnieina,
-"documentId": idDokumentuUdostpenionego,
-"prime": pWalgorytmieDH,
-"generator": gWalgorytmieDH
+state: statusUdostepnieina,
+documentId: idDokumentuUdostpenionego,
+prime: pWalgorytmieDH,
+generator: gWalgorytmieDH
 ```
 1. 
 * get
@@ -196,7 +223,7 @@ login: schemes.login // login uzytkownika komu udostepnia dokument
 * zwraca liste id obiektow share uzytkownika
 * response body
 ```
-    "shares": [listaIdObiektowShare]
+"shares": [listaIdObiektowShare]
 ``` 
 
 3.
@@ -208,7 +235,7 @@ id: idShare
 ```
 * Jesli otrzymano od shareOriginUsera usuwa obiekt udostepnienia, jesli shareDestinationUser share zostaje odrzucony (state ustawia sie na -1, udostepniajacy widzi wtedy ze partner go odrzucil)
 
-### /shares/:id
+### 5.7.2. /shares/:id
 1.
 * get
 * dostep: authenticated, shareOriginUser ||shareDestinationUser
@@ -219,20 +246,20 @@ id: idShare
 * pobiera obiekt share
 * response body
 ```
-"id": idObiektu,
-"originUser": {
-    "id": idUsera,
-    "publicKey": publicznyKluczUdostepniajacego
+id: idObiektu,
+originUser: {
+    id: idUsera,
+    publicKey: publicznyKluczUdostepniajacego
 },
-"destinationUser": {
-    "id": IdUseraKtoremuUdostepniamy,
-    "publicKey": publicznyKluczUzytkownikaKtoremuUdostepniamy
+destinationUser: {
+    id: IdUseraKtoremuUdostepniamy,
+    publicKey: publicznyKluczUzytkownikaKtoremuUdostepniamy
 },
-"state": statusUdostepnieina,
-"documentId": idDokumentuUdostpenionego,
-"prime": pWalgorytmieDH,
-"generator": gWalgorytmieDH,
-"crypted": null
+state: statusUdostepnieina,
+documentId: idDokumentuUdostpenionego,
+prime: pWalgorytmieDH,
+generator: gWalgorytmieDH,
+crypted: null
 ```
 
 2.
@@ -245,7 +272,7 @@ id: idShare
 * przekierowuje request pod odpowiedni post dla state share'a. Requesty zalezne od state moga byc ustawione tylko raz dla udostepnienia. Nie mozna zmeniac ustawionych im wartosci w pozniejszym procesie (ale mozna zaczac udaostepniac dokument od nowa). Uzytkownik moze udostepnic drugiemu okument pare razy - aby  miec do niego wiele hasel.
 * 307 redirect
 
-### /shares/:id/0
+### 5.7.3. /shares/:id/0
 1.
 * post
 * dostep: authenticated, shareOriginUser
@@ -259,7 +286,7 @@ publicKey: publicKeyOriginUsera
 ```
 * przyjmuje klucz Publiczny Dla Udostepnienia od uzytkownika ktory udostepnia dokument. Zmienia state na 1
 
-### /shares/:id/1
+### 5.7.4. /shares/:id/1
 1.
 * post
 * dostep: authenticated, shareDestinationUser
@@ -273,7 +300,7 @@ publicKey: publicKeyDestinationUsera
 ```
 * przyjmuje klucz Publiczny Dla Udostepnienia od uzytkownika ktoremu udostepnia dokument. Zmienia state na 2
 
-### /shares/:id/2
+### 5.7.5. /shares/:id/2
 1.
 * post
 * dostep: authenticated, shareOriginUser
@@ -288,7 +315,7 @@ crypted: zakodowane haslo wspolnym sekretem
 ```
 * sprawdza poprawnosc ponownie wyslanego klucza publiczegnego od uzytkownika udostepniajcego dokument. Jesli zgadza sie z poprzednio wyslanym ustaia crypted jako zakodowane haslo do dokumentu. Zmienia state na 3.
 
-### /shares/:id/3
+### 5.7.6. /shares/:id/3
 1.
 * post
 * dostep: authenticated, shareDestinationUser
@@ -304,11 +331,19 @@ publicKey: publicKeyDestinationUsera
 * response body
 ```
 crypted: zahaslowanySekret,
-permissionId: id
+permissionId: id,
+originUser: {
+    id: idUsera,
+    publicKey: publicznyKluczUdostepniajacego
+},
+destinationUser: {
+    id: IdUseraKtoremuUdostepniamy,
+    publicKey: publicznyKluczUzytkownikaKtoremuUdostepniamy
+}
 ```
 
-## permissions 
-### /permissions 
+## 5.8. permissions 
+### 5.8.1. /permissions 
 1.
 * delete
 * dostep: authenticated, hasOwnerPeemission
@@ -327,7 +362,7 @@ id: idDostepu
 permissions: [tablicaIdDostepow]
 ```
 
-### /permissions/:id
+### 5.8.2. /permissions/:id
 1.
 * get
 * dostep: authenicated, dostep nalezy do uzytkownika lub wlasiciela dokumentu ktory go dotyczy
@@ -338,15 +373,15 @@ id: idDostepu
 * zwraca obiekt dostepu dla usera
 * response body
 ```
-"_id" : idDostepu,
-"timer" : idTimera jesli istnieje,
-"userId" : idUsera,
-"documentId" : idDokumentu,
-"type" : "o" || "r"
+id : idDostepu,
+timer : idTimera jesli istnieje,
+userId : idUsera,
+documentId : idDokumentu,
+type : "o" || "r"
 ```
 
-## timer
-### /timer/permissions
+## 5.9. timer
+### 5.9.1. /timer/permissions
 1.
 * put
 * dostep: authenticated, hasOwnerPermission
@@ -357,6 +392,10 @@ sec: schemes.sec // ilosc sekund za ile aktywowac
 ```
 * ustawia timer ktory na aktywacji usunie dostep dla uzytkownika
 * zwraca 409 jesli timer jest juz ustawiony dla tego dostepu
+* response body
+```
+id: idUtworzonegoTimera
+```
 
 * delete
 * dostep: authenticated, hasOwnerPermissionToDocumentOfTimer
@@ -366,7 +405,7 @@ id: idTimer
 ```
 * Usuwa timer
 
-### /timer/permissions/:id
+### 5.9.2. /timer/permissions/:id
 1.
 * get
 * dostep: authenticated, wlasciciel dostepu ktorego totyczy timer lub dokumentu ktorego tytyczy dostep timera
@@ -378,13 +417,16 @@ id: idTimera
 * response body
 ```
 type: "deletePermission"
-params: {sec: IloscCzasuNaKtoraTimerZostalUstawiony}
-when: KiedyTimerBedzieAktywowanyWSec //( to ta ilsoc od ktoregos tam roku 1981??)
+params: {
+    sec: IloscCzasuNaKtoraTimerZostalUstawiony,
+    userId: idWlascicielaDokumentu
+}
+when: timeStamp kiedy sie aktywuje
 object: idDostepu,
 objectModelName: nazwaKolekcjiDostepow 
 ```
-## user
-### /users
+## 5.10. users
+### 5.10.1. /users
 1.
 * get
 * dostep: authenticated
@@ -416,14 +458,14 @@ login: loginUsera
 ```
 * usuwa uzytkownika
 
-# FAQ
-## Jak utworzyc konto admina?
+# 6. FAQ
+## 6.1. Jak utworzyc konto admina?
 Do payloadu rejestracji dodac pole "admin" o wartosci rownej zawartosci zmiennej srodowiskowej ADMIN_SECRET
 
-## Zmiana typu konta
+## 6.2. Zmiana typu konta
 Nie ma obecnie takiej mozliwosci
 
-## Jak ustawic certyfikat i klucz dla https
+## 6.3. Jak ustawic certyfikat i klucz dla https
 Generacja kluczy:
 ```
 openssl genrsa -out ssl-key.pem 1024
@@ -431,3 +473,7 @@ openssl req -new -key ssl-key.pem -out certrequest.csr
 openssl x509 -req -in certrequest.csr -signkey ssl-key.pem -out ssl-cert.pem
 ```
 Ustawic odpowiednie sciezki w configu
+
+# TODO
+testy: timer, uncomment rest
+sprobowac we flow zmienic aby klucze prywatne tez hashowac aesem
