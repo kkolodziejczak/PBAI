@@ -89,6 +89,9 @@ model.createNew = async function createNew(originUserId, destinationUserId, docu
 
 model.deleteShare = async function deleteShare(id, userId){
     const share = await model.findById(id)
+    if (!share){
+        return
+    }
     if (!Object.keys(UsersCollection).length){
         UsersCollection = require('./UsersCollection')
     }

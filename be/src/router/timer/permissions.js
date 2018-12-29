@@ -7,6 +7,8 @@ const crateRouter = require('../../helpers/createRouter')
     , canDeleteTimerPermission = require('../../policies/canDeleteTimerPermission')
     , config = require('../../config')
     , TimersCollection = require('../../models/TimersCollection')
+    , PermissionsCollection = require('../../models/PermissionsCollection')
+    , DocumentsCollection = require('../../models/DocumentsCollection')
     , httpStatuses = require('http-status-codes')
 
 module.exports = app => {
@@ -18,20 +20,35 @@ module.exports = app => {
         }, 'body'),
         policy: [authenticated, hasOwnerPermission],
         handler: async function setPermissionTimer(req, res){
-            const id = req.body.id
-            try {
-                const timer = await TimersCollection.createNew(
-                    'deletePermission', {id}, req.body.sec*1000, 
-                    id, config.PERMISSIONS_DATABASE_NAME
-                )
-                timer.invokeOnTime(app.eventEmitter)
-                return res.end()
-            }
-            catch(err){
-                if (err === TimersCollection.timerAlreadyExistsError){
-                    return res.sendStatus(httpStatuses.CONFLICT)
+            try{
+                const permission = await PermissionsCollection.findById(req.body.id)
+                if (!permission){
+                    throw new Error()
                 }
-                throw err
+                let userId = req.user._id
+                if (req.user.isAdmin){
+                    const ownerPermission = await DocumentsCollection.getDocumentOwnerPermission(permission.documentId)
+                    userId = ownerPermission.userId
+                }
+                try {
+                    const timer = await TimersCollection.createNew(
+                        'deletePermission', {id:req.body.id, userId}, req.body.sec*1000, 
+                        req.body.id, config.PERMISSIONS_DATABASE_NAME
+                    )
+                    timer.invokeOnTime(app.eventEmitter)
+                    return res.json({
+                        id: timer._id.toString()
+                    })
+                }
+                catch(err){
+                    if (err === TimersCollection.timerAlreadyExistsError){
+                        return res.sendStatus(httpStatuses.CONFLICT)
+                    }
+                    throw err
+                }
+            }
+            catch(e){
+                return res.sendStatus(httpStatuses.NOT_FOUND)
             }
         }
     }, {
@@ -42,11 +59,23 @@ module.exports = app => {
         }, 'params'),
         policy: [authenticated, canReadTimerPermission],
         handler: async function getPermission(req, res){
-            const timer = req.body.timer || await TimersCollection.findById(req.body.id)
-            if (!timer){
+            try{
+                const timer = await TimersCollection.findById(req.params.id)
+                if (!timer){
+                    return res.sendStatus(httpStatuses.NOT_FOUND)
+                }
+                return res.json({
+                    id: timer._id.toString(),
+                    type: timer.type,
+                    params: timer.params,
+                    when: timer.when,
+                    object: timer.object,
+                    objectModelName: timer.objectModelName
+                })
+            }
+            catch(e){
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
-            return res.json(timer)
         }
     }, {
         method: "delete",
@@ -55,12 +84,17 @@ module.exports = app => {
         }, 'body'),
         policy: [authenticated, canDeleteTimerPermission],
         handler: async function getPermission(req, res){
-            const timer = req.body.timer || await TimersCollection.findById(req.body.id)
-            if (!timer){
+            try{
+                const timer = await TimersCollection.findById(req.body.id)
+                if (!timer){
+                    return res.sendStatus(httpStatuses.NOT_FOUND)
+                }
+                await TimersCollection.deleteTimer(timer._id)
+                return res.end()
+            }
+            catch(e){
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
-            await TimersCollection.deleteTimer(timer._id)
-            return res.end()
         }
     }])
 }

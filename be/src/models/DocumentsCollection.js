@@ -40,21 +40,31 @@ model.createNew = async function createNew(userId, name, content){
 
 model.getUsersPermissionsToDocument = 
 async function getUsersPermissionsToDocument(documentId, userId){
-    const results = await model.findById(documentId)
-    .populate({
-        path: 'permissions'
-    })
-    const permissions = results.permissions.filter(permission=>permission.userId.toString()===userId.toString())
-    return permissions.length ? permissions[0] : undefined
+    try{
+        const results = await model.findById(documentId)
+        .populate({
+            path: 'permissions'
+        })
+        const permissions = results.permissions.filter(permission=>permission.userId.toString()===userId.toString())
+        return permissions.length ? permissions[0] : undefined
+    }
+    catch(e){
+        return
+    }
 }
 
 model.getDocumentOwnerPermission = async function getDocumentOwnerPermission(documentId){
-    const results = await model.findById(documentId)
-    .populate({
-        path: 'permissions'
-    })
-    const ownerPermission = results.permissions.filter(p=>p.type==="o")
-    return ownerPermission[0]
+    try{
+        const results = await model.findById(documentId)
+        .populate({
+            path: 'permissions'
+        })
+        const ownerPermission = results.permissions.filter(p=>p.type==="o")
+        return ownerPermission.length ? ownerPermission[0] : undefined
+    }
+    catch(e){
+        return
+    }
 }
 
 model.deletePermissions = async function deletePermissions(documentId, permissionId){

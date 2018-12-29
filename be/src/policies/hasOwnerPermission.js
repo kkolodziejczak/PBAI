@@ -5,12 +5,17 @@ const httpStatuses = require('http-status-codes')
 
 module.exports = async function hasOwnerPermission(req, res){
     const id = getPayloadValue(req, 'id')
-    const permission = await PermissionsCollection.findById(id)
-    if (!permission){
-        return httpStatuses.NOT_FOUND
+    try{
+        const permission = await PermissionsCollection.findById(id)
+        if (!permission){
+            return httpStatuses.NOT_FOUND
+        }
+        const ownerPermission = await DocumentsCollection.getDocumentOwnerPermission(permission.documentId)
+        if (!ownerPermission || ownerPermission.userId.toString() !== req.user._id.toString()){
+            return httpStatuses.NOT_FOUND
+        }
     }
-    const ownerPermission = await DocumentsCollection.getDocumentOwnerPermission(permission.documentId)
-    if (!ownerPermission || ownerPermission.userId.toString() !== req.user._id.toString()){
+    catch(e){
         return httpStatuses.NOT_FOUND
     }
 }

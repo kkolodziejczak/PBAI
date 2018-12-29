@@ -1,8 +1,8 @@
 const PermissionsCollection = require('../../models/PermissionsCollection')
 
 const handlers = Object.freeze({
-    deletePermission: function deletePermission(params){
-        PermissionsCollection.deletePermission(params.id)
+    deletePermission: async function deletePermission(params){
+        return await PermissionsCollection.deletePermission(params.id, params.userId)
     }
 })
 

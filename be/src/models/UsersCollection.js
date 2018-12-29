@@ -64,7 +64,7 @@ model.findAndValidate = async function findAndValidate(login, password){
 model.deletePermission = function deletePermission(userId, permissionId){
     return model.findByIdAndUpdate(userId, { 
         $pull: {
-            permissions: permissionId
+            permissions: permissionId 
         }
     })
 }
@@ -72,7 +72,7 @@ model.deletePermission = function deletePermission(userId, permissionId){
 model.deleteShare = function deleteShare(userId, shareId){
     return model.findByIdAndUpdate(userId, { 
         $pull: { 
-            shares: shareId 
+            shares: shareId
         }
     })
 }
