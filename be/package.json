@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "coverage": "nyc nyc --reporter=html --reporter=text ./node_modules/mocha/bin/_mocha src/test/test.js --no-timeouts --exit && start ./coverage/index.html",
-    "test": "./node_modules/mocha/bin/_mocha src/test/test.js --no-timeouts --exit",
+    "test": "node ./node_modules/mocha/bin/_mocha src/test/test.js --no-timeouts --exit",
     "start-dev": "node index.js",
     "start": "concurrently \"node index.js\" \"node src/adminMongo/app.js\""
   },
