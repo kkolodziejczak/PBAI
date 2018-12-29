@@ -7,6 +7,12 @@ const crateRouter = require('../helpers/createRouter')
 
 module.exports = app => {
     return crateRouter([{
+        policy: authenticated,
+        route: '/done',
+        handler: function done(req, res, next){
+            return res.end()
+        }
+    }, {
         method: "put",
         policy: notAuthenticated,
         validation: [
@@ -20,7 +26,7 @@ module.exports = app => {
         ], 
         handler: function registration(req, res, next){
             return app.passport.authenticate('registration', {
-                successRedirect : '/'
+                successRedirect : '/auth/done'
             })(req, res, next)
         }
     }, {
@@ -32,7 +38,7 @@ module.exports = app => {
         }, 'body'),
         handler: function authorization(req, res, next){
             return app.passport.authenticate('authorization', {
-                successRedirect : '/'
+                successRedirect : '/auth/done'
             })(req, res, next)
         }
     }, {
