@@ -1,7 +1,7 @@
 
 
-# 1. Spis Treści
-[1. Spis Treści](#1-spis-treści)  
+# Spis Treści
+[1. Wymagania](#1-wymagania)  
 [2. Jak odpalic](#2-jak-odpalic)  
 [3. Testy](#3-testy)  
 [4. Zmienne srodowiskowe](#4-zmienne-srodowiskowe)  
@@ -23,6 +23,10 @@
 [6.1. Jak utworzyc konto admina?](#61-jak-utworzyc-konto-admina)  
 [6.2. Zmiana typu konta](#62-zmiana-typu-konta)  
 [6.3. Jak ustawic certyfikat i klucz dla https](#63-jak-ustawic-certyfikat-i-klucz-dla-https)
+
+# 1. Wymagania
+Aby uruchamiac w dockerze potrzebny jest tylko zainstalowany docker oraz docker-compose.  
+Aby uruchamiac lokalnie lub testowac nalezy miec zainstalowane srodowisko nodejs npm (min v8) oraz mongodb (min v4).
 
 # 2. Jak odpalic
 przestawic dockera na linuxowe containery i uruchomic  
