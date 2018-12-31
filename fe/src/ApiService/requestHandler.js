@@ -70,10 +70,8 @@ class RequestHandler {
     dev && console.log('Request -->', {url, request});
     let res = null;
     res = await fetch(url, request);
-    console.log('RES1', res);
     const status = res && res.status;
     const resText = res && (await res.text());
-    console.log('RES2', resText);
     let response = null;
     try {
       if (resText.includes('{')) {

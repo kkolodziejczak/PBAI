@@ -30,8 +30,7 @@ export function* register() {
     const {response, status} = yield call(apiUserRegister, payload);
 
     if (statusIsValid(status)) {
-      //TODO: handle success
-      yield put(userActions.registerSuccess());
+      yield put(userActions.registerSuccess(true));
     } else {
       let error;
       if (status === 409) {

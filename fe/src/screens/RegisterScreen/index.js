@@ -47,10 +47,15 @@ class RegisterScreenComponent extends React.PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.success) {
+      this.props.history.push(ROUTE_DASHBOARD);
+    }
+  }
+
   submit = e => {
     e.preventDefault();
     this.props.register(this.state.form);
-    //TODO: handle submit success
   };
 
   handleChange(key, e) {

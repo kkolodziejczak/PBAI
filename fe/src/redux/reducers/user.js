@@ -4,13 +4,13 @@ import {prefix, USER_LOGOUT} from 'constants/actionTypes';
 import {apiUserLogout} from 'ApiService/apiUserLogout';
 
 const initialState = {
-  ...createInitialState(prefix.REGISTER),
+  ...createInitialState(prefix.REGISTER, 'isLoggedIn'),
   ...createInitialState(prefix.LOGIN, 'isLoggedIn'),
 };
 
 const user = handleActions(
   {
-    ...createReducers(prefix.REGISTER),
+    ...createReducers(prefix.REGISTER, 'isLoggedIn'),
     ...createReducers(prefix.LOGIN, 'isLoggedIn'),
     [USER_LOGOUT]: async state => {
       await apiUserLogout();

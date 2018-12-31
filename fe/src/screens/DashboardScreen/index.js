@@ -4,7 +4,6 @@ import {compose} from 'redux';
 import {Button} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom';
 import {userActions} from 'redux/actions/user';
-import {apiGetUsers} from 'ApiService/apiGetUsers';
 import {documentActions} from 'redux/actions/document';
 import {ROUTE_LOGIN} from 'constants/routes';
 import Dropzone from 'components/Dropzone';
@@ -16,10 +15,9 @@ class DashboardScreenComponent extends React.Component {
   dropzone = null;
 
   async componentDidMount() {
-    const users = await apiGetUsers();
-    console.log('USERS', users);
-    const {clearLoginForm, isLoggedIn, history} = this.props;
+    const {clearLoginForm, clearRegisterForm, isLoggedIn, history} = this.props;
     clearLoginForm();
+    clearRegisterForm();
     if (!isLoggedIn) {
       history.push(ROUTE_LOGIN);
     }
@@ -46,16 +44,16 @@ class DashboardScreenComponent extends React.Component {
     return (
       <React.Fragment>
         <NavMenu />
-        <ScreenWrapper title="Share documents" titleCenter maxWidth={500}>
+        <ScreenWrapper title='Share documents' titleCenter maxWidth={500}>
           <Dropzone ref={d => (this.dropzone = d)} />
           {error && (
-            <div className="error" style={{textAlign: 'center', marginTop: 5, color: '#c66'}}>
+            <div className='error' style={{textAlign: 'center', marginTop: 5, color: '#c66'}}>
               {error}
             </div>
           )}
           <form onSubmit={this.submit}>
-            <Button type="submit" bsStyle="primary" className="pull-right" style={{marginRight: 100, marginTop: 20}}>
-              {loading ? <Spinner color="white" /> : 'Submit'}
+            <Button type='submit' bsStyle='primary' className='pull-right' style={{marginRight: 100, marginTop: 20}}>
+              {loading ? <Spinner color='white' /> : 'Submit'}
             </Button>
           </form>
         </ScreenWrapper>
@@ -73,6 +71,7 @@ const mamStateToProps = ({user, document}) => ({
 
 const mapDispatchToProps = dispatch => ({
   clearLoginForm: () => dispatch(userActions.loginClear()),
+  clearRegisterForm: () => dispatch(userActions.registerClear()),
   documentSend: payload => dispatch(documentActions.documentSendRequest(payload)),
 });
 
