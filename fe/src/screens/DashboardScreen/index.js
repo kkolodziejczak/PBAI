@@ -11,7 +11,7 @@ import ScreenWrapper from 'components/ScreenWrapper';
 
 class DashboardScreenComponent extends React.Component {
   state = {
-    step: 2,
+    step: 1,
   };
 
   nextStep = () => this.setState(prevState => ({step: prevState.step + 1}));

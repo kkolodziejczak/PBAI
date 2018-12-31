@@ -5,6 +5,7 @@ import {prefix} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';
 import {mapError, statusIsValid} from 'helpers/index';
 import {apiDocumentSend} from 'ApiService/apiDocumentSend';
+import {apiDocumentShare} from '../../ApiService/apiDocumentShare';
 
 export function* send() {
   while (true) {
@@ -15,11 +16,33 @@ export function* send() {
     } else {
       let error;
       if (status === 401) {
-        error = 'You are not authorized to send the document.';
+        error = 'you are not authorized to send the document';
       } else {
         error = mapError(response);
       }
       yield put(documentActions.documentSendError(error));
+    }
+  }
+}
+
+export function* share() {
+  while (true) {
+    const {payload} = yield take(getActionName(prefix.DOCUMENT_SHARE, suffix.REQUEST));
+    const {response, status} = yield call(apiDocumentShare, payload);
+    if (statusIsValid(status)) {
+      yield put(documentActions.documentShareSuccess(true));
+    } else {
+      let error;
+      if (status === 401) {
+        error = {login: 'you are not authorized to send the document'};
+      } else if (status === 400) {
+        if (response !== 'Bad Request' && response !== '400') {
+          error = mapError(response);
+        } else {
+          error = {login: 'given login is not valid'};
+        }
+      }
+      yield put(documentActions.documentShareError(error));
     }
   }
 }

@@ -1,13 +1,49 @@
 import React from 'react';
-// import {documentActions} from 'redux/actions/document';
+import {FormGroup, ControlLabel, HelpBlock, FormControl} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {documentActions} from 'redux/actions/document';
 import SubmitButton from '../SubmitButton';
 import FormWrapper from '../FormWrapper';
 
 class ShareForm extends React.Component {
-  submit = () => {};
+  state = {
+    login: '',
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.success) {
+      this.props.next();
+    }
+  }
+
+  submit = e => {
+    e.preventDefault();
+    const id = this.props.documentId;
+    if (!id) {
+      alert('There is no document id');
+      return null;
+    }
+    const {login} = this.state;
+    this.props.submit({id, login});
+  };
 
   _renderInput() {
-    return null;
+    const {error} = this.props;
+    return (
+      <FormGroup style={{marginTop: 20}} controlId='login' validationState={error && error.login ? 'error' : null}>
+        <ControlLabel>Document receiver login</ControlLabel>
+        <FormControl
+          value={this.state.login}
+          placeholder='Enter login'
+          onChange={e => this.setState({login: e.target.value})}
+        />
+        {error && error.login && (
+          <HelpBlock>
+            <span className='error'>{error.login}</span>
+          </HelpBlock>
+        )}
+      </FormGroup>
+    );
   }
 
   render() {
@@ -27,4 +63,17 @@ class ShareForm extends React.Component {
   }
 }
 
-export default ShareForm;
+const mapStateToProps = ({document}) => ({
+  documentId: document.documentId,
+  error: document.documentShareError,
+  success: document.documentShareSuccess,
+});
+
+const mapDispatchToProps = dispatch => ({
+  submit: payload => dispatch(documentActions.documentShareRequest(payload)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ShareForm);
