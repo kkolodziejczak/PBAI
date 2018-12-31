@@ -1,11 +1,11 @@
 import React from 'react';
 import {compose} from 'redux';
-import Spinner from 'react-activity/lib/Spinner';
-import {FormGroup, ControlLabel, FormControl, Button, HelpBlock} from 'react-bootstrap';
+import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {userActions} from 'redux/actions/user';
 import {Link} from 'react-router-dom';
+import SubmitButton from 'components/SubmitButton';
 import ScreenWrapper from 'components/ScreenWrapper';
 import {ROUTE_REGISTER, ROUTE_DASHBOARD} from 'constants/routes';
 
@@ -88,9 +88,7 @@ class LoginScreenComponent extends React.Component {
       <ScreenWrapper title='Login' titleCenter maxWidth={500}>
         <form onSubmit={this.submit} className='clearfix'>
           {this._renderInputs()}
-          <Button type='submit' bsStyle='primary' className='pull-right'>
-            {this.props.loading ? <Spinner color='white' /> : 'Submit'}
-          </Button>
+          <SubmitButton loading={this.props.loading} text='Submit' />
         </form>
         {this._renderFooter()}
       </ScreenWrapper>

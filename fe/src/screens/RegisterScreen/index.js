@@ -1,12 +1,12 @@
 import React from 'react';
-import {FormGroup, ControlLabel, FormControl, Button, HelpBlock} from 'react-bootstrap';
+import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import {compose} from 'redux';
 import {Link, withRouter} from 'react-router-dom';
 import {userActions} from 'redux/actions/user';
-import Spinner from 'react-activity/lib/Spinner';
 import {connect} from 'react-redux';
 import ScreenWrapper from 'components/ScreenWrapper';
 import {ROUTE_LOGIN, ROUTE_DASHBOARD} from 'constants/routes';
+import SubmitButton from 'components/SubmitButton';
 
 class RegisterScreenComponent extends React.PureComponent {
   state = {
@@ -89,9 +89,7 @@ class RegisterScreenComponent extends React.PureComponent {
       <ScreenWrapper title='Register' titleCenter maxWidth={500}>
         <form onSubmit={this.submit} className='clearfix'>
           {this._renderInputs()}
-          <Button type='submit' bsStyle='primary' className='pull-right'>
-            {this.props.loading ? <Spinner color='white' /> : 'Submit'}
-          </Button>
+          <SubmitButton loading={this.props.loading} text='Submit' />
         </form>
         <span>
           Go to <Link to={ROUTE_LOGIN}>login</Link>

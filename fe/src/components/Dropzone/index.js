@@ -37,7 +37,7 @@ class DropzoneComponent extends React.Component {
   render() {
     const {file} = this.state;
     return (
-      <Dropzone onDrop={this.onDrop} accept="text/plain">
+      <Dropzone onDrop={this.onDrop} accept='text/plain'>
         {({getRootProps, getInputProps, isDragActive, isDragReject}) => {
           let styles = {...baseStyle};
           styles = isDragActive ? {...styles, ...activeStyle} : styles;
@@ -48,7 +48,7 @@ class DropzoneComponent extends React.Component {
               {isDragActive ? (
                 <p>Drop files here...</p>
               ) : (
-                <p>Try dropping some txt files here, or click to select files to upload.</p>
+                <p>Try dropping some txt file here, or click to select file to upload.</p>
               )}
               {file && (
                 <p>

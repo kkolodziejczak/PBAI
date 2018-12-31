@@ -1,20 +1,22 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
-import {Button} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom';
 import {userActions} from 'redux/actions/user';
-import {documentActions} from 'redux/actions/document';
 import {ROUTE_LOGIN} from 'constants/routes';
-import Dropzone from 'components/Dropzone';
 import NavMenu from 'components/NavMenu';
-import Spinner from 'react-activity/lib/Spinner';
+import UploadForm from 'components/UploadForm';
+import ShareForm from 'components/ShareForm';
 import ScreenWrapper from 'components/ScreenWrapper';
 
 class DashboardScreenComponent extends React.Component {
-  dropzone = null;
+  state = {
+    step: 2,
+  };
 
-  async componentDidMount() {
+  nextStep = () => this.setState(prevState => ({step: prevState.step + 1}));
+
+  componentDidMount() {
     const {clearLoginForm, clearRegisterForm, isLoggedIn, history} = this.props;
     clearLoginForm();
     clearRegisterForm();
@@ -23,62 +25,42 @@ class DashboardScreenComponent extends React.Component {
     }
   }
 
-  submit = async e => {
-    e.preventDefault();
-    const file = this.dropzone.getFile();
-    if (!file) {
-      alert('Please upload a file.');
-      return null;
+  _renderContent() {
+    switch (this.state.step) {
+      case 1:
+        return <UploadForm next={this.nextStep} />;
+      case 2:
+        return <ShareForm next={this.nextStep} />;
+      default:
+        return null;
     }
-    const name = file.name;
-    const reader = new FileReader();
-    reader.onload = event => {
-      const base64Stream = event.target.result.replace('data:text/plain;base64', '');
-      this.props.documentSend({name, content: base64Stream});
-    };
-    reader.readAsDataURL(file);
-  };
+  }
 
   render() {
-    const {error, loading} = this.props;
     return (
       <React.Fragment>
         <NavMenu />
-        <ScreenWrapper title='Share documents' titleCenter maxWidth={500}>
-          <Dropzone ref={d => (this.dropzone = d)} />
-          {error && (
-            <div className='error' style={{textAlign: 'center', marginTop: 5, color: '#c66'}}>
-              {error}
-            </div>
-          )}
-          <form onSubmit={this.submit}>
-            <Button type='submit' bsStyle='primary' className='pull-right' style={{marginRight: 100, marginTop: 20}}>
-              {loading ? <Spinner color='white' /> : 'Submit'}
-            </Button>
-          </form>
+        <ScreenWrapper title={`Document sharing (step ${this.state.step})`} titleCenter>
+          {this._renderContent()}
         </ScreenWrapper>
       </React.Fragment>
     );
   }
 }
 
-const mamStateToProps = ({user, document}) => ({
+const mapStateToProps = ({user, document}) => ({
   isLoggedIn: user.isLoggedIn,
-  loading: document.documentSendLoading,
-  error: document.documentSendError,
-  success: document.documentSendSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
   clearLoginForm: () => dispatch(userActions.loginClear()),
   clearRegisterForm: () => dispatch(userActions.registerClear()),
-  documentSend: payload => dispatch(documentActions.documentSendRequest(payload)),
 });
 
 const DashboardScreen = compose(
   withRouter,
   connect(
-    mamStateToProps,
+    mapStateToProps,
     mapDispatchToProps,
   ),
 )(DashboardScreenComponent);
