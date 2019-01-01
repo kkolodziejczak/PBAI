@@ -17,10 +17,23 @@ module.exports = function test(config){
                 login: user.login
             }))
         })
-        it('unauthenticated user can not check his informations', async ()=>{
+        it('not authenticated user can not check his informations', async ()=>{
             return await agent(config.app)
             .get(`/users`)
             .expect(401)
+        })
+        it('not authenticated user can not get somebodys login', async ()=>{
+            return await agent(config.app)
+            .get(`/users/${config.users[3].userObject._id.toString()}`)
+            .expect(401)
+        })
+        it('user can get somebodys login', async ()=>{
+            return await config.users[2].agent
+            .get(`/users/${config.users[3].userObject._id.toString()}`)
+            .expect(200)
+            .expect({
+                login: config.users[3].userObject.login
+            })
         })
     })
 }

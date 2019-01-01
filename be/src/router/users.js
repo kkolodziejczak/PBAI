@@ -10,6 +10,27 @@ module.exports = app => {
     return crateRouter([{
         method: "get",
         policy: authenticated,
+        route: "/:id",
+        validation: validJoiScheme({
+            id: schemes.login
+        }, 'params'),
+        handler: async function getLogin(req, res, next){
+            try {
+                const user = await UsersCollection.findById(req.params.id)
+                if (!user){
+                    throw new Error()
+                }
+                return res.json({
+                    login: user.login
+                })
+            }
+            catch(e){
+                return res.sendStatus(httpStatuses.NOT_FOUND)
+            }
+        }
+    }, {
+        method: "get",
+        policy: authenticated,
         handler: async function getUserInfo(req, res){
             const user = await UsersCollection.findById(req.user._id)
             return res.json({
