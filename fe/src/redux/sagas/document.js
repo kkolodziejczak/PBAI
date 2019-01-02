@@ -30,7 +30,7 @@ export function* share() {
     const {payload} = yield take(getActionName(prefix.DOCUMENT_SHARE, suffix.REQUEST));
     const {response, status} = yield call(apiDocumentShare, payload);
     if (statusIsValid(status)) {
-      yield put(documentActions.documentShareSuccess(true));
+      yield put(documentActions.documentShareSuccess(response));
     } else {
       let error;
       if (status === 401) {

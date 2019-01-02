@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {withRouter} from 'react-router-dom';
 import {userActions} from 'redux/actions/user';
-import {ROUTE_LOGIN} from 'constants/routes';
+import {ROUTE_LOGIN, ROUTE_UPLOADS} from 'constants/routes';
 import NavMenu from 'components/NavMenu';
 import UploadForm from 'components/UploadForm';
-import ShareForm from 'components/ShareForm';
 import ScreenWrapper from 'components/ScreenWrapper';
+import UploadSuccess from 'components/UploadSuccess';
 
 class DashboardScreenComponent extends React.Component {
   state = {
@@ -30,7 +30,7 @@ class DashboardScreenComponent extends React.Component {
       case 1:
         return <UploadForm next={this.nextStep} />;
       case 2:
-        return <ShareForm next={this.nextStep} />;
+        return <UploadSuccess onClick={() => this.props.history.push(ROUTE_UPLOADS)} />;
       default:
         return null;
     }
@@ -40,7 +40,7 @@ class DashboardScreenComponent extends React.Component {
     return (
       <React.Fragment>
         <NavMenu />
-        <ScreenWrapper title={`Document sharing (step ${this.state.step})`} titleCenter>
+        <ScreenWrapper title='Document upload' titleCenter>
           {this._renderContent()}
         </ScreenWrapper>
       </React.Fragment>

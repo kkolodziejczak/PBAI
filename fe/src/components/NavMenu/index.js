@@ -4,8 +4,9 @@ import {compose} from 'redux';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {LinkContainer} from 'react-router-bootstrap';
 import {userActions} from 'redux/actions/user';
-import {ROUTE_DASHBOARD, ROUTE_LOGIN} from 'constants/routes';
+import {ROUTE_DASHBOARD, ROUTE_LOGIN, ROUTE_UPLOADS} from 'constants/routes';
 
 class NavMenu extends React.Component {
   _logout = e => {
@@ -26,12 +27,10 @@ class NavMenu extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} href="#">
-              Link
-            </NavItem>
-            <NavItem eventKey={2} href="#">
-              Link
-            </NavItem>
+            <LinkContainer to={ROUTE_UPLOADS}>
+              <NavItem eventKey={1}>My uploads</NavItem>
+            </LinkContainer>
+            <NavItem eventKey={2}>Link</NavItem>
           </Nav>
           <Nav pullRight>
             <NavItem eventKey={1} onClick={this._logout}>

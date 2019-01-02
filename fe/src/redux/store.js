@@ -23,6 +23,7 @@ const composedEnhancers = compose(
 
 const persistConfig = {
   key: 'root',
+  whitelist: ['user'],
   storage,
 };
 
