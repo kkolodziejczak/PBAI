@@ -1,5 +1,4 @@
 import {put, call, take} from 'redux-saga/effects';
-// import {call, take} from 'redux-saga/effects';
 import {documentActions} from '../actions/document';
 import {prefix} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';

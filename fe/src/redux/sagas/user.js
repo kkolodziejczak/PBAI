@@ -1,10 +1,12 @@
 import {put, call, take} from 'redux-saga/effects';
 import {userActions} from '../actions/user';
-import {prefix} from 'constants/actionTypes';
+import {prefix, USER_LOGOUT, GET_USER_DATA} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';
 import {mapError, statusIsValid} from 'helpers/index';
 import {apiUserRegister} from 'ApiService/apiUserRegister';
 import {apiUserLogin} from 'ApiService/apiUserLogin';
+import {apiUserLogout} from 'ApiService/apiUserLogout';
+import {apiGetUsers} from 'ApiService/apiGetUsers';
 
 export function* login() {
   while (true) {
@@ -40,5 +42,20 @@ export function* register() {
       }
       yield put(userActions.registerError(error));
     }
+  }
+}
+
+export function* logout() {
+  while (true) {
+    yield take(USER_LOGOUT);
+    yield call(apiUserLogout);
+  }
+}
+
+export function* getProfile() {
+  while (true) {
+    yield take(GET_USER_DATA);
+    const {response} = yield call(apiGetUsers);
+    yield put(userActions.setUserData(response));
   }
 }

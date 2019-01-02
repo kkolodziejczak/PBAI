@@ -17,12 +17,14 @@ class DashboardScreenComponent extends React.Component {
   nextStep = () => this.setState(prevState => ({step: prevState.step + 1}));
 
   componentDidMount() {
-    const {clearLoginForm, clearRegisterForm, isLoggedIn, history} = this.props;
+    const {clearLoginForm, clearRegisterForm, isLoggedIn, history, getUserData} = this.props;
     clearLoginForm();
     clearRegisterForm();
     if (!isLoggedIn) {
       history.push(ROUTE_LOGIN);
+      return;
     }
+    getUserData();
   }
 
   _renderContent() {
@@ -55,6 +57,7 @@ const mapStateToProps = ({user, document}) => ({
 const mapDispatchToProps = dispatch => ({
   clearLoginForm: () => dispatch(userActions.loginClear()),
   clearRegisterForm: () => dispatch(userActions.registerClear()),
+  getUserData: () => dispatch(userActions.getUserData()),
 });
 
 const DashboardScreen = compose(

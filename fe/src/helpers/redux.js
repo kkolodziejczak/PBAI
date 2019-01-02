@@ -12,7 +12,7 @@ export const toCamelCase = str => {
 };
 
 //Redux helpers
-export const createReducers = (PREFIX: string, successResultVariable?: string): Object => {
+export const createReducers = (PREFIX, successResultVariable) => {
   const core = toCamelCase(PREFIX);
   const successVar = successResultVariable ? successResultVariable : `${core}Message`;
   return {
@@ -48,9 +48,9 @@ export const suffix = {
   CLEAR: 'CLEAR',
 };
 
-export const getActionName = (prefix: string, suffix: string): string => `${prefix}_${suffix}`;
+export const getActionName = (prefix, suffix) => `${prefix}_${suffix}`;
 
-export const createInitialState = (PREFIX: string, successResultVariable?: string): Object => {
+export const createInitialState = (PREFIX, successResultVariable) => {
   const core = toCamelCase(PREFIX);
   const successVar = successResultVariable ? successResultVariable : `${core}Message`;
   return {
@@ -61,7 +61,7 @@ export const createInitialState = (PREFIX: string, successResultVariable?: strin
   };
 };
 
-export const createActions = (PREFIX: string): Object => {
+export const createActions = PREFIX => {
   const core = toCamelCase(PREFIX);
   return {
     [`${core}Request`]: createAction(getActionName(PREFIX, suffix.REQUEST), payload => payload),
