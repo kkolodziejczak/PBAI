@@ -4,6 +4,7 @@
 [1. Wymagania](#1-wymagania)  
 [2. Jak odpalic](#2-jak-odpalic)  
 [3. Testy](#3-testy)  
+[3.1. Aktualny test coverage](#31-aktualny-test-coverage)  
 [4. Zmienne srodowiskowe](#4-zmienne-srodowiskowe)  
 [4.1. Ustawienie zmiennych](#41-ustawienie-zmiennych)  
 [4.2. Zmienne wymagane](#42-zmienne-wymagane)  
@@ -45,6 +46,8 @@ Sprawdzenie pokrycia testami
 npm run coverage
 ```
 Otrzymujemy wynik w konsoli oraz w przegladarce
+## 3.1. Aktualny test coverage
+[coverage](coverage/index.html)
 
 # 4. Zmienne srodowiskowe
 ## 4.1. Ustawienie zmiennych

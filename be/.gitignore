@@ -22,7 +22,7 @@ log.html
 logs.html
 
 # Coverage directory used by tools like istanbul
-coverage
+# coverage
 
 # nyc test coverage
 .nyc_output
