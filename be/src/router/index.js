@@ -8,7 +8,7 @@ const httpStatus = require('http-status-codes')
 module.exports = async app => {
     const router = createRouter([{
         handler: function app(req, res){
-            return res.redirect('/index.js')
+            return res.redirect('/index.html')
         }
     }], getLocalRoutes(app, __filename))
 

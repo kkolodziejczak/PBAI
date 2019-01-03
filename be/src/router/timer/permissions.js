@@ -36,18 +36,21 @@ module.exports = app => {
                         req.body.id, config.PERMISSIONS_DATABASE_NAME
                     )
                     timer.invokeOnTime(app.eventEmitter)
+                    req.session.logger(`timer set (id:${timer._id})`)
                     return res.json({
                         id: timer._id.toString()
                     })
                 }
                 catch(err){
                     if (err === TimersCollection.timerAlreadyExistsError){
+                        req.session.logger(`permission already has timer set up`)
                         return res.sendStatus(httpStatuses.CONFLICT)
                     }
                     throw err
                 }
             }
             catch(e){
+                req.session.logger(`invalid permission id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
         }
@@ -62,8 +65,9 @@ module.exports = app => {
             try{
                 const timer = await TimersCollection.findById(req.params.id)
                 if (!timer){
-                    return res.sendStatus(httpStatuses.NOT_FOUND)
+                    throw new Error()
                 }
+                req.session.logger(`timer (id: ${timer._id}) sent`)
                 return res.json({
                     id: timer._id.toString(),
                     type: timer.type,
@@ -74,6 +78,7 @@ module.exports = app => {
                 })
             }
             catch(e){
+                req.session.logger(`invalid permission id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
         }
@@ -87,12 +92,14 @@ module.exports = app => {
             try{
                 const timer = await TimersCollection.findById(req.body.id)
                 if (!timer){
-                    return res.sendStatus(httpStatuses.NOT_FOUND)
+                    throw new Error()
                 }
                 await TimersCollection.deleteTimer(timer._id)
+                req.session.logger(`timer (id: ${timer._id}) deleted`)
                 return res.end()
             }
             catch(e){
+                req.session.logger(`invalid permission id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
         }

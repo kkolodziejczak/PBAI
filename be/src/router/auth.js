@@ -46,6 +46,7 @@ module.exports = app => {
         policy: authenticated,
         handler: function deAuthorization(req, res, next){
             req.logout()
+            req.session.logger('Logged out')
             return res.end()
         }
     }])

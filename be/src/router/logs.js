@@ -10,6 +10,7 @@ module.exports = app => {
             if (!config.SERVE_LOGS){
                 return next()
             }
+            req.session.logger(`sending logs`)
             return res.sendFile(config.SERVE_LOGS)
         }
     }])

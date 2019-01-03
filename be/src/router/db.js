@@ -6,7 +6,8 @@ module.exports = app => {
     return crateRouter([{
         policy: noAccess,
         handler: function putDocument(req, res, next){
-             res.redirect(`http://localhost:${config.PORT_MONGO_ADMIN}/`)
+            req.session.logger(`redirecting to db admin page`)
+            res.redirect(`http://localhost:${config.PORT_MONGO_ADMIN}/`)
         }
     }])
 }

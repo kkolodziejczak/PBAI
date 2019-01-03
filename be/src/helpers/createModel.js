@@ -6,6 +6,6 @@ module.exports = async (model, props) => {
         record[key] = props[key]
     })
     await record.save()
-    log.debug(`A new record has been added to ${model.modelName} id: "${record._id}"`)
+    log.trace(`A new record has been added to ${model.modelName} id: "${record._id}"`)
     return record
 } 

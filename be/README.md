@@ -461,6 +461,16 @@ newPassword: schemes.passwordNotRequired
 login: loginUsera
 ```
 * usuwa uzytkownika
+  
+### 5.10.1. /users/:id
+1.
+* get
+* dostep: authenticated
+* zwraca login uzytkownika o podanym id
+* response body
+```
+login: 'loginOfUserOfProvidedId'
+```
 
 # 6. FAQ
 ## 6.1. Jak utworzyc konto admina?
