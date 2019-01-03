@@ -1,5 +1,3 @@
-
-
 # Spis Treści
 [1. Wymagania](#1-wymagania)  
 [2. Jak odpalic](#2-jak-odpalic)  
@@ -490,7 +488,3 @@ openssl req -new -key ssl-key.pem -out certrequest.csr
 openssl x509 -req -in certrequest.csr -signkey ssl-key.pem -out ssl-cert.pem
 ```
 Ustawic odpowiednie sciezki w configu
-
-# TODO
-testy: timer, uncomment rest
-sprobowac we flow zmienic aby klucze prywatne tez hashowac aesem
