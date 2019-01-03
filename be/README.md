@@ -47,7 +47,7 @@ npm run coverage
 ```
 Otrzymujemy wynik w konsoli oraz w przegladarce
 ## 3.1. Aktualny test coverage
-[coverage](coverage/index.html)
+![coverage](coverage.png)
 
 # 4. Zmienne srodowiskowe
 ## 4.1. Ustawienie zmiennych
