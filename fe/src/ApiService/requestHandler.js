@@ -74,7 +74,7 @@ class RequestHandler {
     const resText = res && (await res.text());
     let response = null;
     try {
-      if (resText.includes('{')) {
+      if (resText.includes('{') && !resText.includes('html')) {
         response = JSON.parse(resText);
       } else {
         response = resText;

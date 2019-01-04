@@ -6,9 +6,37 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
 import {userActions} from 'redux/actions/user';
-import {ROUTE_DASHBOARD, ROUTE_LOGIN, ROUTE_UPLOADS} from 'constants/routes';
+import {ROUTE_DASHBOARD, ROUTE_LOGIN, ROUTE_UPLOADS, ROUTE_LOGS} from 'constants/routes';
 
 class NavMenu extends React.Component {
+  get links() {
+    return [
+      {
+        text: 'My uploads',
+        to: ROUTE_UPLOADS,
+        requireAdmin: false,
+      },
+      {
+        text: 'Logs',
+        to: ROUTE_LOGS,
+        requireAdmin: true,
+      },
+    ];
+  }
+
+  _renderLinks = () =>
+    this.links.map((link, i) => {
+      const {text, to, requireAdmin} = link;
+      if (requireAdmin && !this.props.isAdmin) {
+        return null;
+      }
+      return (
+        <LinkContainer to={to} key={i}>
+          <NavItem eventKey={i + 1}>{text}</NavItem>
+        </LinkContainer>
+      );
+    });
+
   _logout = e => {
     e.preventDefault();
     const {logout, history} = this.props;
@@ -26,12 +54,7 @@ class NavMenu extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav>
-            <LinkContainer to={ROUTE_UPLOADS}>
-              <NavItem eventKey={1}>My uploads</NavItem>
-            </LinkContainer>
-            <NavItem eventKey={2}>Link</NavItem>
-          </Nav>
+          <Nav>{this._renderLinks()}</Nav>
           <Nav pullRight>
             <NavItem eventKey={1} onClick={this._logout}>
               Log out
@@ -43,13 +66,16 @@ class NavMenu extends React.Component {
   }
 }
 
+const mapStateToProps = ({user}) => ({isAdmin: user.me.isAdmin});
+
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(userActions.logout()),
 });
+
 export default compose(
   withRouter,
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
   ),
 )(NavMenu);
