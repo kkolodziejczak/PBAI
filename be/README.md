@@ -1,9 +1,8 @@
-
-
 # Spis Treści
 [1. Wymagania](#1-wymagania)  
 [2. Jak odpalic](#2-jak-odpalic)  
 [3. Testy](#3-testy)  
+[3.1. Aktualny test coverage](#31-aktualny-test-coverage)  
 [4. Zmienne srodowiskowe](#4-zmienne-srodowiskowe)  
 [4.1. Ustawienie zmiennych](#41-ustawienie-zmiennych)  
 [4.2. Zmienne wymagane](#42-zmienne-wymagane)  
@@ -45,6 +44,8 @@ Sprawdzenie pokrycia testami
 npm run coverage
 ```
 Otrzymujemy wynik w konsoli oraz w przegladarce
+## 3.1. Aktualny test coverage
+![coverage](coverage.png)
 
 # 4. Zmienne srodowiskowe
 ## 4.1. Ustawienie zmiennych
@@ -461,6 +462,16 @@ newPassword: schemes.passwordNotRequired
 login: loginUsera
 ```
 * usuwa uzytkownika
+  
+### 5.10.1. /users/:id
+1.
+* get
+* dostep: authenticated
+* zwraca login uzytkownika o podanym id
+* response body
+```
+login: 'loginOfUserOfProvidedId'
+```
 
 # 6. FAQ
 ## 6.1. Jak utworzyc konto admina?
@@ -477,7 +488,3 @@ openssl req -new -key ssl-key.pem -out certrequest.csr
 openssl x509 -req -in certrequest.csr -signkey ssl-key.pem -out ssl-cert.pem
 ```
 Ustawic odpowiednie sciezki w configu
-
-# TODO
-testy: timer, uncomment rest
-sprobowac we flow zmienic aby klucze prywatne tez hashowac aesem

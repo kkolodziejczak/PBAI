@@ -20,6 +20,7 @@ module.exports = app => {
             const document = await DocumentsCollection.createNew(
                 req.user._id, req.body.name, req.body.content
             )
+            req.session.logger(`document added (id: ${document._id})`)
             return res.json({id: document._id.toString()})
         }
     }, {
@@ -33,13 +34,14 @@ module.exports = app => {
             try{
                 const document = await DocumentsCollection.findById(req.params.id)
                 if (!document){
-                    return res.sendStatus(httpStatuses.NOT_FOUND)
+                    throw new Error()
                 }
                 if (!req.user.isAdmin && req.body.permission && req.body.permission.type !== permissionTypes.owner){
                     const myPermission = req.body.permission || await DocumentsCollection.getUsersPermissionsToDocument(req.params.id, req.user._id)
                     const owner = await DocumentsCollection.getDocumentOwnerPermission(req.params.id)
                     document.permissions = [myPermission, owner].filter(p=>p!==undefined).map(p=>p._id)
                 }
+                req.session.logger(`document sent (id: ${document._id})`)
                 return res.json({
                     id: document._id.toString(),
                     name: document.name,
@@ -48,6 +50,7 @@ module.exports = app => {
                 })
             }
             catch(e){
+                req.session.logger(`invalid document id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
         }

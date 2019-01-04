@@ -85,13 +85,6 @@ function shouldLog (level, fun){
     return LEVEL <= level && fun()
 }   
 
-const logger = function logger(req, res, next) {
-    info(`Request: ${req.ip} (${req.session.id}) ${req.method}: ${req.url}`)
-    config.LOG_BODY && Object.keys(req.body).length && info('Request body:', req.body)
-    config.LOG_BODY && Object.keys(req.query).length && info('Request body:', req.query)
-    return next()
-}
-
 function trace(...args){
     return shouldLog(LEVELS.trace, ()=>logWithProvider('blue', ...args))
 }
@@ -122,8 +115,7 @@ function init(){
         debug,
         info,
         warn,
-        error,
-        logger
+        error
     }
     return log
 }

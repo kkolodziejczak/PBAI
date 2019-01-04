@@ -23,8 +23,8 @@ function checkPolicies(policies){
         }
         const accessError = policies && await runner(policies, req, res)
         if (accessError){
-            res.sendStatus(accessError)
-            return log.trace(`Access error ${accessError}`)
+            req.session.logger(`Access error ${accessError}`)
+            return res.sendStatus(accessError)
         }
         return next()
     }
@@ -34,8 +34,8 @@ function validate(validators){
     return async function validate(req, res, next){
         const validationError = validators && await runner(validators, req, res)
         if (validationError){
-            res.status(400).json(validationError)
-            return log.trace(`Validation error ${validationError.join ? validationError.join(', ') : validationError}`)
+            req.session.logger(`Validation error ${validationError.join ? validationError.join(', ') : validationError}`)
+            return res.status(400).json(validationError)
         }
         return next()
     }

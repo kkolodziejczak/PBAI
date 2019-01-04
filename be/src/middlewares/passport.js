@@ -23,17 +23,18 @@ passport.use('registration', new LocalStrategy({
     usernameField:"login", 
     passwordField:"password"
 }, async function registerUser(req, login, password, done) {
-    log.trace("Creating a new user:", login)
     try{
         const newUser = await UsersCollection.createNew(login, password, req.body.admin)
-        log.trace("User created:", login)
+        req.session.logger("User created:", login)
         return done(null, newUser)
     }
     catch(err){
         if (err.codeName === "ImmutableField"){
+            req.session.logger("Creating error: Login is already taken")
             return done(null, false, httpStatuses.CONFLICT)
         }
-        log.trace("Creating error:", err)
+        
+        req.session.logger("Creating error:", err.message)
         return done(null, false)
     }
 }))
@@ -43,12 +44,13 @@ passport.use('authorization', new LocalStrategy({
     usernameField:"login", 
     passwordField:"password"
 }, async function loginUser(req, login, password, done) {
-    log.trace("Authentication user:", login)
     try{
-        return done(null, await UsersCollection.findAndValidate(login, password) || false)
+        const auth = await UsersCollection.findAndValidate(login, password)
+        req.session.logger(auth ? `Authorization ok` : `Authorization failure`)
+        return done(null, auth || false)
     }
     catch(err){
-        log.error("Authentication error:", err)
+        req.session.logger("Authentication error:", err)
         return done(err)
     }
 }))

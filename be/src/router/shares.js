@@ -27,19 +27,23 @@ module.exports = app => {
                 if (req.params.id){
                     const share = req.body.share || await SharesCollection.findById(req.params.id)
                     if (!share){
-                        return res.sendStatus(httpStatuses.NOT_FOUND)
+                        throw new Error()
                     }
                     share.crypted = null
+                    req.session.logger(`sending share info (id: ${req.params.id})`)
                     return res.json(share)
                 }
                 if (!req.user.isAdmin){
                     const user = await UsersCollection.findById(req.user._id)
+                    req.session.logger(`sending user shares info`)
                     return res.json(user.shares)
                 }
                 const shares = await SharesCollection.find({})
+                req.session.logger(`sending all shares info`)
                 return res.json(shares.map(s=>s._id))
             }
             catch(e){
+                req.session.logger(`invalid share id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
         }
@@ -60,10 +64,12 @@ module.exports = app => {
                     userId = share.originUser.id
                 }
                 catch(e){
+                    req.session.logger(`invalid share id`)
                     return res.sendStatus(httpStatuses.NOT_FOUND)
                 }
             }
             await SharesCollection.deleteShare(req.body.id, userId)
+            req.session.logger(`share deleted`)
             return res.end()
         }
     }, {
@@ -88,17 +94,18 @@ module.exports = app => {
             try{
                 const loginUser = req.body.loginUser || (await UsersCollection.find({login: req.body.login}))[0]
                 if (!loginUser || loginUser._id.toString() === req.user._id.toString()){
+                    req.session.logger(`invalid partner user login`)
                     return res.sendStatus(httpStatuses.BAD_REQUEST)
                 }
                 const ownerPermission = await DocumentsCollection.getDocumentOwnerPermission(req.body.id)
                 if (!ownerPermission){
-                    return res.sendStatus(httpStatuses.NOT_FOUND)
+                    throw new Error()
                 }
                 const owner = await UsersCollection.findById(ownerPermission.userId)
                 let ownerId;
                 if (!owner || owner._id.toString() !== req.user._id.toString()){
                     if (!req.user.isAdmin){
-                        return res.sendStatus(httpStatuses.NOT_FOUND)
+                        throw new Error()
                     }
                     ownerId = owner._id
 
@@ -106,15 +113,19 @@ module.exports = app => {
                     ownerId = req.user._id
                 }
                 try {
-                    return res.json(await SharesCollection.createNew(
+                    const share = await SharesCollection.createNew(
                         ownerId, loginUser._id, req.body.id
-                    ))
+                    )
+                    req.session.logger(`share created (id: ${share._id})`)
+                    return res.json(share)
                 }
                 catch (err){
+                    req.session.logger(`invalid partner user login`)
                     return res.sendStatus(httpStatuses.BAD_REQUEST)
                 }
             }
             catch(e){
+                req.session.logger(`invalid share id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
         }
@@ -131,9 +142,11 @@ module.exports = app => {
                 if (!share || share.state === -1){
                     throw new Error()
                 }
+                req.session.logger(`redirecting to state handler (state: ${share.state})`)
                 return res.redirect(307, `/${path.basename(__filename).split('.')[0]}/${req.params.id}/${share.state}`)
             }
             catch(e){
+                req.session.logger(`invalid share id`)
                 return res.sendState(httpStatuses.NOT_FOUND)
             }
         }
@@ -157,8 +170,10 @@ module.exports = app => {
                 await share.save()
             }
             catch(e){
+                req.session.logger(`invalid share id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
+            req.session.logger(`share updated`)
             res.end()
         }
     }, {
@@ -181,8 +196,10 @@ module.exports = app => {
                 await share.save()
             }
             catch(e){
+                req.session.logger(`invalid share id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
+            req.session.logger(`share updated`)
             res.end()
         }
     }, {
@@ -202,6 +219,7 @@ module.exports = app => {
                     throw new Error()
                 }
                 if (share.originUser.publicKey !== req.body.publicKey){
+                    req.session.logger(`keys does not much`)
                     return res.sendStatus(httpStatuses.BAD_REQUEST)
                 }
                 share.crypted = req.body.crypted
@@ -209,8 +227,10 @@ module.exports = app => {
                 await share.save()
             }
             catch(e){
+                req.session.logger(`invalid share id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
+            req.session.logger(`share updated`)
             res.end()
         }
     }, {
@@ -229,6 +249,7 @@ module.exports = app => {
                     throw new Error()
                 }
                 if (share.destinationUser.publicKey !== req.body.publicKey){
+                    req.session.logger(`keys does not much`)
                     return res.sendStatus(httpStatuses.BAD_REQUEST)
                 }
                 if (!share.permissionId){
@@ -237,6 +258,7 @@ module.exports = app => {
                     )
                     share.save()
                 }
+                req.session.logger(`share secret sent (id: ${share._id})`)
                 res.json({
                     permissionId: share.permissionId,
                     crypted: share.crypted,
@@ -245,6 +267,7 @@ module.exports = app => {
                 })
             }
             catch(e){
+                req.session.logger(`invalid share id`)
                 return res.sendStatus(httpStatuses.NOT_FOUND)
             }
         }

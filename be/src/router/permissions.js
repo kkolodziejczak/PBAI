@@ -29,9 +29,11 @@ module.exports = app => {
                     userId = ownerPermission.userId
                 }
                 await PermissionsCollection.deletePermission(req.body.id, userId)
+                req.session.logger(`permission deleted (id: ${req.body.id})`)
                 return res.end()
             }
             catch(e){
+                req.session.logger(`invalid permission id`)
                 return res.sendStatus(httpStatuses.BAD_REQUEST)
             }
         }
@@ -49,6 +51,7 @@ module.exports = app => {
                     if (!permission){
                         throw new Error()
                     }
+                    req.session.logger(`permission sent (id: ${permission._id})`)
                     return res.json({
                         id: permission._id.toString(),
                         userId: permission.userId.toString(),
@@ -59,6 +62,7 @@ module.exports = app => {
                     })
                 }
                 catch(e){
+                    req.session.logger(`invalid permission id`)
                     return res.sendStatus(httpStatuses.NOT_FOUND)
                 }
             }

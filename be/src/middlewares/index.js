@@ -11,7 +11,7 @@ const express = require('express')
     , mongoose = require('./mongoose')
     , eventEmitter = require('./eventEmitter')
     , requireHTTPS = require('./requireHTTPS')
-    , { logger } = require('../helpers/log')
+    , logger = require('./logger')
 
 module.exports = async (app) => {
     app.use(helmet(app))
