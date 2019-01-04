@@ -11,8 +11,8 @@ class LogsScreenComponent extends React.Component {
   frame = null;
 
   componentDidMount() {
-    const {user, history} = this.props;
-    if (!user.isAdmin) {
+    const {isAdmin, history} = this.props;
+    if (!isAdmin) {
       history.goBack();
       return null;
     }
@@ -38,7 +38,7 @@ class LogsScreenComponent extends React.Component {
   }
 }
 
-const mapStateToProps = ({user}) => ({user: user.me});
+const mapStateToProps = ({user}) => ({isAdmin: user.me.isAdmin});
 
 const LogsScreen = compose(
   withRouter,
