@@ -47,7 +47,9 @@ export function* share() {
       }
       yield put(documentActions.documentShareError(error));
     }
-    const shareId = response._id;
+
+    //TODO: change _id
+    const shareId = response.id;
     const call2 = yield call(apiGetShares);
     const shares = parseArray(call2.response);
     const myShareId = shares.filter(share => share === shareId)[0];
@@ -67,8 +69,10 @@ export function* getShares() {
     const call1 = yield call(apiGetShares);
     const sharesArr = parseArray(call1.response);
     const shares = yield sharesArr.map(async shareId => {
-      return await apiGetShare(shareId);
+      const {response} = await apiGetShare(shareId);
+      return response;
     });
+    yield put(documentActions.setShares(shares));
     console.log('shares', shares);
     // yield put(documentActions.setShares(call1.response));
   }
