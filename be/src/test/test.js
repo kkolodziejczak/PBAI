@@ -29,7 +29,16 @@ describe('Testing service', ()=>{
         config.users = await populate(config.app)
     })
 
-    getLocalTests(config, __filename, ['helpers'])
+    getLocalTests(config, __filename, [
+        'helpers', 
+        'auth', 
+        'documents', 
+        'permissions', 
+        'users',
+        'flow.js',
+        'logs.js',
+        'timer.js'
+    ])
 
     after(async ()=>{
         await cleanDatabase()
