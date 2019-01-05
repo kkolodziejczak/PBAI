@@ -3,11 +3,12 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {withRouter} from 'react-router-dom';
 import {userActions} from 'redux/actions/user';
-import {ROUTE_LOGIN, ROUTE_UPLOADS} from 'constants/routes';
+import {ROUTE_LOGIN, ROUTE_DOCUMENTS} from 'constants/routes';
 import NavMenu from 'components/NavMenu';
 import UploadForm from 'components/UploadForm';
 import ScreenWrapper from 'components/ScreenWrapper';
 import UploadSuccess from 'components/UploadSuccess';
+// import {apiDocumentGet} from 'ApiService/apiDocumentGet';
 
 class DashboardScreenComponent extends React.Component {
   state = {
@@ -25,14 +26,20 @@ class DashboardScreenComponent extends React.Component {
       return;
     }
     getUserData();
+    // this.getDocument();
   }
+
+  // getDocument = async () => {
+  //   const document = await apiDocumentGet('5c30861f5b85d900190a2adc');
+  //   console.log('document', document);
+  // };
 
   _renderContent() {
     switch (this.state.step) {
       case 1:
         return <UploadForm next={this.nextStep} />;
       case 2:
-        return <UploadSuccess onClick={() => this.props.history.push(ROUTE_UPLOADS)} />;
+        return <UploadSuccess onClick={() => this.props.history.push(ROUTE_DOCUMENTS)} />;
       default:
         return null;
     }
