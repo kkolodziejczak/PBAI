@@ -3,27 +3,40 @@ import {connect} from 'react-redux';
 import ScreenWrapper from 'components/ScreenWrapper';
 import NavMenu from 'components/NavMenu';
 import {documentActions} from 'redux/actions/document';
+import SharesList from 'components/SharesList';
 
 class SharesScreenComponent extends React.Component {
-  state = {
-    sharingDoc: null,
-    shareSuccess: false,
-    partnerName: null,
-  };
+  get sharedByMe() {
+    const {shares} = this.props;
+    return shares && shares.filter(share => share.isOwner);
+  }
+
+  get sharedWithMe() {
+    const {shares} = this.props;
+    return shares && shares.filter(share => !share.isOwner);
+  }
 
   componentDidMount() {
     this.props.getShares();
   }
 
   _renderConent = () => {
-    return null;
+    return (
+      <React.Fragment>
+        <h2>Documents shared by me</h2>
+        <SharesList shares={this.sharedByMe} myShare={true} />
+
+        <h2>Documents shared with me</h2>
+        <SharesList shares={this.sharedWithMe} />
+      </React.Fragment>
+    );
   };
 
   render() {
     return (
       <React.Fragment>
         <NavMenu />
-        <ScreenWrapper title='My shares' titleCenter>
+        <ScreenWrapper title='Shares' titleCenter>
           {this._renderConent()}
         </ScreenWrapper>
       </React.Fragment>
@@ -31,7 +44,7 @@ class SharesScreenComponent extends React.Component {
   }
 }
 
-const mapStateToProps = ({document}) => ({documents: document.myDocuments});
+const mapStateToProps = ({document}) => ({shares: document.shares});
 
 const mapDispatchToProps = dispatch => ({
   getShares: () => dispatch(documentActions.getShares()),

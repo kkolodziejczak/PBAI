@@ -1,6 +1,6 @@
 import {handleActions} from 'redux-actions';
 import {createReducers, createInitialState} from 'helpers/redux';
-import {prefix, SET_MY_DOCUMENTS, GET_SHARES, SET_SHARES} from 'constants/actionTypes';
+import {prefix, SET_MY_DOCUMENTS, GET_SHARES, SET_SHARES, SET_CRYPTED_PASSWORD} from 'constants/actionTypes';
 
 const initialState = {
   ...createInitialState(prefix.DOCUMENT_SEND),
@@ -16,6 +16,7 @@ const document = handleActions(
     [SET_MY_DOCUMENTS]: (document, action) => ({...document, myDocuments: action.payload}),
     [GET_SHARES]: document => document,
     [SET_SHARES]: (document, action) => ({...document, shares: action.payload}),
+    [SET_CRYPTED_PASSWORD]: document => document,
   },
   initialState,
 );
