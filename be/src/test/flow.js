@@ -129,7 +129,7 @@ module.exports = function test(config){
                 login: partner.login
             })
             .expect(200)
-            owner.shareId = share.body._id.toString()
+            owner.shareId = share.body.id.toString()
         })
         it('owner gets his shares', async ()=>{
             const shares = await owner.agent

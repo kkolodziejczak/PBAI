@@ -17,8 +17,8 @@ module.exports = function test(config){
             let partner = await config.users[1].agent
             .get('/users')
             .expect(200)
-            owner.body.shares.should.containEql(share.body._id)
-            partner.body.shares.should.containEql(share.body._id)
+            owner.body.shares.should.containEql(share.body.id)
+            partner.body.shares.should.containEql(share.body.id)
         })
         it('document owner can not share his document to no existing account', async ()=>{
             await config.users[2].agent
@@ -52,8 +52,8 @@ module.exports = function test(config){
             let partner = await config.users[1].agent
             .get('/users')
             .expect(200)
-            owner.body.shares.should.containEql(share.body._id)
-            partner.body.shares.should.containEql(share.body._id)
+            owner.body.shares.should.containEql(share.body.id)
+            partner.body.shares.should.containEql(share.body.id)
         })
         it('admin can not share somebodys document to no existing account', async ()=>{
             await config.users[0].agent
@@ -105,8 +105,8 @@ module.exports = function test(config){
             let partner = await config.users[1].agent
             .get('/users')
             .expect(200)
-            owner.body.shares.should.containEql(share.body._id)
-            partner.body.shares.should.containEql(share.body._id)
+            owner.body.shares.should.containEql(share.body.id)
+            partner.body.shares.should.containEql(share.body.id)
             await config.users[1].agent
             .put('/shares')
             .send({ 
@@ -129,8 +129,8 @@ module.exports = function test(config){
             let partner = await config.users[1].agent
             .get('/users')
             .expect(200)
-            owner.body.shares.should.containEql(share.body._id)
-            partner.body.shares.should.containEql(share.body._id)
+            owner.body.shares.should.containEql(share.body.id)
+            partner.body.shares.should.containEql(share.body.id)
             await config.users[2].agent
             .put('/shares')
             .send({ 
