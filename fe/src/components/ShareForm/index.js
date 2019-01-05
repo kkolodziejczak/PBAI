@@ -18,13 +18,14 @@ class ShareForm extends React.Component {
 
   submit = e => {
     e.preventDefault();
-    const id = this.props.documentId;
+    const id = this.props.doc.id;
     if (!id) {
       alert('There is no document id');
       return null;
     }
     const {login} = this.state;
     this.props.submit({id, login});
+    this.props.setName(login);
   };
 
   _renderInput() {
@@ -47,16 +48,17 @@ class ShareForm extends React.Component {
   }
 
   render() {
+    const {isLoading, doc} = this.props;
     return (
       <FormWrapper>
-        <h2>Add your partner login and share the document</h2>
+        <h2>Add your partner login and share the document ({doc.name})</h2>
         <form
           onSubmit={this.submit}
           className='clearfix'
           style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
         >
           {this._renderInput()}
-          <SubmitButton loading={false} text='Save and continue' />
+          <SubmitButton loading={isLoading} text='Share' />
         </form>
       </FormWrapper>
     );
@@ -64,8 +66,8 @@ class ShareForm extends React.Component {
 }
 
 const mapStateToProps = ({document}) => ({
-  documentId: document.documentId,
   error: document.documentShareError,
+  isLoading: document.documentShareLoading,
   success: document.documentShareSuccess,
 });
 

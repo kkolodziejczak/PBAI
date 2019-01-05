@@ -45,16 +45,3 @@ export function* share() {
     }
   }
 }
-
-// export function* getMyDocuments() {
-//   while (true) {
-//     yield take(GET_DOCUMENTS);
-//     const {
-//       store: {permissions},
-//     } = getStoreInstance();
-//     const documents = permissions.map(async permission => {
-//       return await call(apiGetDocument, permission.documentId);
-//     });
-//     console.log('documents', documents);
-//   }
-// }

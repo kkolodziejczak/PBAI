@@ -6,10 +6,13 @@ import NavMenu from 'components/NavMenu';
 import {permissionsActions} from 'redux/actions/permissions';
 import DocumentsList from 'components/DocumentsList';
 import ShareForm from 'components/ShareForm';
+import ShareSuccess from 'components/ShareSuccess';
 
 class DocumentsScreenComponent extends React.Component {
   state = {
     sharingDoc: null,
+    shareSuccess: false,
+    partnerName: null,
   };
 
   componentDidMount() {
@@ -17,9 +20,18 @@ class DocumentsScreenComponent extends React.Component {
   }
 
   _renderConent = () => {
-    const {sharingDoc} = this.state;
+    const {sharingDoc, shareSuccess, partnerName} = this.state;
+    if (shareSuccess) {
+      return <ShareSuccess partnerName={partnerName} documentName={sharingDoc.name} />;
+    }
     if (sharingDoc) {
-      return <ShareForm doc={sharingDoc} />;
+      return (
+        <ShareForm
+          doc={sharingDoc}
+          next={() => this.setState({shareSuccess: true})}
+          setName={partnerName => this.setState({partnerName})}
+        />
+      );
     }
     const {documents} = this.props;
     return documents ? (

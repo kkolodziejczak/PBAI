@@ -23,6 +23,10 @@ class DocumentsList extends React.Component {
   _renderDocuments = () => this.props.documents.map(this._renderDocument);
 
   render() {
+    const {documents} = this.props;
+    if (!documents || documents.length === 0) {
+      return <h2>You did not upload any document yet.</h2>;
+    }
     return <ol>{this._renderDocuments()}</ol>;
   }
 }
