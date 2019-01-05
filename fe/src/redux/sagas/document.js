@@ -4,7 +4,7 @@ import {prefix} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';
 import {mapError, statusIsValid} from 'helpers/index';
 import {apiDocumentSend} from 'ApiService/apiDocumentSend';
-import {apiDocumentShare} from '../../ApiService/apiDocumentShare';
+import {apiDocumentShare} from 'ApiService/apiDocumentShare';
 
 export function* send() {
   while (true) {
@@ -45,3 +45,16 @@ export function* share() {
     }
   }
 }
+
+// export function* getMyDocuments() {
+//   while (true) {
+//     yield take(GET_DOCUMENTS);
+//     const {
+//       store: {permissions},
+//     } = getStoreInstance();
+//     const documents = permissions.map(async permission => {
+//       return await call(apiGetDocument, permission.documentId);
+//     });
+//     console.log('documents', documents);
+//   }
+// }

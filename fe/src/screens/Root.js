@@ -2,11 +2,12 @@ import React from 'react';
 import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {store, persistor} from 'redux/store';
+import getStoreInstance from 'redux/store';
 import rootSaga from 'redux/sagas/index';
 import * as screen from './index';
 import * as route from 'constants/routes';
 
+const {store, persistor} = getStoreInstance();
 store.runSaga(rootSaga);
 
 class Root extends React.Component {

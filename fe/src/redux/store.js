@@ -29,8 +29,17 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const store = createStore(persistedReducer, initialState, composedEnhancers);
-store.runSaga = sagaMiddleware.run;
-const persistor = persistStore(store);
+let store;
+let persistor;
 
-export {store, persistor};
+function createInstance() {
+  const instance = createStore(persistedReducer, initialState, composedEnhancers);
+  return instance;
+}
+
+export default function getStoreInstance() {
+  store = store || createInstance();
+  store.runSaga = sagaMiddleware.run;
+  persistor = persistor || persistStore(store);
+  return {store, persistor};
+}
