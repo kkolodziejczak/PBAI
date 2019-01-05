@@ -31,13 +31,13 @@ describe('Testing service', ()=>{
 
     getLocalTests(config, __filename, [
         'helpers', 
-        'auth', 
-        'documents', 
-        'permissions', 
-        'users',
-        'flow.js',
-        'logs.js',
-        'timer.js'
+        //'auth', 
+        //'documents', 
+        //'permissions', 
+        //'users',
+        //'flow.js',
+        //'logs.js',
+        //'timer.js'
     ])
 
     after(async ()=>{

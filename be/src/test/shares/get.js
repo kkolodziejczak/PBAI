@@ -40,7 +40,7 @@ module.exports = function test(config){
             .get(`/shares/${share.id}`)
             .expect(200)
             .expect(hasProps({
-                _id: share._id.toString(),
+                id: share._id.toString(),
                 permissionId: share.permissionId.toString(),
                 prime: share.prime,
                 generator: share.generator,

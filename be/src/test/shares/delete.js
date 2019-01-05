@@ -19,7 +19,7 @@ module.exports = function test(config){
         })
         it('share partner can delete owner share', async ()=>{
             const share = config.users[12].shares[1]
-            const id = share._id.toString()
+            const id = share.id.toString()
             await config.users[11].agent
             .delete('/shares')
             .send({id})
@@ -31,7 +31,7 @@ module.exports = function test(config){
             .get(`/shares/${id}`)
             .expect(200)
             .expect(hasProps({
-                _id: share._id.toString(),
+                id: share.id.toString(),
                 permissionId: share.permissionId.toString(),
                 prime: share.prime,
                 generator: share.generator,

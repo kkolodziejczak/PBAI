@@ -38,7 +38,9 @@ module.exports = app => {
                         prime: share.prime,
                         generator: share.generator,
                         documentId: share.documentId.toString(),
-                        isOwner: ((share.originUser||{}).id||"").toString()===req.user._id.toString()
+                        isOwner: ((share.originUser||{}).id||"").toString()===req.user._id.toString(),
+                        permissionId: (share.permissionId || "").toString(),
+                        state: share.state
                     })
                 }
                 if (!req.user.isAdmin){
@@ -134,7 +136,9 @@ module.exports = app => {
                         prime: share.prime,
                         generator: share.generator,
                         documentId: share.documentId.toString(),
-                        isOwner: true
+                        isOwner: true,
+                        permissionId: share.permissionId,
+                        state: share.state
                     })
                 }
                 catch (err){
