@@ -4,6 +4,7 @@ import SubmitButton from '../SubmitButton';
 class DocumentsList extends React.Component {
   _renderDocument = (doc, i) => (
     <li key={i} style={{marginBottom: 20}}>
+      {console.log('doc', doc)}
       <div>
         <strong>Id: </strong>
         {doc.id}
@@ -16,7 +17,9 @@ class DocumentsList extends React.Component {
         <strong>Encrypted content:</strong>
         {doc.content}
       </div>
-      <SubmitButton onClick={() => this.props.openShareForm(doc)} text='Share document' className=' ' />
+      {doc.permissionType === 'o' && (
+        <SubmitButton onClick={() => this.props.openShareForm(doc)} text='Share document' className=' ' />
+      )}
     </li>
   );
 

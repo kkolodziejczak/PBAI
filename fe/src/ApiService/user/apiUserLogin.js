@@ -1,4 +1,4 @@
-import {RequestHandler} from './requestHandler';
+import {RequestHandler} from '../requestHandler';
 
 export async function apiUserLogin(payload) {
   const data = await RequestHandler.getInstance().request('post', '/auth', {

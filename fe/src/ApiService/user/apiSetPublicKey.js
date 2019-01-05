@@ -1,4 +1,4 @@
-import {RequestHandler} from './requestHandler';
+import {RequestHandler} from '../requestHandler';
 
 export async function apiSetPublicKey(params) {
   const {payload, shareId, type} = params;

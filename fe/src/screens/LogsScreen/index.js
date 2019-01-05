@@ -4,7 +4,7 @@ import {compose} from 'redux';
 import {withRouter} from 'react-router';
 import ScreenWrapper from 'components/ScreenWrapper';
 import NavMenu from 'components/NavMenu';
-import {apiAdminGetLogs} from 'ApiService/apiAdminGetLogs';
+import {apiAdminGetLogs} from 'ApiService/admin/apiAdminGetLogs';
 
 class LogsScreenComponent extends React.Component {
   state = {html: ''};

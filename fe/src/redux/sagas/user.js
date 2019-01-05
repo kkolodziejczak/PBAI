@@ -2,11 +2,11 @@ import {put, call, take} from 'redux-saga/effects';
 import {userActions} from '../actions/user';
 import {prefix, USER_LOGOUT, GET_USER_DATA} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';
+import {apiUserRegister} from 'ApiService/user/apiUserRegister';
+import {apiUserLogin} from 'ApiService/user/apiUserLogin';
+import {apiUserLogout} from 'ApiService/user/apiUserLogout';
+import {apiGetUsers} from 'ApiService/user/apiGetUsers';
 import {mapError, statusIsValid} from 'helpers/index';
-import {apiUserRegister} from 'ApiService/apiUserRegister';
-import {apiUserLogin} from 'ApiService/apiUserLogin';
-import {apiUserLogout} from 'ApiService/apiUserLogout';
-import {apiGetUsers} from 'ApiService/apiGetUsers';
 
 export function* login() {
   while (true) {

@@ -2,9 +2,9 @@ import {put, call, take} from 'redux-saga/effects';
 import {documentActions} from '../actions/document';
 import {prefix} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';
+import {apiDocumentShare} from 'ApiService/document/apiDocumentShare';
+import {apiDocumentSend} from 'ApiService/document/apiDocumentSend';
 import {mapError, statusIsValid} from 'helpers/index';
-import {apiDocumentSend} from 'ApiService/apiDocumentSend';
-import {apiDocumentShare} from 'ApiService/apiDocumentShare';
 
 export function* send() {
   while (true) {

@@ -1,10 +1,10 @@
 import {put, call, take} from 'redux-saga/effects';
 import {permissionsActions} from '../actions/permissions';
 import {documentActions} from '../actions/document';
-import {apiGetPermissions} from 'ApiService/apiGetPermissions';
-import {apiGetPermission} from 'ApiService/apiGetPermission';
+import {apiGetPermissions} from 'ApiService/permissions/apiGetPermissions';
+import {apiGetPermission} from 'ApiService/permissions/apiGetPermission';
+import {apiGetDocument} from 'ApiService/document/apiGetDocument';
 import {GET_PERMISSIONS} from 'constants/actionTypes';
-import {apiGetDocument} from 'ApiService/apiGetDocument';
 
 function handlePermissionsResponse(response) {
   if (response === '[]') {
@@ -39,7 +39,7 @@ export function* getPermissionsAndDocuments() {
     if (fullPermissions) {
       const documents = yield fullPermissions.map(async permission => {
         const {response} = await apiGetDocument(permission.documentId);
-        return response;
+        return {...response, permissionType: permission.type};
       });
       yield put(documentActions.setMyDocuments(documents));
     } else {
