@@ -4,7 +4,6 @@ import SubmitButton from '../SubmitButton';
 class DocumentsList extends React.Component {
   _renderDocument = (doc, i) => (
     <li key={i} style={{marginBottom: 20}}>
-      {console.log('doc', doc)}
       <div>
         <strong>Id: </strong>
         {doc.id}

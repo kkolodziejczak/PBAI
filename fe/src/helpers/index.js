@@ -47,3 +47,8 @@ export const decode = (encoded, pass) => {
 
 export const base64encode = str => window.btoa(str);
 export const base64decode = str => window.atob(str);
+
+export const parseArray = str => {
+  const tmp = str.substring(1, str.length - 1).split(',');
+  return tmp.map(x => x.substring(1, x.length - 1));
+};

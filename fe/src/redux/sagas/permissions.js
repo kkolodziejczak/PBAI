@@ -5,14 +5,14 @@ import {apiGetPermissions} from 'ApiService/permissions/apiGetPermissions';
 import {apiGetPermission} from 'ApiService/permissions/apiGetPermission';
 import {apiGetDocument} from 'ApiService/document/apiGetDocument';
 import {GET_PERMISSIONS} from 'constants/actionTypes';
+import {parseArray} from 'helpers/index';
 
 function handlePermissionsResponse(response) {
   if (response === '[]') {
     return [];
   }
   if (typeof response === 'string' && response !== '[]') {
-    const permissions = response.substring(1, response.length - 1).split(',');
-    return permissions.map(permission => permission.substring(1, permission.length - 1));
+    return parseArray(response);
   }
   return response;
 }
