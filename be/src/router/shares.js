@@ -30,6 +30,7 @@ module.exports = app => {
                         throw new Error()
                     }
                     share.crypted = null
+                    share.isOwner = ((share.originUser||{}).id||"").toString()===req.user._id.toString()
                     req.session.logger(`sending share info (id: ${req.params.id})`)
                     return res.json(share)
                 }
@@ -116,6 +117,7 @@ module.exports = app => {
                     const share = await SharesCollection.createNew(
                         ownerId, loginUser._id, req.body.id
                     )
+                    share.isOwner = true
                     req.session.logger(`share created (id: ${share._id})`)
                     return res.json(share)
                 }

@@ -211,6 +211,7 @@ login: schemes.login // login uzytkownika komu udostepnia dokument
 * response body
 ```
 id: idObiektu,
+isOwner: true||false,
 originUser: {
     id: idUsera
 },
@@ -252,6 +253,7 @@ id: idShare
 * response body
 ```
 id: idObiektu,
+isOwner: true||false,
 originUser: {
     id: idUsera,
     publicKey: publicznyKluczUdostepniajacego
