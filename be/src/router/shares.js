@@ -39,7 +39,7 @@ module.exports = app => {
                         generator: share.generator,
                         documentId: share.documentId.toString(),
                         isOwner: ((share.originUser||{}).id||"").toString()===req.user._id.toString(),
-                        permissionId: (share.permissionId || "").toString(),
+                        permissionId: share.permissionId ? share.permissionId.toString() : null,
                         state: share.state
                     })
                 }
@@ -137,7 +137,7 @@ module.exports = app => {
                         generator: share.generator,
                         documentId: share.documentId.toString(),
                         isOwner: true,
-                        permissionId: share.permissionId,
+                        permissionId: share.permissionId ? share.permissionId.toString() : null,
                         state: share.state
                     })
                 }
