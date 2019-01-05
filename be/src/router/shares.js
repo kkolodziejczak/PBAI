@@ -29,19 +29,26 @@ module.exports = app => {
                     if (!share){
                         throw new Error()
                     }
-                    share.crypted = null
-                    share.isOwner = ((share.originUser||{}).id||"").toString()===req.user._id.toString()
                     req.session.logger(`sending share info (id: ${req.params.id})`)
-                    return res.json(share)
+                    return res.json({
+                        id: share._id.toString(),
+                        destinationUser: share.destinationUser,
+                        originUser: share.originUser,
+                        crypted: null,
+                        prime: share.prime,
+                        generator: share.generator,
+                        documentId: share.documentId.toString(),
+                        isOwner: ((share.originUser||{}).id||"").toString()===req.user._id.toString()
+                    })
                 }
                 if (!req.user.isAdmin){
                     const user = await UsersCollection.findById(req.user._id)
                     req.session.logger(`sending user shares info`)
-                    return res.json(user.shares)
+                    return res.json(user.shares.map(s=>s._id.toString()))
                 }
                 const shares = await SharesCollection.find({})
                 req.session.logger(`sending all shares info`)
-                return res.json(shares.map(s=>s._id))
+                return res.json(shares.map(s=>s._id.toString()))
             }
             catch(e){
                 req.session.logger(`invalid share id`)
@@ -119,7 +126,16 @@ module.exports = app => {
                     )
                     share.isOwner = true
                     req.session.logger(`share created (id: ${share._id})`)
-                    return res.json(share)
+                    return res.json({
+                        id: share._id.toString(),
+                        destinationUser: share.destinationUser,
+                        originUser: share.originUser,
+                        crypted: null,
+                        prime: share.prime,
+                        generator: share.generator,
+                        documentId: share.documentId.toString(),
+                        isOwner: true
+                    })
                 }
                 catch (err){
                     req.session.logger(`invalid partner user login`)
