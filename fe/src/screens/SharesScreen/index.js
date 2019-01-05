@@ -1,12 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Spinner from 'react-activity/lib/Spinner';
 import ScreenWrapper from 'components/ScreenWrapper';
 import NavMenu from 'components/NavMenu';
-import {permissionsActions} from 'redux/actions/permissions';
-import DocumentsList from 'components/DocumentsList';
-import ShareForm from 'components/ShareForm';
-import ShareSuccess from 'components/ShareSuccess';
+import {documentActions} from 'redux/actions/document';
 
 class SharesScreenComponent extends React.Component {
   state = {
@@ -15,28 +11,12 @@ class SharesScreenComponent extends React.Component {
     partnerName: null,
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.getShares();
+  }
 
   _renderConent = () => {
-    const {sharingDoc, shareSuccess, partnerName} = this.state;
-    if (shareSuccess) {
-      return <ShareSuccess partnerName={partnerName} documentName={sharingDoc.name} />;
-    }
-    if (sharingDoc) {
-      return (
-        <ShareForm
-          doc={sharingDoc}
-          next={() => this.setState({shareSuccess: true})}
-          setName={partnerName => this.setState({partnerName})}
-        />
-      );
-    }
-    const {documents} = this.props;
-    return documents ? (
-      <DocumentsList documents={documents} openShareForm={sharingDoc => this.setState({sharingDoc})} />
-    ) : (
-      <Spinner color='black' />
-    );
+    return null;
   };
 
   render() {
@@ -54,7 +34,7 @@ class SharesScreenComponent extends React.Component {
 const mapStateToProps = ({document}) => ({documents: document.myDocuments});
 
 const mapDispatchToProps = dispatch => ({
-  getPermissionsAndDocuments: () => dispatch(permissionsActions.getPermissions()),
+  getShares: () => dispatch(documentActions.getShares()),
 });
 
 const SharesScreen = connect(

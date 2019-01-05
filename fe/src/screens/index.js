@@ -4,3 +4,4 @@ export {NotFoundScreen} from './NotFoundScreen';
 export {DashboardScreen} from './DashboardScreen';
 export {DocumentsScreen} from './DocumentsScreen';
 export {LogsScreen} from './LogsScreen';
+export {SharesScreen} from './SharesScreen';

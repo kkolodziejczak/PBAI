@@ -19,6 +19,7 @@ class Root extends React.Component {
         <Route exact path={route.ROUTE_DASHBOARD} component={screen.DashboardScreen} />
         <Route exact path={route.ROUTE_DOCUMENTS} component={screen.DocumentsScreen} />
         <Route exact path={route.ROUTE_LOGS} component={screen.LogsScreen} />
+        <Route exact path={route.ROUTE_SHARES} component={screen.SharesScreen} />
         <Route path='*' component={screen.NotFoundScreen} />
       </Switch>
     </Router>

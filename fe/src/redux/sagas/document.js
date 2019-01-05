@@ -1,6 +1,6 @@
 import {put, call, take} from 'redux-saga/effects';
 import {documentActions} from '../actions/document';
-import {prefix} from 'constants/actionTypes';
+import {prefix, GET_SHARES} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';
 import {apiDocumentShare} from 'ApiService/document/apiDocumentShare';
 import {apiDocumentSend} from 'ApiService/document/apiDocumentSend';
@@ -58,5 +58,18 @@ export function* share() {
     const {publicKey} = diffieHellman(prime, generator, ownerPrivateKey);
     const call4Params = {payload: {publicKey}, shareId: myShareId};
     yield call(apiSetOwnerPublicKey, call4Params);
+  }
+}
+
+export function* getShares() {
+  while (true) {
+    yield take(GET_SHARES);
+    const call1 = yield call(apiGetShares);
+    const sharesArr = parseArray(call1.response);
+    const shares = yield sharesArr.map(async shareId => {
+      return await apiGetShare(shareId);
+    });
+    console.log('shares', shares);
+    // yield put(documentActions.setShares(call1.response));
   }
 }

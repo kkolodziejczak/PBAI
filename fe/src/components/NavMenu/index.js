@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
 import {userActions} from 'redux/actions/user';
-import {ROUTE_DASHBOARD, ROUTE_LOGIN, ROUTE_DOCUMENTS, ROUTE_LOGS} from 'constants/routes';
+import {ROUTE_DASHBOARD, ROUTE_LOGIN, ROUTE_DOCUMENTS, ROUTE_LOGS, ROUTE_SHARES} from 'constants/routes';
 
 class NavMenu extends React.Component {
   get links() {
@@ -14,6 +14,11 @@ class NavMenu extends React.Component {
       {
         text: 'My documents',
         to: ROUTE_DOCUMENTS,
+        requireAdmin: false,
+      },
+      {
+        text: 'Shares',
+        to: ROUTE_SHARES,
         requireAdmin: false,
       },
       {

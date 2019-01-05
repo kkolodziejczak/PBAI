@@ -11,6 +11,7 @@ export default function* root() {
 
   yield fork(document.send);
   yield fork(document.share);
+  yield fork(document.getShares);
 
   yield fork(permissions.getPermissionsAndDocuments);
 }

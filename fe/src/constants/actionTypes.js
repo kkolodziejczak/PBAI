@@ -12,4 +12,7 @@ export const SET_USER_DATA = 'SET_USER_DATA';
 export const GET_PERMISSIONS = 'GET_PERMISSIONS';
 export const SET_PERMISSIONS = 'SET_PERMISSIONS';
 
+export const GET_SHARES = 'GET_SHARES';
+export const SET_SHARES = 'SET_SHARES';
+
 export const SET_MY_DOCUMENTS = 'SET_MY_DOCUMENTS';
