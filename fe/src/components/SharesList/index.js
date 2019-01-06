@@ -9,6 +9,7 @@ class SharesList extends React.Component {
   state = {
     passwords: [],
     timers: [],
+    timerSet: false,
   };
 
   submitPassword = async (e, i, share) => {
@@ -36,7 +37,7 @@ class SharesList extends React.Component {
       alert('Timer must be integer.');
       return null;
     }
-
+    this.setState({timerSet: true});
     this.props.getTimer({permissionId: share.permissionId, timer});
   };
 
@@ -63,13 +64,14 @@ class SharesList extends React.Component {
   };
 
   _renderTimerForm = (share, i) => {
-    if (this.props.timers && this.props.timers.filter(timer => timer.permissionId === share.permissionId)[0]) {
+    const {timers, myShare} = this.props;
+    if (timers && !!timers.filter(timer => timer.permissionId === share.permissionId)[0]) {
       return null;
     }
     if (!share.permissionId) {
       return null;
     }
-    if (!this.props.myShare || share.state !== 3) {
+    if (!myShare || share.state !== 3) {
       return null;
     }
     return (
@@ -102,6 +104,29 @@ class SharesList extends React.Component {
     );
   };
 
+  getShareMessage(share) {
+    const {myShare} = this.props;
+    const {state, permissionId} = share;
+    if (myShare) {
+      if (state === 1) {
+        return "You shared the document and send your public key. Waiting for partner's public key...";
+      }
+      if (state === 3 && !permissionId) {
+        return "You just sent password for the file to your partner. It was encrypted with Diffie Hellman's Algorithm ";
+      }
+      if (state === 3 && this.state.timerSet) {
+        return 'You just set an expiration time for the file.';
+      }
+      return '';
+    }
+    if (state === 2) {
+      return "You just sent your public key. Waiting for the file owner's action...";
+    }
+    if (state === 3) {
+      return "You decrypted the file password with your private key and the sender's public key. Below you can see the content.";
+    }
+  }
+
   _renderShare = (share, i) => (
     <li key={i} className='li'>
       <div>
@@ -110,7 +135,7 @@ class SharesList extends React.Component {
       </div>
       <div>
         <strong>State: </strong>
-        {share.state}
+        {share.state} <strong style={{marginLeft: 20, color: 'blue'}}>{this.getShareMessage(share)}</strong>
       </div>
       {this._renderPasswordForm(share, i)}
       {this._renderTimerForm(share, i)}
