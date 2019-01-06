@@ -1,6 +1,6 @@
 import {put, call, take} from 'redux-saga/effects';
 import {documentActions} from '../actions/document';
-import {prefix, GET_SHARES, SET_CRYPTED_PASSWORD} from 'constants/actionTypes';
+import {prefix, GET_SHARES, SET_CRYPTED_PASSWORD, GET_TIMER, SET_TIMER} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';
 import {apiDocumentShare} from 'ApiService/document/apiDocumentShare';
 import {apiDocumentSend} from 'ApiService/document/apiDocumentSend';
@@ -11,7 +11,8 @@ import {apiSetOwnerPublicKey} from 'ApiService/document/apiSetOwnerPublicKey';
 import {apiSetPartnerPublicKey} from 'ApiService/document/apiSetPartnerPublicKey';
 import {apiSetOwnerCryptedPassword} from 'ApiService/document/apiSetOwnerCryptedPassword';
 import {apiGetPartnerCryptedPassword} from 'ApiService/document/apiGetPartnerCryptedPassword';
-import {mapError, statusIsValid, parseArray, diffieHellman, decodeDH} from 'helpers/index';
+import {apiSetTimer} from 'ApiService/document/apiSetTimer';
+import {mapError, statusIsValid, parseArray, diffieHellman, decodeDH, decode, base64decode} from 'helpers/index';
 import {OWNER_PRIVATE_KEY, PARTNER_PRIVATE_KEY} from 'constants/index';
 
 export function* send() {
@@ -78,49 +79,53 @@ export function* getShares() {
       return response;
     });
     yield put(documentActions.setShares(shares));
+    let decodedDocument = null;
 
-    let stateUpdated = false;
     yield shares.forEach(async share => {
       const {prime, generator, isOwner, state} = share;
-      const {publicKey: ownerPublicKey} = diffieHellman(prime, generator, OWNER_PRIVATE_KEY);
-      const {publicKey: partnerPublicKey} = diffieHellman(prime, generator, PARTNER_PRIVATE_KEY);
+
+      const shareId = share.id;
 
       if (isOwner && state === 0) {
         //sending public keys for documents shared by me
-        const params = {payload: {publicKey: ownerPublicKey}, shareId: share.id};
+        const {publicKey: ownerPublicKey} = diffieHellman(prime, generator, OWNER_PRIVATE_KEY);
+        const params = {payload: {publicKey: ownerPublicKey}, shareId};
         await apiSetOwnerPublicKey(params);
-        stateUpdated = true;
       }
       if (!isOwner && state === 1) {
+        const {publicKey: partnerPublicKey} = diffieHellman(prime, generator, PARTNER_PRIVATE_KEY);
         //sending public keys for documents shared with me
-        const params = {payload: {publicKey: partnerPublicKey}, shareId: share.id};
+        const params = {payload: {publicKey: partnerPublicKey}, shareId};
         await apiSetPartnerPublicKey(params);
-        stateUpdated = true;
       }
       if (!isOwner && state === 3) {
-        const params = {payload: {publicKey: partnerPublicKey}, shareId: share.id};
+        const ownerPublicKey = share.originUser.publicKey;
+        const partnerPublicKey = share.destinationUser.publicKey;
+        const params = {payload: {publicKey: partnerPublicKey}, shareId};
         const r = await apiGetPartnerCryptedPassword(params);
         const {documentId} = share;
         const d = await apiGetDocument(documentId);
         const content = d.response.content;
-        const name = d.response.name;
         const decodedPassword = decodeDH(prime, generator, PARTNER_PRIVATE_KEY, ownerPublicKey, r.response.crypted);
-        console.log('decodedPassword', decodedPassword);
-        console.log('D', d);
-        console.log('R', r);
+        decodedDocument = {shareId, content: decode(base64decode(content), decodedPassword)};
       }
     });
 
-    if (stateUpdated) {
-      //update shares again with new state
-      const callLast = yield call(apiGetShares);
-      const newSharesArr = parseArray(callLast.response);
-      const newShares = yield newSharesArr.map(async shareId => {
-        const {response} = await apiGetShare(shareId);
-        return response;
-      });
-      yield put(documentActions.setShares(newShares));
-    }
+    //update shares again with new state
+    const callLast = yield call(apiGetShares);
+    const newSharesArr = parseArray(callLast.response);
+    const newShares = yield newSharesArr.map(async shareId => {
+      const {response} = await apiGetShare(shareId);
+      if (decodedDocument && decodedDocument.shareId === shareId) {
+        return {
+          ...response,
+          content: decodedDocument.content,
+        };
+      }
+      return response;
+    });
+
+    yield put(documentActions.setShares(newShares));
   }
 }
 
@@ -130,7 +135,6 @@ export function* setCryptedPassword() {
     const {shareId, password} = payload;
     const {response} = yield call(apiGetShare, shareId);
     const {prime, generator, destinationUser} = response;
-    //apiSetOwnerCryptedPassword
     const {publicKey, encoded} = diffieHellman(
       prime,
       generator,
@@ -138,6 +142,7 @@ export function* setCryptedPassword() {
       destinationUser.publicKey,
       password,
     );
+
     const params = {payload: {publicKey, crypted: encoded}, shareId};
     yield call(apiSetOwnerCryptedPassword, params);
 
@@ -149,5 +154,20 @@ export function* setCryptedPassword() {
       return response;
     });
     yield put(documentActions.setShares(newShares));
+  }
+}
+
+export function* setTimer() {
+  while (true) {
+    const {payload} = yield take(GET_TIMER);
+    const {permissionId, timer} = payload;
+    const newPayload = {
+      sec: timer,
+      id: permissionId,
+    };
+    const {status} = yield call(apiSetTimer, newPayload);
+    if (statusIsValid(status)) {
+      yield put(documentActions.setTimer({permissionId, timer}));
+    }
   }
 }

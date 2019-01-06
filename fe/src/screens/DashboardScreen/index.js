@@ -8,7 +8,7 @@ import NavMenu from 'components/NavMenu';
 import UploadForm from 'components/UploadForm';
 import ScreenWrapper from 'components/ScreenWrapper';
 import UploadSuccess from 'components/UploadSuccess';
-// import {apiDocumentGet} from 'ApiService/apiDocumentGet';
+// import DHTest from 'components/DHTest';
 
 class DashboardScreenComponent extends React.Component {
   state = {
@@ -26,13 +26,7 @@ class DashboardScreenComponent extends React.Component {
       return;
     }
     getUserData();
-    // this.getDocument();
   }
-
-  // getDocument = async () => {
-  //   const document = await apiDocumentGet('5c30861f5b85d900190a2adc');
-  //   console.log('document', document);
-  // };
 
   _renderContent() {
     switch (this.state.step) {
@@ -51,6 +45,7 @@ class DashboardScreenComponent extends React.Component {
         <NavMenu />
         <ScreenWrapper title='Document upload' titleCenter>
           {this._renderContent()}
+          {/* <DHTest /> */}
         </ScreenWrapper>
       </React.Fragment>
     );

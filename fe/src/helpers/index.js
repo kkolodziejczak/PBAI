@@ -10,17 +10,18 @@ export const mapError = err => {
 
 export const statusIsValid = status => status >= 200 && status < 300;
 
-export const s2b = s => Buffer.from(s).toString('base64');
-
 export const diffieHellman = (prime, generator, privateKey, partnerKey, str) => {
   const dh = crypto.createDiffieHellman(prime, generator);
-  dh.setPrivateKey(s2b(privateKey), 'base64');
+  dh.setPrivateKey(base64encode(privateKey), 'base64');
   dh.generateKeys('base64');
   const publicKey = dh.getPublicKey('base64');
   if (partnerKey && str) {
+    // const secret = dh.computeSecret(partnerKey, 'base64');
+    //TODO: handle secret
+    const secret = '123';
     return {
       publicKey,
-      encoded: encode(str, dh.computeSecret(partnerKey, 'base64')),
+      encoded: encode(str, secret),
     };
   }
   return {
@@ -30,9 +31,12 @@ export const diffieHellman = (prime, generator, privateKey, partnerKey, str) => 
 
 export const decodeDH = (prime, generator, privateKey, partnerKey, str) => {
   const dh = crypto.createDiffieHellman(prime, generator);
-  dh.setPrivateKey(s2b(privateKey), 'base64');
+  dh.setPrivateKey(base64encode(privateKey), 'base64');
   dh.generateKeys('base64');
-  return decode(str, dh.computeSecret(partnerKey, 'base64'));
+  // const secret = dh.computeSecret(partnerKey, 'base64');
+  //TODO: handle secret
+  const secret = '123';
+  return decode(str, secret);
 };
 
 export const encode = (str, pass) => {

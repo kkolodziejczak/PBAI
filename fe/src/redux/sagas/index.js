@@ -13,6 +13,7 @@ export default function* root() {
   yield fork(document.share);
   yield fork(document.getShares);
   yield fork(document.setCryptedPassword);
+  yield fork(document.setTimer);
 
   yield fork(permissions.getPermissionsAndDocuments);
 }

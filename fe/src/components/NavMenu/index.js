@@ -61,6 +61,11 @@ class NavMenu extends React.Component {
         <Navbar.Collapse>
           <Nav>{this._renderLinks()}</Nav>
           <Nav pullRight>
+            <NavItem eventKey={0}>
+              <strong>
+                Hello <i>{this.props.login}</i>!
+              </strong>
+            </NavItem>
             <NavItem eventKey={1} onClick={this._logout}>
               Log out
             </NavItem>
@@ -71,7 +76,7 @@ class NavMenu extends React.Component {
   }
 }
 
-const mapStateToProps = ({user}) => ({isAdmin: user.me.isAdmin});
+const mapStateToProps = ({user}) => ({isAdmin: user.me.isAdmin, login: user.me.login});
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(userActions.logout()),

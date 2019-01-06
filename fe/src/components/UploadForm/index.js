@@ -37,6 +37,7 @@ class UploadForm extends React.Component {
     reader.onload = event => {
       const stream = event.target.result.replace('data:text/plain;base64,', '');
       const encodedBase64 = this.encodeFile(stream);
+
       this.props.documentSend({name: file.name, content: encodedBase64});
     };
     reader.readAsDataURL(file);

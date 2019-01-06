@@ -18,3 +18,6 @@ export const SET_SHARES = 'SET_SHARES';
 export const SET_MY_DOCUMENTS = 'SET_MY_DOCUMENTS';
 
 export const SET_CRYPTED_PASSWORD = 'SET_CRYPTED_PASSWORD';
+
+export const GET_TIMER = 'GET_TIMER';
+export const SET_TIMER = 'SET_TIMER';
