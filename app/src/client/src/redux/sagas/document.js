@@ -1,6 +1,6 @@
 import {put, call, take} from 'redux-saga/effects';
 import {documentActions} from '../actions/document';
-import {prefix, GET_SHARES, SET_CRYPTED_PASSWORD, GET_TIMER, SET_TIMER} from 'constants/actionTypes';
+import {prefix, GET_SHARES, SET_CRYPTED_PASSWORD, GET_TIMER} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';
 import {apiDocumentShare} from 'ApiService/document/apiDocumentShare';
 import {apiDocumentSend} from 'ApiService/document/apiDocumentSend';

@@ -16,7 +16,7 @@ export const diffieHellman = (prime, generator, privateKey, partnerKey, str) => 
   dh.generateKeys('base64');
   const publicKey = dh.getPublicKey('base64');
   if (partnerKey && str) {
-    const secret = dh.computeSecret(partnerKey, 'base64')                                                                                                                                                                                                               && '123';
+    const secret = dh.computeSecret(partnerKey, 'base64')                                                                                                                                                                                                               && '6rdv6drwecnyuggy';
     return {
       publicKey,
       encoded: encode(str, secret),

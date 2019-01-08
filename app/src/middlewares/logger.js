@@ -6,7 +6,7 @@ const logger = function logger(req, res, next) {
         ` -- ${req.user 
             ? `user: id: ${req.user._id}) login: ${req.user.login}` 
             : `ip: (${req.ip})`
-        } -- `
+        } --`
         , ...logs
     )
     req.session.logger(`(${req.session.id}) ${req.method}: ${req.url}`)
