@@ -1,0 +1,27 @@
+version: "2"
+
+services:
+  service:
+    container_name: backend
+    restart: always
+    build: .
+    ports:
+    - "8080:8080"
+    - "8090:8090"
+    depends_on:
+    - mongo
+    links:
+    - mongo
+    environment:
+        NODE_ENV: dev
+        MONGO_CONNECTION_STRING: mongodb://root:IN0KfPvwvTADta1tLNrML5fWmXYosfDk@mongo:27017/db?authSource=admin
+    
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=db 
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=IN0KfPvwvTADta1tLNrML5fWmXYosfDk
+    volumes:
+      - /mongo-db-backup:/data/db
