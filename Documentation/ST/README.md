@@ -59,13 +59,17 @@ Przedmiotem oceny, rozważanym w niniejszym dokumencie, jest pięć komponentów
 - komunikację z użytkownikiem z wykorzystaniem protokołu HTTPS.
 
 
-### Exchange Keys - komponent odpowiada za:
+### Share Document - komponent odpowiada za:
 
 - wymianę klucza pomiędzy użytkownikami za pomocą protokołu Diffiego-Hellmana;
 - pobranie od użytkownika klucza szyfrującego plik;
 - pobranie od użytkownika docelowego odbiorcy, któremu zostanie przesłany klucz szyfrujący plik z wykorzystaniem protokołu Diffiego-Hellmana (służy do ustalenia wspólnego tajnego klucza przy użyciu publicznych środków komunikacji);
 - zaszyfrowanie klucza do pliku ustalonym wcześniej przez obie strony za pomocą protokołu Diffiego-Hellmana tajnym kluczem;
 - odszyfrowanie klucza do pliku w celu skorzystania z udostępnionych zasobów.
+
+### Logs - komponent odpowiada za:
+
+- zapisywanie i przechowywanie logów systemowych dostępnych do podglądu dla użytkownika typu Administrator.
 
 
 # Środowisko zabezpieczeń TOE
@@ -131,3 +135,87 @@ Podmiot udostępniający zaszyfrowane zasoby do sieci, przekazujący uprawnienia
 
 ### Administrator
 Administrator posiada niezbędne środki i jest przeszkolony w zakresie wykonywania wszelkich operacji na TOE, za które jest odpowiedzialny: wykonuje stałą obsługę systemu teleinformatycznego, w tym tworzy kopie zapasowe, zdalnie umieszcza kopie archiwów oraz bieżące kopie zapasowe poza podstawowym obszarem lokalizacji TOE.
+
+
+## Zagrożenia
+
+Ta sekcja opisuje zagrożenia mające wpływ na TOE.
+
+### Uszkodzenie TOE
+Jeszcze przed rozpoczęciem procesu szyfrowania bądź deszyfrowania pliku uszkodzeniu bądź awarii może ulec jedna lub kilka funkcji i/lub jeden lub kilka parametrów TOE.
+
+Przypadkowe uszkodzenie funkcji i/lub parametrów TOE może nastąpić na przykład wtedy, gdy przesłany plik był niekompletny bądź nastąpiła awaria algorytmu odpowiedzialnego za szyfrowanie. Uszkodzenie może prowadzić do:
+- uszkodzenia zaszyfrowanego pliku;
+- uszkodzenia deszyfrowanych danych;
+- modyfikacji zawartości pliku bez zgody i wiedzy użytkownika.
+
+### Nieautoryzowany dostęp do zasobów serwera bazodanowego
+
+Atakujący może uzyskać nieautoryzowany dostęp do zasobów serwera bazodanowego w sposób bezpośredni (poprzez interfejs apache sql) bądź z wykorzystaniem luk w aplikacji serwerowej polegającym na modyfikacji zapytania bazodanowego - sql injection.
+
+### Nieautoryzowane przejęcie sesji użytkownika
+
+Atakujący może uzyskać i przejąć od zalogowanego użytkownika id sesji zalogowania przez co uzyskuje dostęp do udostępnionych plików innym użytkownikom.
+
+### Słaby zestaw algorytmów
+
+Zastosowanie słabych algorytmów szyfrowych podczas tworzenia szyfrogramu.
+
+
+### Nieautoryzowany dostęp do prywatnych plików
+
+Atakujący może pobrać prywatne pliki, które nie były dla niego udostępnione.
+
+### Przypadkowe udostępnienie pliku użytkownikowi
+
+Użytkownik przypadkowo udostępnia plik i kod deszyfrujący innemu użytkownikowi - na skutek pomyłki bądź popełnienia błędu przy wpisywaniu nazwy docelowego użytkownika.
+
+
+### Przypadkowe usunięcie pliku
+
+Użytkownik przypadkowo usuwa udostępniany plik, na skutek czego reszta użytkowników traci dostęp do dzielonych zasobów.
+
+### Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym
+
+Atakujący podsłuchuje komunikaty pomiędzy użytkownikami, którzy dzielą się kluczem deszyfrującym służącym do odszyfrowania pliku.
+
+
+### Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+
+Atakujący śledzi dane wprowadzane przez użytkownika podczas logowania - login, hasło; które może przechwycić i wykorzystać do nieuprawnionego zalogowania się do systemu.
+
+### Modyfikacja uprawnień do zasobów
+
+Złośliwy użytkownik może w niedozwolony sposób dodać lub usunąć jednego bądź kilku użytkowników uprawnionych do pobrania określonego pliku. 
+
+### Wyciek danych
+
+W wyniku awarii systemu może dojść do wycieku poufnych i wrażliwych danych - dane logowania, udostępniane pliki, itp.
+
+### Przejęcie konta administratora
+
+Atakujący może przejąć konto administracyjne poprzez odgadnięcie danych dostępu, np: za pomocą metody brute-force albo w wyniku działania odkrycia luki systemowej.
+
+
+## Polityki bezpieczeństwa instytucji
+W tym rozdziale określono zasady natury organizacyjnej, mające zastosowanie do TOE.
+
+### Przerwanie procesu
+Podmiot szyfrujący/deszyfrujący musi mieć możliwość przerwania procesu szyfrowania/deszyfrowania przed aktywacją klucza szyfrującego/deszyfrującego.
+
+### Integralność danych użytkownika
+TOE musi chronić integralność wszystkich danych (lista zaszyfrowanych dokumentów, lista uprawnionych do pobrania zasobów), przychodzących od użytkownika.
+
+### Eksport szyfrogramu
+Po zakończeniu procesu szyfrowania powstały w jego wyniku szyfrogram dokumentu musi zostać przekazany przez TOE podmiotowi szyfrującemu/deszyfrującemu.
+
+### Zarządzanie
+TOE musi pozwolić podmiotowi szyfrującemu/deszyfrującemu oraz administratorowi na zarządzanie politykami szyfrowania oraz tabelą wiążącą format dokumentu z jego przeglądarką.
+
+
+### Algorytmy kryptograficzne
+Do zarządzania kluczami (tj. generowania, udostępniania, niszczenia, korzystania i przechowywania kluczy) oraz udostępniania algorytmów szyfrowych (funkcji szyfrowania, deszyfrowania, podpisywania, obliczania skrótów, wymiany kluczy oraz generowania liczb losowych) stosowane mogą być tylko te algorytmy kryptograficzne (metody i ich implementacje), które spełniają wymagania określone w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.) oraz w Ustawie z dnia 22 stycznia 1999 r. o ochronie informacji niejawnych (Dz.U. 1999 nr 11 poz. 95, wersja ujednolicona) i zatwierdzona przez odpowiednie instytucje certyfikujące przy wysokim poziomie siły funkcji zabezpieczającej lub przynajmniej zgodne z FIPS 140 poziom 2 lub wyższy.
+
+
+## Cele zabezpieczeń
+<i>In progress..</i>

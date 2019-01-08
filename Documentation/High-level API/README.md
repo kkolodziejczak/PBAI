@@ -31,11 +31,11 @@ Do zadań tego komponentu należy walidacja uprawnień użytkownika. Dla każdor
 - Czy użytkownik posiada uprawnienia do pobrania docelowego pliku;
 - Czy użytkownik posiada uprawnienia do udostępnienia danego pliku innym użytkownikom system;
 - Czy użytkownik posiada wystarczające uprawnienia grupy do określonego zasobu systemu;
-- Czy ważność sesji połączeniowej dla użytkownika nie wygasła;
+- Czy ważność sesji połączeniowej dla użytkownika nie wygasła.
 
-### Key Management
 
-Komponent zapewniający bezpieczne połączenie pomiędzy użytkownikami (nadawcy i odbiorcy) w celu przekazania klucza dostępu umożliwiającego odszyfrowanie udostępnionego pliku. Klucz dostępu jest szyfrowany kluczem symetrycznym i przekazany według protokołu Diffiego-Hellmana. System <b>nie przechowuje</b> w jakikolwiek sposób klucza dostępu do pliku i jest znany jedynie przez właściciela udostępnianych danych oraz osobom, którym został on przekazany.
+### Request Validator
+Komponent powiązany z Policies - sprawdza poprawność wprowadzonych danych, zapytań, które będą wykonane po stronie aplikacji serwerowej.
 
 
 ### User Management
@@ -51,6 +51,8 @@ Odpowiada za zarządzanie dokumentami, które zostały udostępnione przez użyt
 - Przekazywanie uprawnień innym użytkownikom systemu przez właściciela pliku;
 - Pobranie pliku z bazy danych i przekazanie go uprawnionym użytkownikom w przypadku wywołania operacji <i>Pobierz plik</i> przez docelowego użytkownika;
 - Uprawnienia do wyświetlenia i pobrania zaszyfrowanych dokumentów są dostępnie jedynie w obrębie właściciela oraz dodanych przez niego osób uprawnionych do pobrania zasobu. 
+
+Komponent zapewnia również bezpieczne połączenie pomiędzy użytkownikami (nadawcy i odbiorcy) w celu przekazania klucza dostępu umożliwiającego odszyfrowanie udostępnionego pliku. Klucz dostępu jest szyfrowany kluczem symetrycznym i przekazany według protokołu Diffiego-Hellmana. System <b>nie przechowuje</b> w jakikolwiek sposób klucza dostępu do pliku i jest znany jedynie przez właściciela udostępnianych danych oraz osobom, którym został on przekazany.
 
 
 ### Scheduler
