@@ -100,4 +100,7 @@
 |  Typ pola	|   Nazwa	|   Dodatkowe informacje  |
 |---	|---	|---
 | String | Login    | wymagane, ilość znaków (3-20)
-| String | Password | wymagane, ilość znaków (4,40)???? <color="red">A NIE JEST HASHOWANE???</color>
+| HASH(SHA512) | Password | wymagane
+| Boolean | IsAdmin | Default: false
+| Reference | Permissions | PERMISSIONS_DATABASE
+| Reference | Shares    | SHARES_DATABASE
