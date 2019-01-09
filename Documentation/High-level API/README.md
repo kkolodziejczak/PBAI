@@ -62,7 +62,7 @@ Komponent przechowujący znaczniki czasu (timestamp) wygasnięcia dokumentów. W
 
 ### Database
 
-Przechowuje rekordy o użytkownikach znajdujących się w systemie wraz z poziomem ich uprawnień, przypisania do grupy użytkowników oraz przypisanym im zasobów (pliki, dokumenty, czy są właścicielem zasobu). Przechowywane hasła dostępu do użytkowników są zabezpieczone hashem: SHA-512. Przechowywane są zaszyfrowane dokumenty ze znacznikiem czasu wygaśnięcia oraz z listą uprawnionych do odczytu użytkowników. Klucze deszyfrujące dokumenty nie są dostępne w systemie bazodanowym.
+Przechowuje rekordy o użytkownikach znajdujących się w systemie wraz z poziomem ich uprawnień, przypisania do grupy użytkowników oraz przypisanym im zasobów (pliki, dokumenty, czy są właścicielem zasobu). Przechowywane hasła dostępu do użytkowników są zabezpieczone hashem: bcrypt. Przechowywane są zaszyfrowane dokumenty ze znacznikiem czasu wygaśnięcia oraz z listą uprawnionych do odczytu użytkowników. Klucze deszyfrujące dokumenty nie są dostępne w systemie bazodanowym.
 
 
 ## 2. Stany aplikacji
@@ -87,7 +87,7 @@ W ramach działania aplikacji dane przechowywane są w dwóch magazynch:
 
 * Pamięć dyskowa w chmurze Amazon Web Services - zasoby zarządzające aplikacją po stronie serwera, logi systemowe, zabezpieczona kopia bazy danych.
 * Baza danych - przechowywanie wszelkich informacji dotyczących systemu takich jak:
-    * Dane użytkownika systemu - login, hasło - hasło zabezpieczone hashem: SHA-512, adres e-mail, przypisana grupa użytkownika;
+    * Dane użytkownika systemu - login, hasło - hasło zabezpieczone hashem: bcrypt, adres e-mail, przypisana grupa użytkownika;
     * Grupy użytkowników - użytkownik, administrator;
     * Zaszyfrowane kluczem symetrycznym dokumenty z odnośnikiem do właściciela pliku, z listą uprawnionych do pobrania zasobu użytkowników oraz znacznikiem czasowym (timestamp) ustalającym czas wygaśnięcia pliku, klucze deszyfrujące nie są zapisywane w obrębie systemu bazodanowego.
 

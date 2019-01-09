@@ -100,7 +100,7 @@
 |  Typ pola	|   Nazwa	|   Dodatkowe informacje  |
 |---	|---	|---
 | String | Login    | wymagane, ilość znaków (3-20)
-| HASH(SHA512) | Password | wymagane
+| HASH(bcrypt) | Password | wymagane
 | Boolean | IsAdmin | Default: false
 | Reference | Permissions | PERMISSIONS_DATABASE
 | Reference | Shares    | SHARES_DATABASE

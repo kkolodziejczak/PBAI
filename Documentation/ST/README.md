@@ -218,4 +218,95 @@ Do zarządzania kluczami (tj. generowania, udostępniania, niszczenia, korzystan
 
 
 ## Cele zabezpieczeń
-<i>In progress..</i>
+
+### Cele zabezpieczeń dla TOE
+
+
+#### Uwierzytelnienie użytkownika
+TOE powinien zapewnić, aby użytkownik miał możliwość wprowadzenia danych uwierzytelniających (uwierzytelnienia się) przed uzyskaniem dostępu do prywatnych oraz udostępnionych plików.
+
+#### Integralność danych do szyfrowania
+
+TOE musi zapewnić integralność różnych reprezentacji danych przeznaczonych do zaszyfrowanie od momentu ich sformatowania do momentu utworzenia szyfrogramu.
+
+#### Ochrona procesów
+TOE musi zapewnić ochronę przed ingerencją dowolnych niezaufanych procesów, urządzeń peryferyjnych i kanałów komunikacyjnych oraz intruzuów w pracę tych procesów, które wykorzystywane są podczas szyfrowania/deszyfrowania, zgodnie ze wskazaniem zawartym w żądaniu utworzenia szyfrogramu.
+
+
+#### Poufność danych uwierzytelniających
+TOE musi zapewnić poufność danych uwierzytelniających należących do podmiotu szyfrującego/deszyfrującego.
+
+#### Zatwierdzone algorytmy
+
+TOE powinien zapewnić, aby były stosowane tylko te algorytmy szyfrowe, które należą do zbioru zatwierdzonych algorytmów i parametrów stosowanych podczas tworzenia szyfrogramu; w szczególności, aby format  był zgodny z formatami wskazanymi w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.). 
+
+
+#### Zgoda użytkownika
+
+TOE powinien udostępnić podmiotowi szyfrującemu/deszyfrującemu mechanizm umożliwiający mu (w sposób dobrowolny i jednoznaczny) wyrażenie zgody na zainicjowanie procesu wyboru dokumentu w celu utworzenia szyfrogramu bądź pobrania i odszyfrowania.
+
+TOE powinien zażądać od podmiotu szyfrującego/deszyfrującego nietrywialnego zainicjowania procesu, wykluczającego jakąkolwiek przypadkowość tej decyzji; żaden inny proces w systemie nie może zainicjować tego procesu.
+
+#### Udostępnienie pliku innemu użytkownikowi
+
+TOE powinien zapewnić podmiotowi będącemu właścicielem danego pliku na udostępnienie wybranego zasobu odbiorcy wskazanego przez nadawcę.
+
+#### Przesyłanie klucza deszyfrującego
+
+TOE powienien zapewnić bezpieczne przekazanie klucza szyfrującego wskazanemu przez niego odbiorcy. Proces przekazania klucza powinien być uzgadniany pomiędzy nadawcą a odbiorcą algorytmem Diffie-Hellmana, natomiast TOE ma zapewnić bezpieczny kanał transmisyjny.
+
+
+#### Ustawienie czasu wygaśnięcia pliku
+
+TOE powinien zapewnić uprawnienia właściciela pliku na jednoznaczne wskazanie terminu wygaśnięcia pliku. Po upływie czasu wygaśnięcia TOE powinien przeprowadzić operację trwałego usunięcia pliku.
+
+#### Zbiór dokumentów
+
+Po wyrażeniu przez podmiot szyfrujący zgody na szyfrowanie, TOE musi gwarantować, że przetwarzany dokument rzeczywiście odpowiada dokładnie wybranemu dokumentowi przeznaczonego do szyfrowania.
+
+
+#### Zgodność uprawnień do dokumentów
+
+TOE musi zapewnić zgodność, która potwierdza uprawnienia użytkownika do pobrania wybranego dokumentu.
+
+
+### Cele zabezpieczeń dla środowiska
+
+
+#### Wiarygodni użytkownicy
+
+Upoważnieni użytkownicy rzetelnie wykonują swoje zadania.
+
+#### Wiarygodni administratorzy
+
+Upoważnieni administratorzy rzetelnie wykonują swoje zadania.
+
+
+#### Konfiguracja TOE
+TOE musi być poprawnie zainstalowany i skonfigurowany tak, aby zaraz po uruchomieniu przechodził w bezpieczny stan.
+
+#### Moduły kryptograficzne
+TOE musi korzystać tylko z tych usług kryptograficznych, udostępnianych przez środowisko teleinformatyczne, które spełniają wymagania określone w  Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.) oraz Ustawie z dnia 22 stycznia 1999 r. o ochronie informacji niejawnych (Dz.U. 1999 nr 11 poz. 95, wersja ujednolicona) i zatwierdzone przez odpowiednie instytucje certyfikujące przy wysokim poziomie siły funkcji zabezpieczającej lub przynajmniej zgodne z FIPS 140 poziom 2 lub wyższy. 
+
+#### Bezpieczeństwo fizyczne
+Środowisko musi zapewniać akceptowalny poziom bezpieczeństwa fizycznego tak, aby nie było możliwe manipulowanie TOE. 
+
+#### Obecność użytkownika
+Podmiot szyfrujący/deszyfrujący powinien pozostać obecny między momentem wyrażenia przez niego zamiaru szyfrowania, a momentem kiedy wprowadza dane szyfrujące.
+
+#### Tworzenie danych na potrzeby audytu
+Środowisko związane z TOE zapewni możliwość zapisywania zdarzeń związanych z bezpieczeństwem TOE w rejestrze zdarzeń w sposób jednoznacznie wiążący zdarzenie z użytkownikiem, który był przyczyną wystąpienia tego zdarzenia lub zdarzenie nastąpiło podczas korzystania przez niego z TOE.
+
+#### Ochrona danych rejestrowanych na potrzeby audytu
+Środowisko związane z TOE zapewni możliwość ochrony informacji gromadzonej na potrzeby audytu.
+
+#### Przeglądanie danych rejestrowanych na potrzeby audytu
+Środowisko związane z TOE zapewni możliwość selektywnego przeglądania informacji zgromadzonej w rejestrze zdarzeń.
+
+
+## Wymagania bezpieczeństwa
+<i>Todo</i>
+
+
+## Uzasadnienie celów zabezpieczenia
+<i>Todo</i>
