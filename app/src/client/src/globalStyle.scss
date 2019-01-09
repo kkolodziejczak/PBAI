@@ -1,0 +1,47 @@
+body {
+  background-color: #dadada;
+  color: black;
+  font-size: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+svg {
+  pointer-events: none;
+}
+
+.form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.auth-footer {
+  margin-top: 10px;
+}
+
+.error {
+  font-size: 12px;
+}
+
+button[type='submit'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+}
+
+.frame {
+  width: 100%;
+  height: 90vh;
+  background-color: #222;
+}
+
+.li {
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}

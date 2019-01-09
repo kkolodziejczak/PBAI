@@ -1,0 +1,15 @@
+{
+    "window.zoomLevel": 1,
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
+    "line-counter.excludes": [
+        "**/.vscode/**",
+        "**/node_modules/**",
+        "**/public/**",
+        "**/README.md/**",
+        "**/.env/**",
+        "**/adminMongo/**"
+    ],
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "git.ignoreLimitWarning": true
+}

@@ -59,13 +59,17 @@ Przedmiotem oceny, rozważanym w niniejszym dokumencie, jest pięć komponentów
 - komunikację z użytkownikiem z wykorzystaniem protokołu HTTPS.
 
 
-### Exchange Keys - komponent odpowiada za:
+### Share Document - komponent odpowiada za:
 
 - wymianę klucza pomiędzy użytkownikami za pomocą protokołu Diffiego-Hellmana;
 - pobranie od użytkownika klucza szyfrującego plik;
 - pobranie od użytkownika docelowego odbiorcy, któremu zostanie przesłany klucz szyfrujący plik z wykorzystaniem protokołu Diffiego-Hellmana (służy do ustalenia wspólnego tajnego klucza przy użyciu publicznych środków komunikacji);
 - zaszyfrowanie klucza do pliku ustalonym wcześniej przez obie strony za pomocą protokołu Diffiego-Hellmana tajnym kluczem;
 - odszyfrowanie klucza do pliku w celu skorzystania z udostępnionych zasobów.
+
+### Logs - komponent odpowiada za:
+
+- zapisywanie i przechowywanie logów systemowych dostępnych do podglądu dla użytkownika typu Administrator.
 
 
 # Środowisko zabezpieczeń TOE
@@ -131,3 +135,178 @@ Podmiot udostępniający zaszyfrowane zasoby do sieci, przekazujący uprawnienia
 
 ### Administrator
 Administrator posiada niezbędne środki i jest przeszkolony w zakresie wykonywania wszelkich operacji na TOE, za które jest odpowiedzialny: wykonuje stałą obsługę systemu teleinformatycznego, w tym tworzy kopie zapasowe, zdalnie umieszcza kopie archiwów oraz bieżące kopie zapasowe poza podstawowym obszarem lokalizacji TOE.
+
+
+## Zagrożenia
+
+Ta sekcja opisuje zagrożenia mające wpływ na TOE.
+
+### Uszkodzenie TOE
+Jeszcze przed rozpoczęciem procesu szyfrowania bądź deszyfrowania pliku uszkodzeniu bądź awarii może ulec jedna lub kilka funkcji i/lub jeden lub kilka parametrów TOE.
+
+Przypadkowe uszkodzenie funkcji i/lub parametrów TOE może nastąpić na przykład wtedy, gdy przesłany plik był niekompletny bądź nastąpiła awaria algorytmu odpowiedzialnego za szyfrowanie. Uszkodzenie może prowadzić do:
+- uszkodzenia zaszyfrowanego pliku;
+- uszkodzenia deszyfrowanych danych;
+- modyfikacji zawartości pliku bez zgody i wiedzy użytkownika.
+
+### Nieautoryzowany dostęp do zasobów serwera bazodanowego
+
+Atakujący może uzyskać nieautoryzowany dostęp do zasobów serwera bazodanowego w sposób bezpośredni (poprzez interfejs apache sql) bądź z wykorzystaniem luk w aplikacji serwerowej polegającym na modyfikacji zapytania bazodanowego - sql injection.
+
+### Nieautoryzowane przejęcie sesji użytkownika
+
+Atakujący może uzyskać i przejąć od zalogowanego użytkownika id sesji zalogowania przez co uzyskuje dostęp do udostępnionych plików innym użytkownikom.
+
+### Słaby zestaw algorytmów
+
+Zastosowanie słabych algorytmów szyfrowych podczas tworzenia szyfrogramu.
+
+
+### Nieautoryzowany dostęp do prywatnych plików
+
+Atakujący może pobrać prywatne pliki, które nie były dla niego udostępnione.
+
+### Przypadkowe udostępnienie pliku użytkownikowi
+
+Użytkownik przypadkowo udostępnia plik i kod deszyfrujący innemu użytkownikowi - na skutek pomyłki bądź popełnienia błędu przy wpisywaniu nazwy docelowego użytkownika.
+
+
+### Przypadkowe usunięcie pliku
+
+Użytkownik przypadkowo usuwa udostępniany plik, na skutek czego reszta użytkowników traci dostęp do dzielonych zasobów.
+
+### Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym
+
+Atakujący podsłuchuje komunikaty pomiędzy użytkownikami, którzy dzielą się kluczem deszyfrującym służącym do odszyfrowania pliku.
+
+
+### Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+
+Atakujący śledzi dane wprowadzane przez użytkownika podczas logowania - login, hasło; które może przechwycić i wykorzystać do nieuprawnionego zalogowania się do systemu.
+
+### Modyfikacja uprawnień do zasobów
+
+Złośliwy użytkownik może w niedozwolony sposób dodać lub usunąć jednego bądź kilku użytkowników uprawnionych do pobrania określonego pliku. 
+
+### Wyciek danych
+
+W wyniku awarii systemu może dojść do wycieku poufnych i wrażliwych danych - dane logowania, udostępniane pliki, itp.
+
+### Przejęcie konta administratora
+
+Atakujący może przejąć konto administracyjne poprzez odgadnięcie danych dostępu, np: za pomocą metody brute-force albo w wyniku działania odkrycia luki systemowej.
+
+
+## Polityki bezpieczeństwa instytucji
+W tym rozdziale określono zasady natury organizacyjnej, mające zastosowanie do TOE.
+
+### Przerwanie procesu
+Podmiot szyfrujący/deszyfrujący musi mieć możliwość przerwania procesu szyfrowania/deszyfrowania przed aktywacją klucza szyfrującego/deszyfrującego.
+
+### Integralność danych użytkownika
+TOE musi chronić integralność wszystkich danych (lista zaszyfrowanych dokumentów, lista uprawnionych do pobrania zasobów), przychodzących od użytkownika.
+
+### Eksport szyfrogramu
+Po zakończeniu procesu szyfrowania powstały w jego wyniku szyfrogram dokumentu musi zostać przekazany przez TOE podmiotowi szyfrującemu/deszyfrującemu.
+
+### Zarządzanie
+TOE musi pozwolić podmiotowi szyfrującemu/deszyfrującemu oraz administratorowi na zarządzanie politykami szyfrowania oraz tabelą wiążącą format dokumentu z jego przeglądarką.
+
+
+### Algorytmy kryptograficzne
+Do zarządzania kluczami (tj. generowania, udostępniania, niszczenia, korzystania i przechowywania kluczy) oraz udostępniania algorytmów szyfrowych (funkcji szyfrowania, deszyfrowania, podpisywania, obliczania skrótów, wymiany kluczy oraz generowania liczb losowych) stosowane mogą być tylko te algorytmy kryptograficzne (metody i ich implementacje), które spełniają wymagania określone w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.) oraz w Ustawie z dnia 22 stycznia 1999 r. o ochronie informacji niejawnych (Dz.U. 1999 nr 11 poz. 95, wersja ujednolicona) i zatwierdzona przez odpowiednie instytucje certyfikujące przy wysokim poziomie siły funkcji zabezpieczającej lub przynajmniej zgodne z FIPS 140 poziom 2 lub wyższy.
+
+
+## Cele zabezpieczeń
+
+### Cele zabezpieczeń dla TOE
+
+
+#### Uwierzytelnienie użytkownika
+TOE powinien zapewnić, aby użytkownik miał możliwość wprowadzenia danych uwierzytelniających (uwierzytelnienia się) przed uzyskaniem dostępu do prywatnych oraz udostępnionych plików.
+
+#### Integralność danych do szyfrowania
+
+TOE musi zapewnić integralność różnych reprezentacji danych przeznaczonych do zaszyfrowanie od momentu ich sformatowania do momentu utworzenia szyfrogramu.
+
+#### Ochrona procesów
+TOE musi zapewnić ochronę przed ingerencją dowolnych niezaufanych procesów, urządzeń peryferyjnych i kanałów komunikacyjnych oraz intruzuów w pracę tych procesów, które wykorzystywane są podczas szyfrowania/deszyfrowania, zgodnie ze wskazaniem zawartym w żądaniu utworzenia szyfrogramu.
+
+
+#### Poufność danych uwierzytelniających
+TOE musi zapewnić poufność danych uwierzytelniających należących do podmiotu szyfrującego/deszyfrującego.
+
+#### Zatwierdzone algorytmy
+
+TOE powinien zapewnić, aby były stosowane tylko te algorytmy szyfrowe, które należą do zbioru zatwierdzonych algorytmów i parametrów stosowanych podczas tworzenia szyfrogramu; w szczególności, aby format  był zgodny z formatami wskazanymi w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.). 
+
+
+#### Zgoda użytkownika
+
+TOE powinien udostępnić podmiotowi szyfrującemu/deszyfrującemu mechanizm umożliwiający mu (w sposób dobrowolny i jednoznaczny) wyrażenie zgody na zainicjowanie procesu wyboru dokumentu w celu utworzenia szyfrogramu bądź pobrania i odszyfrowania.
+
+TOE powinien zażądać od podmiotu szyfrującego/deszyfrującego nietrywialnego zainicjowania procesu, wykluczającego jakąkolwiek przypadkowość tej decyzji; żaden inny proces w systemie nie może zainicjować tego procesu.
+
+#### Udostępnienie pliku innemu użytkownikowi
+
+TOE powinien zapewnić podmiotowi będącemu właścicielem danego pliku na udostępnienie wybranego zasobu odbiorcy wskazanego przez nadawcę.
+
+#### Przesyłanie klucza deszyfrującego
+
+TOE powienien zapewnić bezpieczne przekazanie klucza szyfrującego wskazanemu przez niego odbiorcy. Proces przekazania klucza powinien być uzgadniany pomiędzy nadawcą a odbiorcą algorytmem Diffie-Hellmana, natomiast TOE ma zapewnić bezpieczny kanał transmisyjny.
+
+
+#### Ustawienie czasu wygaśnięcia pliku
+
+TOE powinien zapewnić uprawnienia właściciela pliku na jednoznaczne wskazanie terminu wygaśnięcia pliku. Po upływie czasu wygaśnięcia TOE powinien przeprowadzić operację trwałego usunięcia pliku.
+
+#### Zbiór dokumentów
+
+Po wyrażeniu przez podmiot szyfrujący zgody na szyfrowanie, TOE musi gwarantować, że przetwarzany dokument rzeczywiście odpowiada dokładnie wybranemu dokumentowi przeznaczonego do szyfrowania.
+
+
+#### Zgodność uprawnień do dokumentów
+
+TOE musi zapewnić zgodność, która potwierdza uprawnienia użytkownika do pobrania wybranego dokumentu.
+
+
+### Cele zabezpieczeń dla środowiska
+
+
+#### Wiarygodni użytkownicy
+
+Upoważnieni użytkownicy rzetelnie wykonują swoje zadania.
+
+#### Wiarygodni administratorzy
+
+Upoważnieni administratorzy rzetelnie wykonują swoje zadania.
+
+
+#### Konfiguracja TOE
+TOE musi być poprawnie zainstalowany i skonfigurowany tak, aby zaraz po uruchomieniu przechodził w bezpieczny stan.
+
+#### Moduły kryptograficzne
+TOE musi korzystać tylko z tych usług kryptograficznych, udostępnianych przez środowisko teleinformatyczne, które spełniają wymagania określone w  Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.) oraz Ustawie z dnia 22 stycznia 1999 r. o ochronie informacji niejawnych (Dz.U. 1999 nr 11 poz. 95, wersja ujednolicona) i zatwierdzone przez odpowiednie instytucje certyfikujące przy wysokim poziomie siły funkcji zabezpieczającej lub przynajmniej zgodne z FIPS 140 poziom 2 lub wyższy. 
+
+#### Bezpieczeństwo fizyczne
+Środowisko musi zapewniać akceptowalny poziom bezpieczeństwa fizycznego tak, aby nie było możliwe manipulowanie TOE. 
+
+#### Obecność użytkownika
+Podmiot szyfrujący/deszyfrujący powinien pozostać obecny między momentem wyrażenia przez niego zamiaru szyfrowania, a momentem kiedy wprowadza dane szyfrujące.
+
+#### Tworzenie danych na potrzeby audytu
+Środowisko związane z TOE zapewni możliwość zapisywania zdarzeń związanych z bezpieczeństwem TOE w rejestrze zdarzeń w sposób jednoznacznie wiążący zdarzenie z użytkownikiem, który był przyczyną wystąpienia tego zdarzenia lub zdarzenie nastąpiło podczas korzystania przez niego z TOE.
+
+#### Ochrona danych rejestrowanych na potrzeby audytu
+Środowisko związane z TOE zapewni możliwość ochrony informacji gromadzonej na potrzeby audytu.
+
+#### Przeglądanie danych rejestrowanych na potrzeby audytu
+Środowisko związane z TOE zapewni możliwość selektywnego przeglądania informacji zgromadzonej w rejestrze zdarzeń.
+
+
+## Wymagania bezpieczeństwa
+<i>Todo</i>
+
+
+## Uzasadnienie celów zabezpieczenia
+<i>Todo</i>

@@ -1,0 +1,28 @@
+FROM node:latest
+
+# Create app directory
+WORKDIR /be/app
+
+RUN npm i -g concurrently yarn
+
+# Install app dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy app source code
+COPY . .
+
+# Prepare mongo app
+WORKDIR /be/app/src/adminMongo
+RUN npm install
+
+# Prepare client app
+WORKDIR /be/app/src/client
+RUN yarn && yarn run build
+
+WORKDIR /be/app
+
+#Expose port and start application
+EXPOSE 8080
+EXPOSE 8090
+CMD [ "npm", "run", "start" ]
