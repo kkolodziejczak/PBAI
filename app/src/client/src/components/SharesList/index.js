@@ -92,7 +92,6 @@ class SharesList extends React.Component {
   };
 
   _renderSuccess = share => {
-    console.log('SHARE', share);
     if (!share.content) {
       return null;
     }
