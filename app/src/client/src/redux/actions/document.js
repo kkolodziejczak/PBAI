@@ -8,6 +8,7 @@ import {
   SET_CRYPTED_PASSWORD,
   SET_TIMER,
   GET_TIMER,
+  UPDATE_SHARES,
 } from 'constants/actionTypes';
 
 export const documentActions = {
@@ -19,4 +20,5 @@ export const documentActions = {
   setCryptedPassword: createAction(SET_CRYPTED_PASSWORD),
   getTimer: createAction(GET_TIMER),
   setTimer: createAction(SET_TIMER),
+  updateShares: createAction(UPDATE_SHARES),
 };

@@ -1,6 +1,5 @@
 const path = require('path')
     , fs = require('fs-extra')
-    , randomstring = require("randomstring")
 
 const string2Int = s => +s
 const toBoleanOrString = s=> { 
@@ -72,6 +71,7 @@ exports.parsers = {
     "USERS_CAN_READ_LOGS": toBoleanOrString,
     "PORT": string2Int,
     "PORT_MONGO_ADMIN": string2Int,
+    "PORT_MONGO_PROXY": string2Int,
     "COOKIE_MAX_AGE": string2Int,
     "MAX_TIMER_SEC": string2Int,
     "GENERATED_ROUTES_FILE": toBoleanOrString,
@@ -98,6 +98,7 @@ exports.validators = {
     "APP_PUBLIC": isDir,
     "GENERATED_ROUTES_FILE": isFilePathValidIfTrue,
     "PORT": isNumber,
+    "PORT_MONGO_ADMIN": isNumber,
     "COOKIE_MAX_AGE": isNumber,
     "MAX_TIMER_SEC": n=>isNumber(n) || isMoreThan(n, 60),
     "LOG_TEMPLATE": fileExistsIfTrue,

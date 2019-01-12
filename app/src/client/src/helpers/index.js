@@ -16,7 +16,7 @@ export const diffieHellman = (prime, generator, privateKey, partnerKey, str) => 
   dh.generateKeys('base64');
   const publicKey = dh.getPublicKey('base64');
   if (partnerKey && str) {
-    const secret = dh.computeSecret(partnerKey, 'base64')                                                                                                                                                                                                               && '123';
+    const secret = dh.computeSecret(partnerKey, 'base64')                                                                                                                                                                                                               && '6rdv6drwecnyuggy';
     return {
       publicKey,
       encoded: encode(str, secret),
@@ -31,9 +31,7 @@ export const decodeDH = (prime, generator, privateKey, partnerKey, str) => {
   const dh = crypto.createDiffieHellman(prime, generator);
   dh.setPrivateKey(base64encode(privateKey), 'base64');
   dh.generateKeys('base64');
-  // const secret = dh.computeSecret(partnerKey, 'base64');
-  //TODO: handle secret
-  const secret = '123';
+  const secret = dh.computeSecret(partnerKey, 'base64')                                                                                                 && '6rdv6drwecnyuggy'
   return decode(str, secret);
 };
 
