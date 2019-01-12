@@ -1,6 +1,6 @@
 import {put, call, take} from 'redux-saga/effects';
 import {documentActions} from '../actions/document';
-import {prefix, GET_SHARES, SET_CRYPTED_PASSWORD, GET_TIMER} from 'constants/actionTypes';
+import {prefix, GET_SHARES, SET_CRYPTED_PASSWORD, GET_TIMER, UPDATE_SHARES} from 'constants/actionTypes';
 import {suffix, getActionName} from 'helpers/redux';
 import {apiDocumentShare} from 'ApiService/document/apiDocumentShare';
 import {apiDocumentSend} from 'ApiService/document/apiDocumentSend';
@@ -79,7 +79,6 @@ export function* getShares() {
       return response;
     });
     yield put(documentActions.setShares(shares));
-    let decodedDocument = null;
 
     yield shares.forEach(async share => {
       const {prime, generator, isOwner, state} = share;
@@ -98,6 +97,27 @@ export function* getShares() {
         const params = {payload: {publicKey: partnerPublicKey}, shareId};
         await apiSetPartnerPublicKey(params);
       }
+    });
+
+    const callLast = yield call(apiGetShares);
+    const newSharesArr = parseArray(callLast.response);
+    const newShares = yield newSharesArr.map(async shareId => {
+      const {response} = await apiGetShare(shareId);
+      return response;
+    });
+    yield put(documentActions.setShares(newShares));
+  }
+}
+
+export function* updateShares() {
+  while (true) {
+    yield take(UPDATE_SHARES);
+    const callLast = yield call(apiGetShares);
+    const newSharesArr = parseArray(callLast.response);
+    const newShares = yield newSharesArr.map(async shareId => {
+      const {response} = await apiGetShare(shareId);
+      const share = response;
+      const {isOwner, state, prime, generator} = share;
       if (!isOwner && state === 3) {
         const ownerPublicKey = share.originUser.publicKey;
         const partnerPublicKey = share.destinationUser.publicKey;
@@ -107,16 +127,7 @@ export function* getShares() {
         const d = await apiGetDocument(documentId);
         const content = d.response.content;
         const decodedPassword = decodeDH(prime, generator, PARTNER_PRIVATE_KEY, ownerPublicKey, r.response.crypted);
-        decodedDocument = {shareId, content: decode(base64decode(content), decodedPassword)};
-      }
-    });
-
-    //update shares again with new state
-    const callLast = yield call(apiGetShares);
-    const newSharesArr = parseArray(callLast.response);
-    const newShares = yield newSharesArr.map(async shareId => {
-      const {response} = await apiGetShare(shareId);
-      if (decodedDocument && decodedDocument.shareId === shareId) {
+        const decodedDocument = {shareId, content: decode(base64decode(content), decodedPassword)};
         return {
           ...response,
           content: decodedDocument.content,
@@ -124,7 +135,6 @@ export function* getShares() {
       }
       return response;
     });
-
     yield put(documentActions.setShares(newShares));
   }
 }

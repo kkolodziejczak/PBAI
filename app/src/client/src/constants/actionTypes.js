@@ -21,3 +21,5 @@ export const SET_CRYPTED_PASSWORD = 'SET_CRYPTED_PASSWORD';
 
 export const GET_TIMER = 'GET_TIMER';
 export const SET_TIMER = 'SET_TIMER';
+
+export const UPDATE_SHARES = 'UPDATE_SHARES';
