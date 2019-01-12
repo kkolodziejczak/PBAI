@@ -15,6 +15,7 @@ Klasa odpowiedzialna jest za kontrolę dostępu użytkownika, podejmuje próby l
 
 ### DocumentManager
 Klasa odpowiedzialna jest za zarządzanie dokumentami użytkownika. Podejmuje akcje związane z dodaniem nowego dokumentu dla użytkownika.  
+
 |  Metoda	|   Opis metody	| 
 |---	|---	|
 |  putDocument	|  Dostęp tylko dla zalogowanego użytkownika. Dodaje nowy dokument dla wskazanego użytkownika. Tworzy id danego dokumentu	| 
@@ -23,6 +24,63 @@ Klasa odpowiedzialna jest za zarządzanie dokumentami użytkownika. Podejmuje ak
 |  EncodeKey	|  pozwala na zaszyfrowanie klucza do pliku.	| 
 |  DecodeKey	| pozwalaa na odszyfrowanie klucza do pliku w celu skorzystania z udostępnionych zasobów.	| 
 
+
+### ShareManager
+Klasa odpowiedzialna jest za udostępnianie dokumentów pośród użytkowników. Podejmuje akcje związane z przypisaniem danego dokumentu dla użytkownika. 
+
+|  Metoda	|   Opis metody	| 
+|---	|---	|
+|  putShare	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Tworzy obiekt udostępnienia dokumentu	| 
+|  getShare	| Dostęp tylko dla zalogowanego użytkownika, zwraca listę obiektów udostępnionych dla danego użytkownika	| 
+|  deleteShare	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu lub użytkownika któremu został przyznany dostęp. Jeśli wykonuje ją właściciel - usuwa obiekt udostępniania. Jeśli wykonuje ją użytkownik, który ma do niej dostęp - udostępnienie dokumentu zostaje odrzucone (state ustawione na -1), właściciel widzi że partner go odrzucił.| 
+|  getShareID	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu lub użytkownika któremu został przyznany dostęp. Pobiera udostępniony obiekt.	| 
+|  postShareID	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu lub użytkownika któremu został przyznany dostęp.Przekierowuje request pod odpowiedni post dla state share'a. Requesty zależne od state moga byc ustawione tylko raz dla udostepnienia. Nie mozna zmeniac ustawionych im wartosci w pozniejszym procesie (ale mozna zaczac udostepniac dokument od nowa). Uzytkownik moze udostepnic drugiemu użytkownikowi dokument pare razy - aby miec do niego wiele hasel.
+|  postID0	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Przyjmuje klucz publiczny dla udostepnienia od uzytkownika ktory udostepnia dokument. Zmienia state na 1| 
+|  postID1	| Dostęp tylko dla zalogowanego użytkownika, użytkownika któremu został przyznany dostęp. Przyjmuje klucz publiczny dla udostepnienia od uzytkownika ktoremu udostepnia dokument. Zmienia state na 2	| 
+|  postID2	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Sprawdza poprawnosc ponownie wyslanego klucza publiczegnego od uzytkownika udostepniajcego dokument. Jesli zgadza sie z poprzednio wyslanym ustaia crypted jako zakodowane haslo do dokumentu. Zmienia state na 3.| 
+|  postID3	| Dostęp tylko dla zalogowanego użytkownika, użytkownika któremu został przyznany dostęp. Sprawdza poprawnosc klucza uzytkownika ktoremu udostepniamy dokument. jesli sie zgadza wysyla crypted oraz dostep do dokumentu.	| 
+
+### PermissionManager
+Klasa odpowiedzialna jest za ustawianie praw dostępu dla użytkowników. Podejmuje akcje związane z przypisaniem roli dostępu danego użytkownika do dokumentu.
+
+|  Metoda	|   Opis metody	| 
+|---	|---	|
+|  deletePerm	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Usuwa dostep po id oraz obiekt share jesli premission dotyczy udostepnienia. Jesli dostep jest dostepem wlasciciela usunie on wszystkie dostepy do dokumentu.	| 
+|  getPerm	| Dostęp tylko dla zalogowanego użytkownika, Zwraca wszystkie dostępy dla użytkownika| 
+|  getPermID	| Dostęp tylko dla zalogowanego użytkownika, Zwraca obiekt dostępu dla użytkownika| 
+
+### TimerManager
+Klasa odpowiedzialna jest za ustawianie czasu przechowywania dokumentu w serwisie. 
+
+|  Metoda	|   Opis metody	| 
+|---	|---	|
+|  putTimer	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Ustawia timer który po aktywacji usunie dostęp dla użytkownika. Zwraca 409 jeśli timer jest już ustawiony dla tego dostępu	| 
+|  deleteTimer	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Ustawia timer.	| 
+| getTimerID	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Zwraca obiekt timera.	| 
+
+### UserManager
+Klasa odpowiedzialna jest za obsługę użytkowników
+
+|  Metoda	|   Opis metody	| 
+|---	|---	|
+|  getUser	| Dostęp tylko dla zalogowanego użytkownika. Zwraca informacje o użytkowniku.	| 
+|  postUser	| Dostęp tylko dla zalogowanego użytkownika. Użytkownik musi być adminem. Zmienia danu użytkownika login lub hasło na własne. Może zmienić login i hasło jednocześnie.  Zwraca  409 jeśli nowy login jest zajęty.	| 
+|  deleteUser	| Brak dostępu, usuwa użytkownika.	| 
+|  getUserID	| Dostęp tylko dla zalogowanego użytkownika. Zwraca informacje o użytkowniku o podanym ID.	| 
+
+### DatabaseManager
+Klasa odpowiedzialna jest za zarządzanie bazą danych
+
+|  Metoda	|   Opis metody	| 
+|---	|---	|
+|  getDB	| Brak dostępu, wysyła aplikacje do zarządzania bazą danych	| 
+
+### LogsManager
+Klasa odpowiedzialna jest za zarządzanie logami.
+
+|  Metoda	|   Opis metody	| 
+|---	|---	|
+|  getLogs	| Brak dostępu, wysyla logi serwera w postaci pliku html, zmienna srodowiskowa USERS_CAN_READ_LOGS moze zapewnic serwowanie dla wszystkich| 
 
 
 
