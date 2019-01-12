@@ -1,6 +1,8 @@
 # Projekt niskiego poziomu
 
 ## Opis klas i metod odpowiedzialnych za bezpieczeństwo w aplikacji
+
+
 ### AuthManager
 Klasa odpowiedzialna jest za kontrolę dostępu użytkownika, podejmuje próby logowania, rejestracji i zwraca wynik. Odpowiedzialna za pobranie danych nowego użytkownika (login, hasło) i weryfikuje je. Implementuje akcje związane z użytkownikami, łącznie z akcjami CRUD. 
 
