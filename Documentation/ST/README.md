@@ -383,27 +383,27 @@ W niniejszym rozdziale zawarto uzasadnienie, dlaczego zidentyfikowane cele zabez
 ### Odwzorowanie celów zabezpieczń TOE na politykę i zagrożenie
 |  Cele zabezpieczeń TOE	|  Polityka/Zagrożenia  	| 
 |---	|---	|
-| Ochrona kanału komunikacyjnego								|
-| Uwierzytelnienie użytkownika									|
-| Integralność danych do szyfrowania							|
-| Ochrona procesów												|
-| Poufność danych uwierzytelniających							|
-| Zatwierdzone algorytmy										|
-| Ochrona procesów												|
-| Zgoda użytkownika												|
-| Udostępnienie pliku innemu użytkownikowi						|
-| Przesyłanie klucza deszyfrującego								|
-| Ustawienie czasu wygaśnięcia pliku							|
-| Zbiór dokumentów												|
-| Zgodność uprawnień do dokumentów								|
-| Bezpieczna komunikacja										|
-| Wiarygodni użytkownicy										|
-| Wiarygodni administratorzy									|
-| Konfiguracja TOE												|
-| Moduły kryptograficzne										|
-| Bezpieczeństwo fizyczne										|
-| Obecność użytkownika											|
-| Tworzenie danych na potrzeby audytu							|
-| Ochrona danych rejestrowanych na potrzeby audytu				|
-| Przeglądanie danych rejestrowanych na potrzeby audytu			|
-| Aktualizacje zabezpieczeń										|
+| Ochrona kanału komunikacyjnego								|	Zarządzanie; Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu, Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, Przejęcie konta administratora
+| Uwierzytelnienie użytkownika									|	Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieupoważniony dostęp, Przejęcie konta administratora
+| Integralność danych do szyfrowania							| Algorytmy kryptograficzne, Integralność danych użytkownika, Eksport szyfrogramu; Uszkodzenie TOE, Słaby zestaw algorytmów, Przypadkowe usunięcie pliku, Wyciek danych 
+| Ochrona procesów												| Przerwanie procesu; Uszkodzenie TOE, Nieautoryzowany dostęp do zasobów serwera bazodanowego, Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Przypadkowe usunięcie pliku, Wyciek danych
+| Poufność danych uwierzytelniających							|	Algorytmy kryptograficzne, Zarządzanie; Nieautoryzowane przejęcie sesji użytkownika, Nieupoważniony dostęp, Przypadkowe usunięcie pliku, Wyciek danych
+| Zatwierdzone algorytmy										|	Algorytmy kryptograficzne; Uszkodzenie TOE 
+| Ochrona procesów												|	Integralność danych danych użytkownika, Zarządzanie; Modyfikacja uprawnień do zasobów, Wyciek danych, Przypadkowe usunięcie pliku
+| Zgoda użytkownika												| Integralność danych użytkownika, Zarządzanie; Przypadkowe usunięcie pliku, Przejęcie konta administratora
+| Udostępnienie pliku innemu użytkownikowi						| Eksport szyfrogramu, Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Przypadkowe usunięcie pliku, Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, Wyciek danych 
+| Przesyłanie klucza deszyfrującego								| Eksport szyfrogramu; Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem, Modyfikacja uprawnień do zasobów
+| Ustawienie czasu wygaśnięcia pliku							| Zarządzanie; Przypadkowe usunięcie pliku, Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Modyfikacja uprawnień do zasobów
+| Zbiór dokumentów												| Zarządzanie, Integralność danych użytkownika; Wyciek danych, Przypadkowe usunięcie pliku, Nieupoważniony dostęp 
+| Zgodność uprawnień do dokumentów								| Zarządzanie, Integralność danych użytkownika;  Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Przypadkowe usunięcie pliku 
+| Bezpieczna komunikacja										| Zarządzanie, Eksport szyfrogramu; Nieautoryzowane przejęcie sesji użytkownika, Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+| Wiarygodni użytkownicy										| Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+| Wiarygodni administratorzy									| Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+| Konfiguracja TOE												| Zarządzanie; Uszkodzenie TOE
+| Moduły kryptograficzne										| Algorytmy kryptograficzne; Słaby zestaw algorytmów; Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym 
+| Bezpieczeństwo fizyczne										| Zarządzanie; Wyciek danych, Modyfikacja uprawnień do zasobów
+| Obecność użytkownika											| Integralność danych użytkownika, Zarządzanie; Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Nieautoryzowane przejęcie sesji użytkownika
+| Tworzenie danych na potrzeby audytu							| Zarządzanie, Integralność danych użytkownika; Uszkodzenie TOE, Nieautoryzowany dostęp do zasobów serwera bazodanowego, Nieupoważniony dostęp
+| Ochrona danych rejestrowanych na potrzeby audytu				| Zarządzanie; Uszkodzenie TOE, Wyciek danych
+| Przeglądanie danych rejestrowanych na potrzeby audytu			| Zarządzanie; Nieautoryzowany dostęp do prywatnych plików
+| Aktualizacje zabezpieczeń										| Zarządzanie; Uszkodzenie TOE, Modyfikacja uprawnień do zasobów, Wyciek danych
