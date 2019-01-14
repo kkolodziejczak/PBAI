@@ -346,7 +346,51 @@ Podmiot szyfrujący/deszyfrujący powinien pozostać obecny między momentem wyr
 
 
 ## Wymagania bezpieczeństwa
-<i>Todo</i>
+
+### Funkcjonalne wymagania bezpieczeństwa
+
+W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzowane pod kątem bezpieczeństwa.
+
+#### Dane audytowe
+
+1. Rejestrowanie zagrożeń bezpieczeństwa
+1.1. Generowanie danych na temat bezpieczeństwa
+System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
+1.2. Przypisywanie zdarzeń do konkretnych podmiotów
+Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
+
+2. Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa
+2.1. Alarmy bezpieczeństwa
+W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
+2.2. System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
+
+#### Uwierzytelnianie i kontrola dostępu
+
+1. Błędy uwierzytelniania
+1.1. Obsługa błędów uwierzytelniania
+System musi wykrywać błędne próby logowania uzytkowników i rejestrować je w postaci logów systemowych, dostępnych dla administratora.
+1.2. Blokowanie dostępu
+W przypadku wykrycia trzech niepoprawnych prób logowania, system powinien zablokować możliwość dostępu do konta na jedną godzinę (dla danej sesji - nie dla danego użytkownika).
+2. Uwierzytelnianie uzytkowników
+2.1. Uwierzytelnianie użytkowników przed każdym działaniem
+System wymaga pomyślnego uwierzytelnienia użytkownika przed wykonaniem przez niego jakiejkolwiek akcji w aplikacji.
+2.2. Podział na role
+System pozwala użytkownikowi tylko na wykonywanie akcji dostępnych dla jego roli (użytkownik bądź administrator).
+3. Identyfikacja użytkowników
+3.1. Login i hasło
+Aby zalogować się do systemu, użytkownik musi podać poprawny identyfikator (adres e-mail) i poprawne hasło.
+
+#### Ochrona
+1. Podział na role
+1.1. Role bezpieczeństwa
+System musi przechowywać następujące role użytkowników aplikacji:
+- użytkownik
+- administrator
+1.2. Ograniczenia bezpieczeństwa dla ról
+System musi być w stanie powiązać użytkowników aplikacji z wyżej wymienionymi rolami.
+2. Znaczniki czasu
+2.1. System musi niezawodnie generować znaczniki czasu.
+2.2. System powinien rejestrować wszystkie akcje użytkowników w postaci logów systemowych i przypisywać im znaczniki czasu.
 
 
 ## Uzasadnienie celów zabezpieczenia
