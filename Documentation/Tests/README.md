@@ -282,7 +282,13 @@ zawartość plik pozostanie tam do czasu odświeżenia strony.
 </tr>
 <tr>
 <th>Procedura</th>
-<td></td>
+<td><p>1.Przejdź do strony głównej</p>
+<p>2.Kliknij "Register"</p>
+<p>3.Wpisz login</p>
+<p>4.Wpisz hasło</p>
+<p>5.Powtórz hasło</p>
+<p>6.Kliknij 'Submit'</p>
+<p></p></td>
 </tr>
 <tr>
 <th>Warunki porażki</th>
@@ -322,7 +328,10 @@ zawartość plik pozostanie tam do czasu odświeżenia strony.
 </tr>
 <tr>
 <th>Procedura</th>
-<td></td>
+<td><p>1.Przejdź do strony głównej</p>
+<p>2.Wpisz login</p>
+<p>3.Wpisz hasło</p>
+<p>4.Kliknij submit</p></td>
 </tr>
 <tr>
 <th>Warunki porażki</th>
@@ -362,7 +371,8 @@ zawartość plik pozostanie tam do czasu odświeżenia strony.
 </tr>
 <tr>
 <th>Procedura</th>
-<td></td>
+<td><p>1.Przejdź do strony głównej</p>
+<p>2.Kliknij 'Log Out'</p></td>
 </tr>
 <tr>
 <th>Warunki porażki</th>
@@ -396,7 +406,8 @@ zawartość plik pozostanie tam do czasu odświeżenia strony.
 </tr>
 <tr>
 <th>Procedura</th>
-<td></td>
+<td><p>1.Przejdź do strony głównej</p>
+<p>2.Kliknij 'My Documents'</p></td>
 </tr>
 <tr>
 <th>Warunki porażki</th>
@@ -430,7 +441,8 @@ zawartość plik pozostanie tam do czasu odświeżenia strony.
 </tr>
 <tr>
 <th>Procedura</th>
-<td></td>
+<td><p>1.Przejdź do strony głównej</p>
+<p>2.Kliknij 'Shares'</p></td>
 </tr>
 <tr>
 <th>Warunki porażki</th>
@@ -464,7 +476,11 @@ zawartość plik pozostanie tam do czasu odświeżenia strony.
 </tr>
 <tr>
 <th>Procedura</th>
-<td></td>
+<td><p>1.Przejdź do strony głównej</p>
+<p>2.Kliknij 'DOCUMENTS SHARING APP'</p>
+<p>3.Drag &amp; Drop plik do wysłania</p>
+<p>4.Wpisz hasło do pliku</p>
+<p>5.Kliknij "Save and continue"</p></td>
 </tr>
 <tr>
 <th>Warunki porażki</th>
@@ -509,7 +525,11 @@ zawartość plik pozostanie tam do czasu odświeżenia strony.
 </tr>
 <tr>
 <th>Procedura</th>
-<td></td>
+<td><p>1.Przejdź do strony głównej</p>
+<p>2.Kliknij 'My documents'</p>
+<p>3.Kliknij w przycisk "Share document" który należy do pliku który chcesz udostępnić</p>
+<p>4.Wpisz login użytkownika któremu chcesz udostępnić plik</p>
+<p>5.Kliknij "Share"</p></td>
 </tr>
 <tr>
 <th>Warunki porażki</th>
@@ -546,7 +566,11 @@ zawartość plik pozostanie tam do czasu odświeżenia strony.
 </tr>
 <tr>
 <th>Procedura</th>
-<td></td>
+<td><p>1.Przejdź do strony głównej</p>
+<p>2.Kliknij 'Shares'</p>
+<p>3.Poczekaj aż stan zostanie automatycznie zmieniony lub:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;1.(State 2) Wprowadź hasło</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;2.(State 3) Wprowadź czas po którym plik przestanie być udostępniany</p></td>
 </tr>
 <tr>
 <th>Warunki porażki</th>
