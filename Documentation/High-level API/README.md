@@ -85,7 +85,7 @@ W przypadku wystąpienia błędów aplikacji po stronie użytkownika lub po stro
 
 W ramach działania aplikacji dane przechowywane są w dwóch magazynch:
 
-* Pamięć dyskowa w wirtualnym kontenerze Dockera - zasoby zarządzające aplikacją po stronie serwera, logi systemowe, zabezpieczona kopia bazy danych.
+* Pamięć dyskowa jako instancja utworzona z wirtualnego kontenera dockera - zasoby zarządzające aplikacją po stronie serwera, logi systemowe, zabezpieczona kopia bazy danych.
 * Baza danych - przechowywanie wszelkich informacji dotyczących systemu takich jak:
     * Dane użytkownika systemu - login, hasło - hasło zabezpieczone hashem: bcrypt, adres e-mail, przypisana grupa użytkownika;
     * Grupy użytkowników - użytkownik, administrator;

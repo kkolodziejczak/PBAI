@@ -272,11 +272,6 @@ TOE musi zapewnić poufność danych uwierzytelniających należących do podmio
 
 TOE powinien zapewnić, aby były stosowane tylko te algorytmy szyfrowe, które należą do zbioru zatwierdzonych algorytmów i parametrów stosowanych podczas tworzenia szyfrogramu; w szczególności, aby format  był zgodny z formatami wskazanymi w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.). 
 
-
-#### Ochrona procesów
-TOE jest odporne na ingerencję obcych procesów, urządzeń i urządzeń komunikacyjnych oraz intruzów, w pracę procesów TOE, które odpowiedzialne są za bezpieczeństwo.
-
-
 #### Zgoda użytkownika
 
 TOE powinien udostępnić podmiotowi szyfrującemu/deszyfrującemu mechanizm umożliwiający mu (w sposób dobrowolny i jednoznaczny) wyrażenie zgody na zainicjowanie procesu wyboru dokumentu w celu utworzenia szyfrogramu bądź pobrania i odszyfrowania.
