@@ -67,12 +67,12 @@ Przechowuje rekordy o użytkownikach znajdujących się w systemie wraz z poziom
 
 ## 2. Stany aplikacji
 
-Główna część aplikacji - aplikacja serwerowa z dostępem przez przeglądarkę internetową, napisana w języku JavaScript (Front-end React.js; Back-end Node.js) jest obsługiwana przez chmurę Amazon Web Services (AWS).
+Główna część aplikacji - aplikacja serwerowa z dostępem przez przeglądarkę internetową, napisana w języku JavaScript (Front-end React.js; Back-end Node.js) jest obsługiwana przez platformę Docker.
 
 
 ## 3. Zasoby aplikacji
 
-Aplikacja działa na chmurze Amazon Web Services - jest to bezpieczna platforma usług w chmurze oferującą moc obliczeniową, hosting bazy danych, usługi dostarczania treści (content delivery) i wiele innych produktów i usług pomagających w łatwym skalowaniu i wzroście biznesu.
+Aplikacja działa na oprogramowaniu Docker - jest to otwarte oprogramowanie do realizacji wirtualizacji na poziomie systemu operacyjnego, działające jako "platforma dla programistów i administratorów do tworzenia, wdrażania i uruchamiania aplikacji rozproszonych".
 
 
 ## 4. Sposób obsługi błędów
@@ -85,7 +85,7 @@ W przypadku wystąpienia błędów aplikacji po stronie użytkownika lub po stro
 
 W ramach działania aplikacji dane przechowywane są w dwóch magazynch:
 
-* Pamięć dyskowa w chmurze Amazon Web Services - zasoby zarządzające aplikacją po stronie serwera, logi systemowe, zabezpieczona kopia bazy danych.
+* Pamięć dyskowa w wirtualnym kontenerze Dockera - zasoby zarządzające aplikacją po stronie serwera, logi systemowe, zabezpieczona kopia bazy danych.
 * Baza danych - przechowywanie wszelkich informacji dotyczących systemu takich jak:
     * Dane użytkownika systemu - login, hasło - hasło zabezpieczone hashem: bcrypt, adres e-mail, przypisana grupa użytkownika;
     * Grupy użytkowników - użytkownik, administrator;
