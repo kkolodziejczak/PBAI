@@ -153,8 +153,10 @@ Główna grupa korzystających z systemu. Używają oni aplikacji do dzielenia s
 <b>Wykorzystywane funkcje:</b>
 - Rejestracja;
 - Logowanie;
-- Wysyłanie dokumentów (w tym ustalenie daty i godziny wygaśnięcia, nadanie uprawnień dostępu, nadanie symetrycznego klucza szyfrującego);
-- Zarządzanie dokumentami (ustalanie daty i godziny wygaśnięcia, nadawanie uprawnień dostępu).
+- Wysyłanie dokumentów;
+- Przeglądanie własnych dokumentów;
+- Udostępnianie dokumentów (w tym ustalenie terminu wygaśnięcia, nadanie uprawnień dostępu, nadanie symetrycznego klucza szyfrującego);
+- Odczytywanie udostępnionych dokumentów.
 
 ### 2. Administrator
 Użytkownik zarządzający systemem. Nadzoruje on pracę systemu oraz działania użytkowników. Czuwa nad bezpieczeństwem. Posiada  szerszą wiedzę na temat specyfiki działania systemu. Wychwytuje niepożądane akcje użytkowników i zachowania aplikacji. Ma dostęp do bazy danych.
@@ -172,7 +174,7 @@ Aplikacja będzie wykorzystywana przez użytkowników na co dzień do dzielenia 
 
 # Sposób realizacji aplikacji
 
-<b>Ogólna charakterystyka:</b> Jednostronicowa aplikacja webowa z dostępem przez przeglądarkę</br>
+<b>Ogólna charakterystyka:</b> Aplikacja webowa z dostępem przez przeglądarkę</br>
 <b>Platforma:</b> Ubuntu 14.04, chmura Microsoft Azure</br>
 <b>Język programowania:</b> JavaScript</br>
 <b>Front-end:</b> React.js</br>
