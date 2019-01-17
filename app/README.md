@@ -91,7 +91,9 @@ po dwukropku ich domyślne wartości
 "CRYPTO_MOCKED": true,
 "USERS_CAN_READ_LOGS": true,
 "PRINT_CONFIG": true, // level debug 
-"CREATE_ADMIN": true
+"CREATE_ADMIN": true,
+"AUTH_LIMITER": true,
+"AUTH_LIMITER_RESET_PASSWORD": "sorry mr. server for bothering your awesomeness"
 ```
 
 # 5. Routes
@@ -141,8 +143,9 @@ admin: schemes.isAdmin // tylko jesli chemy utworzyc admina, musi byc rowne zmie
 ```
 login: schemes.login,
 password: schemes.password,
+sorryLetter: hasToBeEqual AUTH_LIMITER_RESET_PASSWORD
 ```
-* loguje usera
+* loguje usera. Jesli AUTH_LIMITER jest ustawione na true po 3 niepoprawnych probach logowania blokuje dostep do tej koncowki na 60 minut. Czas może zostać wyzerowany natychmiast jeśli zmienna AUTH_LIMITER_RESET_PASSWORD jest różna od false oraz pole "sorryLetter" zapytania bedzie równe zmiennej AUTH_LIMITER_RESET_PASSWORD.
 
 3.
 * delete

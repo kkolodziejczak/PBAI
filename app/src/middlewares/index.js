@@ -23,7 +23,7 @@ module.exports = async (app) => {
     app.passport = passport
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({extended: true}))
-    app.use(limiter)
+    app.use(limiter())
     if (config.NO_CACHE){
         app.use(nocache())
     }

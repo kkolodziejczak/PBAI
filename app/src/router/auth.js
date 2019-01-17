@@ -4,6 +4,8 @@ const crateRouter = require('../helpers/createRouter')
     , validJoiScheme = require('../validators/validJoiScheme')
     , checkBlackListedPasswords = require('../validators/checkBlackListedPasswords')
     , schemes = require('../models/shemes')
+    , postAuth = require('../policies/limiters').postAuth
+    , httpStatuses = require('http-status-codes')
 
 module.exports = app => {
     return crateRouter([{
@@ -31,17 +33,18 @@ module.exports = app => {
         }
     }, {
         method: "post",
-        policy: notAuthenticated,
+        policy: [notAuthenticated, postAuth()],
         validation: validJoiScheme({
             login: schemes.login,
             password: schemes.password,
+            sorryLetter: schemes.sorryLetter
         }, 'body'),
         handler: function authorization(req, res, next){
             return app.passport.authenticate('authorization', {
                 successRedirect : '/auth/done'
             })(req, res, next)
         }
-    }, {
+    } ,{
         method: "delete",
         policy: authenticated,
         handler: function deAuthorization(req, res, next){
