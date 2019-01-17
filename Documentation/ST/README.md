@@ -418,23 +418,32 @@ zapasowej) do innej części TOE.
 
 #### Uwierzytelnianie i kontrola dostępu
 
-1. Błędy uwierzytelniania
+<b>FDP_ACC</b> - Polityka kontroli dostępu.
 
-	1.1. Obsługa błędów uwierzytelniania
+<b>FDP_ACC.1</b> - kontrola dostępu do poszczególnych funkcjonalności TOE.
 
-	System musi wykrywać błędne próby logowania uzytkowników i rejestrować je w postaci logów systemowych, dostępnych dla administratora.
+<b>FDP_ACC.1.1</b> - System na podstawie kontroli dostępu SFP (ang. Security
+Function Policies, zbiór zasad bezpieczeństwa które muszą być przestrzegane
+w ramach TOE) musi egzekwować kontrolę dostępu do poszczególnych funkcji
+oraz zasobów TOE zdefiniowanych w SFP.
 
-	1.2. Blokowanie dostępu
-	
-	W przypadku wykrycia trzech niepoprawnych prób logowania, system powinien zablokować możliwość dostępu do konta na jedną godzinę (dla danej sesji - nie dla danego użytkownika).
-2. Uwierzytelnianie uzytkowników
-2.1. Uwierzytelnianie użytkowników przed każdym działaniem
-System wymaga pomyślnego uwierzytelnienia użytkownika przed wykonaniem przez niego jakiejkolwiek akcji w aplikacji.
-2.2. Podział na role
-System pozwala użytkownikowi tylko na wykonywanie akcji dostępnych dla jego roli (użytkownik bądź administrator).
-3. Identyfikacja użytkowników
-3.1. Login i hasło
-Aby zalogować się do systemu, użytkownik musi podać poprawny identyfikator (adres e-mail) i poprawne hasło.
+<b>FDP_ACF</b> - funkcje kontroli dostępu.
+
+<b>FDP_ACF.1</b> - atrybuty kontroli dostępu.
+
+<b>FDP_ACF.1.1</b> - System musi wymuszać kontrolę dostępu zdefiniowaną w SFP
+bazującą na rolach przypisanych do poszczególnych podmiotów w ramach
+TOE.
+
+<b>FDP_ACF.1.2</b> - TSF musi egzekwować poniższe zasady w celu weryfikacji
+czy dany podmiot powinien uzyskać dostęp do wybranej funkcjonalności:
+ - podmiot musi być autoryzowanym podmiotem występującym w ramach
+TOE,
+ - TSF musi zweryfikować rolę danego podmiotu,
+ - na podstawie atrybutów dostępu przypisanych do poszczególnych ról,
+TSF powinien udzieli lub odmówić dostępu do danej funkcji TOE dla
+danego podmiotu.
+
 
 #### Ochrona
 1. Podział na role
