@@ -351,11 +351,13 @@ W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzo
 <b>FAU_GEN</b> - Rejestrowanie zagrożeń bezpieczeństwa
 
 <b>FAU_GEN.1</b> - Generowanie danych na temat bezpieczeństwa
+
 <b>FAU_GEN.1.1</b> - System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
 
-<b>FAU_GEN.2</b> - Przypisywanie zdarzeń do konkretnych 
+<b>FAU_GEN.2</b> - Przypisywanie zdarzeń do konkretnych podmiotów
 
 <b>FAU_GEN.2.1</b> - Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
+
 
 <b>FAU_ARP</b> - Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa.
 
@@ -371,24 +373,13 @@ W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzo
 <b>FAU_SAR.1</b> - Przegląd audytu, możliwość odczytywania rejestrowanych danych
 
 
-<b>FAU_SAA</b> - Automatyczna analiza zachowań systemu oraz analiza danych
-w poszukiwaniu potencjalnych luk w zabezpieczeniach.
-
-<b>FAU_SAA.1</b> - Analiza możliwych naruszeń bezpieczeństwa.
-
-<b>FAU_SAA.1.1</b> - System musi być w stanie wykrywać potencjalne zagrożenia
-bezpieczeństwa na podstawie predefniowanych reguł (np. ataki typu bruteforce).
-
-<b>FAU_SAA.1.2</b> - System musi być w stanie wykrywać potencjalne zagrożenia
-bezpieczeństwa kombinacji wielu reguł i oznaczać je w prawidłowy sposób.
-
 <b>FAU_SAR</b> -  Wymagania dotyczące narzędzi audytu, dostępnych dla osób
 uprawnionych w celu przeglądu danych.
 
 <b>FAU_SAR.1</b> Przegląd audytu, możliwość odczytywania rejestrowanych
 danych.
 
-<b>FAU_SAR.1.1</b> - System musi zapewnić mo»liwość odczytu zarejestrowanych
+<b>FAU_SAR.1.1</b> - System musi zapewnić możliwość odczytu zarejestrowanych
 danych audytu.
 
 <b>FAU_SAR.1.2</b> - System musi zapewnić możliwość odczytu danych w formie
@@ -400,8 +391,7 @@ możliwej do interpretacji przez użytkownika.
 Dane audytowe mogą być odczytywane tylko przez podmioty do tego uprawnione.
 
 
-
-<b>FAU_STG</b> - Wymagania TSF dotycz¡ce przechowywania zbioru rejestrowanych
+<b>FAU_STG</b> - Wymagania System dotycz¡ce przechowywania zbioru rejestrowanych
 zdarzeń.
 
 <b>FAU_STG.1</b> - Miejsce przechowywania rejestrowanych danych.
@@ -415,8 +405,7 @@ ewentualne przywrócenie danych audytu.
 zapasowej) do innej części TOE.
 
 
-
-#### Uwierzytelnianie i kontrola dostępu
+#### Weryfikacja
 
 <b>FDP_ACC</b> - Polityka kontroli dostępu.
 
@@ -435,14 +424,54 @@ oraz zasobów TOE zdefiniowanych w SFP.
 bazującą na rolach przypisanych do poszczególnych podmiotów w ramach
 TOE.
 
-<b>FDP_ACF.1.2</b> - TSF musi egzekwować poniższe zasady w celu weryfikacji
+<b>FDP_ACF.1.2</b> - System musi egzekwować poniższe zasady w celu weryfikacji
 czy dany podmiot powinien uzyskać dostęp do wybranej funkcjonalności:
  - podmiot musi być autoryzowanym podmiotem występującym w ramach
 TOE,
- - TSF musi zweryfikować rolę danego podmiotu,
+ - System musi zweryfikować rolę danego podmiotu,
  - na podstawie atrybutów dostępu przypisanych do poszczególnych ról,
-TSF powinien udzieli lub odmówić dostępu do danej funkcji TOE dla
+System powinien udzieli lub odmówić dostępu do danej funkcji TOE dla
 danego podmiotu.
+
+
+#### Uwierzytelnianie i identyfikacja
+
+<b>FIA_AFL</b> - błędy uwierzytelniania.
+
+<b>FIA_AFL.1</b> - obsługa błędów uwierzytelniania.
+
+<b>FIA_AFL.1.1</b> - System musi wykrywać błędne próby logowania użytkowników
+ (w ilości zdefiniowanej przez administratora).
+
+<b>FIA_AFL.1.2</b> - w przypadku wykrycia zdefiniowanej ilości niepoprawnych
+prób logowania danego użytkownika, system musi wykonać następujące czynno
+ści:
+ - zapisać dokładne informacje na temat adresu logowania, ilości niepoprawnych
+prób logowania, oraz podmiotu którego dotyczyły zdarzenie
+w logach systemu,
+ - zablokować możliwość logowania dla danego użytkownika na określony,
+zdefiniowany przez administratora okres czasu,
+ - poinformować podmiot o nieudanych próbach logowania.
+
+<b>FIA_UAU</b> - uwierzytelnianie użytkowników.
+
+<b>FIA_UAU.1</b> - uwierzytelnianie użytkowników przed każdym działaniem.
+
+<b>FIA_UAU.1.1</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej
+i serwer został pomyślnie uwierzytelniony, zanim zdecyduje się na inne operacje
+związane z systemem w imieniu tego użytkownika.
+
+<b>FIA_UAU.1.2</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej
+i serwer został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika
+jakichkolwiek innych działań z udziałem systemu.
+
+<b>FIA_UID</b> - identyfikacja użytkowników.
+
+<b>FIA_UID.1</b> - identyfikacja użytkownika przed jakimkolwiek działaniem.
+
+<b>FIA_UID.1.1</b> - System wymaga, aby każdy użytkownik aplikacji został
+zidentyfikowany przed umożliwieniem w imieniu tego użytkownika
+jakichkolwiek innych działań z udziałem systemu.
 
 
 #### Ochrona
@@ -457,6 +486,42 @@ System musi być w stanie powiązać użytkowników aplikacji z wyżej wymienion
 2.1. System musi niezawodnie generować znaczniki czasu.
 2.2. System powinien rejestrować wszystkie akcje użytkowników w postaci logów systemowych i przypisywać im znaczniki czasu.
 
+FCS_CKM Zarządzanie klucza kryptograficznego
+
+	FCS_CKM.1 Cryptographic key generation, requires cryptographic keys to
+	be generated in accordance with a specified algorithm and key sizes which
+	can be based on an assigned standard.
+
+	FCS_CKM.2 Cryptographic key distribution, requires cryptographic keys to
+	be distributed in accordance with a specified distribution method which can
+	be based on an assigned standard.
+
+	FCS_CKM.3 Cryptographic key access, requires access to cryptographic
+	keys to be performed in accordance with a specified access method which
+	can be based on an assigned standard.
+
+	FCS_CKM.4 Cryptographic key destruction, requires cryptographic keys to
+	be destroyed in accordance with a specified destruction method which can be
+	based on an assigned standard.
+
+FCS_COP Operacja szyfrowania
+
+	FCS_COP.1 The TSF shall perform [assignment: list of cryptographic operations] in
+	accordance with a specified cryptographic algorithm [assignment:
+	cryptographic algorithm] and cryptographic key sizes [assignment:
+	cryptographic key sizes] that meet the following: [assignment: list of
+	standards]. 
+
+FIA_AFL: Identification and authentication 
+	 Authentication failures (FIA_AFL) 
+
+
+FIA_SOS: Specification of secrets
+	
+	FIA_SOS.1 Verification of secrets
+		FIA_SOS.1.1 The TSF shall provide a mechanism to verify that secrets meet requirement.
+	FIA_SOS.2 TSF Generation of secrets:
+	The TSF shall be able to enforce the use of TSF generated secrets for functions.
 
 ## Uzasadnienie celów zabezpieczenia
 W niniejszym rozdziale zawarto uzasadnienie, dlaczego zidentyfikowane cele zabezpieczeń są odpowiednie do przeciwdziałania zidentyfikowanym zagrożeniom i spełniają określone polityki bezpieczeństwa.
