@@ -1,34 +1,34 @@
 # Funkcjonalność aplikacji
 
-Aplikacja ma służyć do bezpiecznego dzielenia się między sobą poufnymi plikami. Po wysłaniu na serwer plików zaszyfrowanych za pomocą klucza symetrycznego, użytkownik będzie mógł ustawić datę i godzinę wygaśnięcia pliku oraz zarządzać listą osób uprawnionych do jego odczytu. Służący do tego klucz symetryczny zostanie wtedy zaszyfrowany i przekazany według protokołu Diffiego-Hellmana.
+Aplikacja ma służyć do bezpiecznego dzielenia się między sobą poufnymi plikami. Po wysłaniu na serwer plików zaszyfrowanych za pomocą klucza symetrycznego, użytkownik będzie mógł ustawić termin wygaśnięcia pliku oraz zarządzać listą osób uprawnionych do jego odczytu. Służący do tego klucz symetryczny zostanie wtedy zaszyfrowany i przekazany według protokołu Diffiego-Hellmana.
 
 ## 1. Audytowanie
 Administrator ma dostęp do danych audytowych przechowywanych w bazie danych oraz dostarczanych przez serwer aplikacji w postaci logów systemowych. Logi systemowe są dostępne dla administratora z poziomu aplikacji. Dane audytowe przechowują informacje na temat zdarzeń zachodzących w aplikacji. Zawierają dane o krytycznych funkcjach systemu: logowaniu, wylogowaniu, nieudanych próbach logowania, wyjątkach, wywoływanych metodach, a także o zmianach dokonywanych w bazie danych. Jest to szczególnie ważne w przypadku niniejszej aplikacji ze względu na jej poufny charakter. Dostęp do danych audytowych posiada jedynie administrator .
 
-## 2. Weryfikacja i uwierzytelnienie
-System posiada mechanizm kontroli dostępu. Do wykonania jakiejkolwiek akcji, wymaga od użytkownika uwierzytelnienia się poprzez zalogowanie do aplikacji. W systemie zdefiniowane są dwie role - administrator oraz użytkownik. Żaden użytkownik nie posiada uprawnień do otwierania dokumentów dla niego nieprzeznaczonych. Tylko administrator ma prawo do przeglądania wszystkich dokumentów w bazie (bez uprawnień do ich otwierania i wyświetlania - jedynie do pobierania, usuwania, sprawdzenia kto jest właścicielem i kto ma dostęp) oraz dostęp do danych audytowych. W przypadku, gdy system wykryje podejrzane zachowanie, jakim są wielokrotne, nieudane próby zalogowania, blokuje użytkownikowi dostęp do konta na 1 godzinę (dla danej sesji - nie dla danego konta).
+## 2. Weryfikacja i uwierzytelnianie
+System posiada mechanizm kontroli dostępu. Do wykonania jakiejkolwiek akcji, wymaga od użytkownika uwierzytelnienia się poprzez zalogowanie do aplikacji. W systemie zdefiniowane są dwie role - administrator oraz użytkownik. Żaden użytkownik nie posiada uprawnień do otwierania dokumentów dla niego nieprzeznaczonych. Tylko administrator ma prawo do przeglądania wszystkich dokumentów w bazie (bez uprawnień do ich otwierania i wyświetlania) oraz dostęp do danych audytowych. W przypadku, gdy system wykryje podejrzane zachowanie, jakim są wielokrotne, nieudane próby zalogowania, blokuje użytkownikowi dostęp do konta na 1 godzinę (dla danej sesji - nie dla danego konta).
 
 ### UC1 - Rejestracja
 Jeśli użytkownik nie posiada jeszcze konta w systemie, przy pierwszym kontakcie z aplikacją powinien się zarejestrować. Dzięki temu podczas użytkowania aplikacji system będzie mógł dokonać jego identyfikacji i potwierdzić tożsamość.
 1. Wymagania: brak
 2. Scenariusz główny:
-- Przeglądarka wyświetla formularz logowania - obok znajduje się opcja "Zarejestruj się"
-- Użytkownik wybiera opcję "Zarejestruj się"
-- Przeglądarka ładuje ekran rejestracji z trzema polami - prosi o podanie identyfikatora (adresu e-mail), założenie hasła i powtórzenie go
+- Przeglądarka wyświetla formularz logowania - obok znajduje się opcja "Register"
+- Użytkownik wybiera opcję "Register"
+- Przeglądarka ładuje ekran rejestracji z trzema polami - prosi o podanie identyfikatora (loginu), założenie hasła i powtórzenie go
 - Użytkownik wpisuje poprawne dane do formularza logowania
-- Użytkownik wybiera opcję "Zatwierdź"
+- Użytkownik wybiera opcję "Submit"
 - System tworzy nowe konto i przenosi użytkownika do ekranu logowania
 3. Scenariusz alternatywny 1:
-- Przeglądarka wyświetla formularz logowania - obok znajduje się opcja "Zarejestruj się"
-- Użytkownik wybiera opcję "Zarejestruj się"
-- Przeglądarka ładuje ekran rejestracji z trzema polami - prosi o podanie identyfikatora (adresu e-mail), założenie hasła i powtórzenie go
-- Użytkownik podaje zajęty lub niepoprawny identyfikator (adres e-mail)
+- Przeglądarka wyświetla formularz logowania - obok znajduje się opcja "Register"
+- Użytkownik wybiera opcję "Submit"
+- Przeglądarka ładuje ekran rejestracji z trzema polami - prosi o podanie identyfikatora (loginu), założenie hasła i powtórzenie go
+- Użytkownik podaje zajęty lub niepoprawny identyfikator (login)
 - System wyświetla komunikat o wprowadzeniu błędnych danych
 4. Scenariusz alternatywny 2:
-- Przeglądarka wyświetla formularz logowania - obok znajduje się opcja "Zarejestruj się"
-- Użytkownik wybiera opcję "Zarejestruj się"
-- Przeglądarka ładuje ekran rejestracji z trzema polami - prosi o podanie identyfikatora (adresu e-mail), założenie hasła i powtórzenie go
-- Użytkownik podaje identyfikator (adres e-mail) i hasło, jednak niepoprawnie je powtarza
+- Przeglądarka wyświetla formularz logowania - obok znajduje się opcja "Register"
+- Użytkownik wybiera opcję "Submit"
+- Przeglądarka ładuje ekran rejestracji z trzema polami - prosi o podanie identyfikatora (loginu), założenie hasła i powtórzenie go
+- Użytkownik podaje identyfikator (login) i hasło, jednak niepoprawnie je powtarza
 - System wyświetla komunikat z prośbą o ponowne powtórzenie hasła
 
 ### UC2 - Logowanie
@@ -37,22 +37,22 @@ Po połączeniu się z serwerem i otwarciu aplikacji w przeglądarce, użytkowni
 2. Scenariusz główny:
 - Przeglądarka wyświetla formularz logowania
 - Użytkownik wpisuje poprawne dane do formularza logowania
-- Użytkownik wybiera opcję “Zaloguj”
+- Użytkownik wybiera opcję “Submit”
 - System sprawdza poprawność danych i wyświetla główny widok aplikacji
 3. Scenariusz alternatywny 1:
 - Przeglądarka wyświetla formularz logowania
 - Użytkownik wpisuje niepoprawne dane do formularza logowania
-- Użytkownik wybiera opcję “Zaloguj”
+- Użytkownik wybiera opcję “Submit”
 - System wyświetla komunikat o wprowadzeniu błędnych danych
 4. Scenariusz alternatywny 2:
 - Przeglądarka wyświetla formularz logowania
 - Użytkownik niepoprawnie wpisuje dane do formularza logowania
-- Użytkownik wybiera opcję “Zaloguj”
+- Użytkownik wybiera opcję “Submit”
 - System wyświetla komunikat o błędnym wypełnieniu formularza
 5. Scenariusz alternatywny 3:
 - Przeglądarka wyświetla formularz logowania
 - Użytkownik wpisuje poprawny login, ale niepoprawne hasło do formularza logowania
-- Użytkownik wybiera opcję “Zaloguj”
+- Użytkownik wybiera opcję “Submit”
 - System wyświetla komunikat o wprowadzeniu błędnych danych
 - Użytkownik 2 razy ponownie wpisuje niepoprawne hasło
 - Po 3-krotnej próbie podania niepoprawnego hasła system blokuje użytkownikowi dostęp do konta na 1 godzinę (dla danej sesji - nie dla konta)
@@ -60,95 +60,89 @@ Po połączeniu się z serwerem i otwarciu aplikacji w przeglądarce, użytkowni
 ### UC3 - Wysyłanie dokumentu
 1. Wymagania: użytkownik musi być zalogowany
 2. Scenariusz główny:
-- Użytkownik wybiera opcję "Wyślij dokument"
-- Pojawia się okno wyboru pliku
-- Użytkownik wskazuje odpowiedni dokument
+- Użytkownik wybiera zakładkę "DOCUMENTS SHARING APP"
+- Pojawia się pole wyboru pliku
+- Użytkownik przeciąga i upuszcza odpowiedni dokument (rozszerzenie *.txt) w polu wyboru pliku
 - Użytkownik podaje klucz symetryczny, którym zostanie zaszyfrowany dokument
-- Użytkownik podaje datę wygaśnięcia pliku
-- Użytkownik podaje identyfikatory e-mail osób, którym chce udostępnić dokument
-- Użytkownik wybiera opcję "Zatwierdź"
-3. Scenariusz alternatywny:
-- Użytkownik wybiera opcję "Wyślij dokument"
-- Pojawia się okno wyboru pliku
-- Użytkownik wskazuje odpowiedni dokument
-- Użytkownik podaje klucz symetryczny, którym zostanie zaszyfrowany dokument
-- Użytkownik podaje datę wygaśnięcia pliku
-- Użytkownik wybiera opcję "Zatwierdź"
-
-### UC4 - Zarządzanie dokumentami
-1. Wymagania: użytkownik musi być zalogowany
-2. Scenariusz główny:
-- Użytkownik wybiera opcję "Zarządzanie dokumentami"
-- Wyświetlona zostaje lista dostępnych dokumentów, które zostały udostępnione użytkownikowi po udanej operacji Exchange Keys z nadawcą pliku oraz lista dokumentów, których użytkownik jest właścicielem
-- Użytkownik wybiera z listy jeden z udostępnionych mu dokumentów
-- Wybrany dokument zostaje otwarty
+- Użytkownik wybiera opcję "Save and continue"
+- Dokument zostaje załadowany
 3. Scenariusz alternatywny 1:
-- Użytkownik wybiera opcję "Zarządzanie dokumentami"
-- Wyświetlona zostaje lista dostępnych dokumentów, które zostały udostępnione użytkownikowi po udanej operacji Exchange Keys z nadawcą pliku oraz lista dokumentów, których użytkownik jest właścicielem
-- Użytkownik wybiera z listy jeden z własnych dokumentów
-- Pojawiają się do wyboru opcje "Otwórz dokument", "Udostępnij dokument", "Zmień datę wygaśnięcia" oraz "Usuń dokument"
-- Użytkownik wybiera opcję "Otwórz dokument"
-- Wybrany dokument zostaje otwarty
+- Użytkownik wybiera zakładkę "DOCUMENTS SHARING APP"
+- Pojawia się pole wyboru pliku
+- Użytkownik klika w pole wyboru pliku
+- Pojawia się systemowe okno wyboru pliku
+- Użytkownik wybiera odpowiedni dokument (rozszerzenie *.txt)
+- Użytkownik podaje klucz symetryczny, którym zostanie zaszyfrowany dokument
+- Użytkownik wybiera opcję "Save and continue"
+- Dokument zostaje załadowany
 4. Scenariusz alternatywny 2:
-- Użytkownik wybiera opcję "Zarządzanie dokumentami"
-- Wyświetlona zostaje lista dostępnych dokumentów, które zostały udostępnione użytkownikowi po udanej operacji Exchange Keys z nadawcą pliku oraz lista dokumentów, których użytkownik jest właścicielem
-- Użytkownik wybiera z listy jeden z własnych dokumentów
-- Pojawiają się do wyboru opcje "Otwórz dokument", "Udostępnij dokument", "Zmień datę wygaśnięcia" oraz "Usuń dokument"
-- Użytkownik wybiera opcję "Udostępnij dokument"
-- Użytkownik podaje identyfikatory e-mail osób, którym chce udostępnić dokument
-- Użytkownik wybiera opcję "Zatwierdź"
-4. Scenariusz alternatywny 3:
-- Użytkownik wybiera opcję "Zarządzanie dokumentami"
-- Wyświetlona zostaje lista dostępnych dokumentów, które zostały udostępnione użytkownikowi po udanej operacji Exchange Keys z nadawcą pliku oraz lista dokumentów, których użytkownik jest właścicielem
-- Użytkownik wybiera z listy jeden z własnych dokumentów
-- Pojawiają się do wyboru opcje "Otwórz dokument", "Udostępnij dokument", "Zmień datę wygaśnięcia" oraz "Usuń dokument"
-- Użytkownik wybiera opcję "Zmień datę wygaśnięcia"
-- Użytkownik podaje datę wygaśnięcia pliku
-- Użytkownik wybiera opcję "Zatwierdź"
-5. Scenariusz alternatywny 4:
-- Użytkownik wybiera opcję "Zarządzanie dokumentami"
-- Wyświetlona zostaje lista dostępnych dokumentów, które zostały udostępnione użytkownikowi po udanej operacji Exchange Keys z nadawcą pliku oraz lista dokumentów, których użytkownik jest właścicielem
-- Użytkownik wybiera z listy jeden z własnych dokumentów
-- Pojawiają się do wyboru opcje "Otwórz dokument", "Udostępnij dokument", "Zmień datę wygaśnięcia" oraz "Usuń dokument"
-- Użytkownik wybiera opcję "Usuń dokument"
-- Użytkownik zostaje poproszony o potwierdzenie chęci usunięcia dokumentu
-- Wybrany dokument zostaje usunięty z bazy
+- Użytkownik wybiera zakładkę "DOCUMENTS SHARING APP"
+- Pojawia się pole wyboru pliku
+- Użytkownik przeciąga i upuszcza dokument o błędnym rozszerzeniu w polu wyboru pliku
+- Użytkownik podaje klucz symetryczny, którym zostanie zaszyfrowany dokument
+- Użytkownik wybiera opcję "Save and continue"
+- System wyświetla komunikat o niepowodzeniu ze względu na nieprawidłowe rozszerzenie pliku
 
-### UC5 - Wylogowanie
+### UC4 - Przeglądanie własnych dokumentów
 1. Wymagania: użytkownik musi być zalogowany
 2. Scenariusz główny:
-- Użytkownik wybiera opcję "Wyloguj się"
+- Użytkownik wybiera zakładkę "My documents"
+- Wyświetlona zostaje lista załadowanych wcześniej przez użytkownika dokumentów
+
+### UC5 - Udostępnianie dokumentów
+1. Wymagania: użytkownik musi być zalogowany
+2. Scenariusz główny:
+- Użytkownik wybiera zakładkę "My documents"
+- Wyświetlona zostaje lista załadowanych wcześniej przez użytkownika dokumentów
+- Użytkownik wybiera opcję "Share document" przy jednym  z załadowanych wcześniej przez siebie dokumentów
+- Użytkownik wpisuje identyfikator (login) użytkownika, któremu chce udostępnić wybrany plik
+- Użytkownik zatwierdza operację przyciskiem "Share"
+- Wybrany dokument zostaje udostępniony odpowiedniemu użytkownikowi
+3. Scenariusz alternatywny:
+- Użytkownik wybiera zakładkę "My documents"
+- Wyświetlona zostaje lista załadowanych wcześniej przez użytkownika dokumentów
+- Użytkownik wybiera opcję "Share document" przy jednym  z załadowanych wcześniej przez siebie dokumentów
+- Użytkownik wpisuje niepoprawny identyfikator (login) użytkownika, któremu chce udostępnić wybrany plik
+- Użytkownik zatwierdza operację przyciskiem "Share"
+- System powiadamia użytkownika, że użytkownik o podanym loginie nie istnieje
+
+### UC6 - Przejście do kolejnego stanu udostępniania dokumentu
+1. Wymagania: użytkownik musi być zalogowany
+2. Scenariusz główny:
+- Użytkownik2 wybiera zakładkę "Shares"
+- Stan udostępniania zmienia się z State1 na State2
+- Użytkownik1 podaje hasło do pliku
+- Użytkownik1 wybiera "Submit"
+- Stan udostępniania zmienia się z State2 na State3
+- Użytkownik2 odczytuje plik
+3. Scenariusz alternatywny 1:
+- Użytkownik2 wybiera zakładkę "Shares"
+- Stan udostępniania zmienia się z State1 na State2
+- Użytkownik1 podaje hasło do pliku
+- Użytkownik1 wybiera "Submit"
+- Stan udostępniania zmienia się z State2 na State3
+- Użytkownik2 odczytuje plik
+- Użytkownik1 wprowadza czas wygaśnięcia pliku
+- Po określonym czasie plik zostaje usunięty dla obu użytkowników
+
+### UC7 - Wylogowanie
+1. Wymagania: użytkownik musi być zalogowany
+2. Scenariusz główny:
+- Użytkownik wybiera opcję "Log Out"
 - Użytkownik zostaje wylogowany
 - System przenosi użytkownika do ekranu logowania
 
-### UC6 - Wyświetlenie logów systemowych
+### UC8 - Wyświetlenie logów systemowych
 1. Wymagania: użytkownik musi być zalogowany jako administrator
 2. Scenariusz główny:
-- Użytkownik wybiera opcję "Wyświetl logi systemowe"
+- Użytkownik wybiera opcję "Logs"
 - Pojawia się lista logów systemowych
 
-### UC7 - Przeglądanie bazy dokumentów
+### UC9 - Przeglądanie bazy dokumentów
 1. Wymagania: użytkownik musi być zalogowany jako administrator
 2. Scenariusz główny:
-- Użytkownik wybiera opcję "Wyświetl bazę dokumentów"
-- Wyświetlona zostaje lista dostępnych dokumentów
-- Użytkownik wybiera z listy jeden z dokumentów
-- Pojawiają się do wyboru opcje: "Pobierz dokument", "Usuń dokument" oraz informacje o właścicielu pliku oraz osobach upoważnionych do jego odczytu
-3. Scenariusz alternatywny 1:
-- Użytkownik wybiera opcję "Wyświetl bazę dokumentów"
-- Wyświetlona zostaje lista dostępnych dokumentów
-- Użytkownik wybiera z listy jeden z dokumentów
-- Pojawiają się do wyboru opcje: "Pobierz dokument", "Usuń dokument" oraz informacje o właścicielu pliku oraz osobach upoważnionych do jego odczytu
-- Użytkownik wybiera opcję "Pobierz dokument"
-- Wybrany dokument zostaje pobrany
-4. Scenariusz alternatywny 2:
-- Użytkownik wybiera opcję "Wyświetl bazę dokumentów"
-- Wyświetlona zostaje lista dostępnych dokumentów
-- Użytkownik wybiera z listy jeden z dokumentów
-- Pojawiają się do wyboru opcje: "Pobierz dokument", "Usuń dokument" oraz informacje o właścicielu pliku oraz osobach upoważnionych do jego odczytu
-- Użytkownik wybiera opcję "Usuń dokument"
-- Użytkownik zostaje poproszony o potwierdzenie chęci usunięcia dokumentu
-- Wybrany dokument zostaje usunięty z bazy
+- Użytkownik wybiera opcję "Shares"
+- Wyświetlona zostaje lista dokumentów dostępnych w bazie
 
 
 # Charakterystyka użytkowników aplikacji
@@ -159,8 +153,10 @@ Główna grupa korzystających z systemu. Używają oni aplikacji do dzielenia s
 <b>Wykorzystywane funkcje:</b>
 - Rejestracja;
 - Logowanie;
-- Wysyłanie dokumentów (w tym ustalenie daty i godziny wygaśnięcia, nadanie uprawnień dostępu, nadanie symetrycznego klucza szyfrującego);
-- Zarządzanie dokumentami (ustalanie daty i godziny wygaśnięcia, nadawanie uprawnień dostępu.
+- Wysyłanie dokumentów;
+- Przeglądanie własnych dokumentów;
+- Udostępnianie dokumentów (w tym ustalenie terminu wygaśnięcia, nadanie uprawnień dostępu, nadanie symetrycznego klucza szyfrującego);
+- Odczytywanie udostępnionych dokumentów.
 
 ### 2. Administrator
 Użytkownik zarządzający systemem. Nadzoruje on pracę systemu oraz działania użytkowników. Czuwa nad bezpieczeństwem. Posiada  szerszą wiedzę na temat specyfiki działania systemu. Wychwytuje niepożądane akcje użytkowników i zachowania aplikacji. Ma dostęp do bazy danych.
@@ -168,7 +164,7 @@ Użytkownik zarządzający systemem. Nadzoruje on pracę systemu oraz działania
 <b>Wykorzystywane funkcje:</b>
 - Logowanie;
 - Wyświetlanie logów systemowych z serwera;
-- Przeglądanie bazy dokumentów (bez uprawnień do ich otwierania i wyświetlania - jedynie do pobierania, usuwania, sprawdzenia kto jest właścicielem i kto ma dostęp).
+- Przeglądanie bazy dokumentów (bez uprawnień do ich otwierania i wyświetlania).
 
 
 # Wykorzystanie aplikacji
@@ -178,12 +174,12 @@ Aplikacja będzie wykorzystywana przez użytkowników na co dzień do dzielenia 
 
 # Sposób realizacji aplikacji
 
-<b>Ogólna charakterystyka:</b> Jednostronicowa aplikacja webowa z dostępem przez przeglądarkę</br>
-<b>Platforma:</b> chmura Amazon Web Services</br>
+<b>Ogólna charakterystyka:</b> Aplikacja webowa z dostępem przez przeglądarkę</br>
+<b>Platforma:</b> Ubuntu 14.04, chmura Microsoft Azure</br>
 <b>Język programowania:</b> JavaScript</br>
 <b>Front-end:</b> React.js</br>
 <b>Back-end:</b> Node.js</br>
-<b>Bazy danych:</b> MongoDB, Redis</br>
+<b>Bazy danych:</b> MongoDB</br>
 <b>Format wymiany danych:</b> JSON</br>
 <b>Protokół internetowy:</b> HTTPS</br>
 

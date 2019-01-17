@@ -8,6 +8,7 @@ import {
   SET_CRYPTED_PASSWORD,
   SET_TIMER,
   GET_TIMER,
+  UPDATE_SHARES,
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -28,6 +29,7 @@ const document = handleActions(
     [SET_CRYPTED_PASSWORD]: document => document,
     [GET_TIMER]: document => document,
     [SET_TIMER]: (document, action) => ({...document, timers: [...document.timers, action.payload]}),
+    [UPDATE_SHARES]: document => document,
   },
   initialState,
 );

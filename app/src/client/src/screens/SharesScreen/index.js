@@ -18,6 +18,7 @@ class SharesScreenComponent extends React.Component {
 
   componentDidMount() {
     this.props.getShares();
+    this.props.updateShares();
   }
 
   _renderConent = () => {
@@ -36,7 +37,7 @@ class SharesScreenComponent extends React.Component {
     return (
       <React.Fragment>
         <NavMenu />
-        <ScreenWrapper title='Shares' titleCenter>
+        <ScreenWrapper title="Shares" titleCenter>
           {this._renderConent()}
         </ScreenWrapper>
       </React.Fragment>
@@ -48,6 +49,7 @@ const mapStateToProps = ({document}) => ({shares: document.shares});
 
 const mapDispatchToProps = dispatch => ({
   getShares: () => dispatch(documentActions.getShares()),
+  updateShares: () => dispatch(documentActions.updateShares()),
 });
 
 const SharesScreen = connect(

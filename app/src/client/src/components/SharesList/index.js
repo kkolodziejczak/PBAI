@@ -47,17 +47,17 @@ class SharesList extends React.Component {
     }
     return (
       <div>
-        <form onSubmit={e => this.submitPassword(e, i, share)} className='clearfix'>
+        <form onSubmit={e => this.submitPassword(e, i, share)} className="clearfix">
           <FormGroup controlId={`password${i}`}>
             <ControlLabel>Enter sharing password (must be equal to upload password)</ControlLabel>
             <FormControl
               value={this.state.passwords[i]}
-              type='password'
-              placeholder='Enter password'
+              type="password"
+              placeholder="Enter password"
               onChange={e => this.setState({passwords: {...this.state.passwords, [i]: e.target.value}})}
             />
           </FormGroup>
-          <SubmitButton isLoading={false} text='Submit' className=' ' />
+          <SubmitButton isLoading={false} text="Submit" className=" " />
         </form>
       </div>
     );
@@ -76,16 +76,16 @@ class SharesList extends React.Component {
     }
     return (
       <div>
-        <form onSubmit={e => this.submitTimer(e, i, share)} className='clearfix'>
+        <form onSubmit={e => this.submitTimer(e, i, share)} className="clearfix">
           <FormGroup controlId={`timer${i}`}>
             <ControlLabel>Enter expiration time for the document (in seconds)</ControlLabel>
             <FormControl
               value={this.state.timers[i]}
-              placeholder='Enter time'
+              placeholder="Enter time"
               onChange={e => this.setState({timers: {...this.state.timers, [i]: e.target.value}})}
             />
           </FormGroup>
-          <SubmitButton isLoading={false} text='Submit' className=' ' />
+          <SubmitButton isLoading={false} text="Submit" className=" " />
         </form>
       </div>
     );
@@ -122,13 +122,13 @@ class SharesList extends React.Component {
     if (state === 2) {
       return "You just sent your public key. Waiting for the file owner's action...";
     }
-    if (state === 3) {
+    if (state === 3 && share.content) {
       return "You decrypted the file password with your private key and the sender's public key. Below you can see the content.";
     }
   }
 
   _renderShare = (share, i) => (
-    <li key={i} className='li'>
+    <li key={i} className="li">
       <div>
         <strong>Id: </strong>
         {share.id}

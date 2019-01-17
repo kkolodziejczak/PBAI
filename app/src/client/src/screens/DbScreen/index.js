@@ -14,7 +14,7 @@ class DbScreenComponent extends React.Component {
       return null;
     }
     // workarounded
-    window.location.replace("/db");
+    window.location = "/db"
   }
 
   render() {

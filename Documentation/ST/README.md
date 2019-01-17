@@ -87,15 +87,17 @@ Dane zawarte w dokumencie muszą być chronione przed utratą integralności i/l
 
 ### Dane do szyfrowania
 
-Dane do szyfrowania są informacją, z którą związany jest szyfrogram. Zawierają one szyfrowany dokument i informacje o atrybutach podpisu i szyfrogramu.
-
+Dane do szyfrowania są informacją, z którą związany jest szyfrogram. Zawierają one szyfrowany dokument i informacje o atrybutach szyfrogramu.
 
 ### Atrybuty szyfrowane
 
-Atrybuty szyfrowane są to dane, które zostały szyfrowane w tym samym czasie, co dokument. Atrybuty te dostarczają weryfikatorowi informację odnośnie szyfrogramu oraz okoliczności, w jakich został on zrealizowany. Atrybuty zawierają datę i godzinę, miejsce i okoliczności, w której został zrealizowany szyfrogram, format dokumentu itp.
+Atrybuty szyfrowane są to dane, które zostały szyfrowane w tym samym czasie, co dokument. Atrybuty te dostarczają weryfikatorowi informację odnośnie szyfrogramu oraz okoliczności, w jakich został on zrealizowany.
 
 Atrybuty te muszą być chronione przed utratą integralności lub poufności.
 
+### Rejestr zdarzeń
+
+Informacje zapisane chronologicznie o zdarzeniach i działaniach dotyczących TOE. Wpis w dzienniku zawiera informacje o kodzie błędu, daty i godziny wystąpienia błędu, identyfikator użytkownika i dodatkowe informacje.
 
 ### Szyfrogram
 
@@ -106,9 +108,21 @@ Szyfrogram jest zagregowanym zbiorem danych, zawierającym:
 Aktywa te muszą być chronione przez TOE w trakcie ich tworzenia i przed ich przekazaniem podmiotowi szyfrującemu.
 
 
-### Polityka podpisu lub szyfrowania
+### Dane logowania
 
-Polityki podpisu lub szyfrowania definiują reguły, które powinny być stosowane podczas składania podpisu, jego weryfikacji lub szyfrowania danych i ich deszyfrowania. Lista polityk udostępniania, przesyłania klucza deszyfrującego lub szyfrowania przez użytkownika, zarządzana przez administratora TOE, musi być chroniona przed utratą integralności. 
+Informacje możliwe do uwierzytelnienia osoby, które są podawane podczas rejestracji/logowania podmiotu. TOE musi zapewnić ochronę przetwarzanych danych przed ich udostępnieniem osobom nieupoważnionym, zabraniem przez osobę nieuprawnioną. Bezpieczeństwo informacji należy rozumieć jako zachowanie:
+* poufności - zapewnia, że informacja nie jest udostępniania lub ujawniana nieautoryzowanym osobom, podmiotom, procesom;
+* integralności - zapewnia, że dane nie zostały zmienione lub zniszczone w sposób nieautoryzowany;
+* dostępności - zapewnia bycie osiągalnym i możliwym do wykorzystania na żądanie, w założonym czasie, przez autoryzowany podmiot;
+* rozliczalności - zapewnia, że działania podmiotu mogą być przypisane w sposób jednoznaczny tylko temu podmiotowi;
+* autentyczności - zapewnia, że tożsamość podmiotu lub zasobu jest taka, jak deklarowana;
+* niezaprzeczalności - oznacza brak możliwości wyparcia się swojego uczestnictwa w całości lub w części wymiany danych przez jeden z podmiotów uczestniczących w wymianie;
+* niezawodności - zapewnia spójność zamierzonych zachowań i skutków.
+
+
+### Polityka szyfrowania
+
+Polityki szyfrowania definiują reguły, które powinny być stosowane podczas składania szyfrowania danych i ich deszyfrowania. Lista polityk udostępniania, przesyłania klucza deszyfrującego lub szyfrowania przez użytkownika, zarządzana przez administratora TOE, musi być chroniona przed utratą integralności. 
 
 Dane te muszą być chronione przed utratą integralności.
 
@@ -117,10 +131,6 @@ Mechanizmy zaimplementowane w TOE zarządzają parametrami, które pozwalają TO
 
 Parametry te muszą być chronione przed utratą integralności. 
 
-### Skrót z danych sformatowanych 
-Skrót z danych sformatowanych (podlegający weryfikacji) jest tą wartością, na której bazuje podpis elektroniczny, wykonany dla dokumentu i atrybutów podpisanych. 
-
-Skrót musi być chroniony przed utratą integralności 
 
 ### Dane uwierzytelniające podmiotu systemu
 Są to dane, które pozwalają podmiotowi na uwierzytelnienie się (po zalogowaniu się do systemu za pomocą loginu i hasła). Pomyślnie zakończenie uwierzytelnienia upoważnia do korzystania z zasobów dostępnych w systemie.
@@ -134,7 +144,28 @@ Dane te muszą być chronione przed utratą integralności i poufności
 Podmiot udostępniający zaszyfrowane zasoby do sieci, przekazujący uprawnienia jak i klucz deszyfrujący innym podmiotom do pobrania dzielonych zasobów w systemie, wykonywanych zgodnie z polityką szyfrowania dla jednego lub kilku dokumentów.
 
 ### Administrator
-Administrator posiada niezbędne środki i jest przeszkolony w zakresie wykonywania wszelkich operacji na TOE, za które jest odpowiedzialny: wykonuje stałą obsługę systemu teleinformatycznego, w tym tworzy kopie zapasowe, zdalnie umieszcza kopie archiwów oraz bieżące kopie zapasowe poza podstawowym obszarem lokalizacji TOE.
+Administrator posiada niezbędne środki i jest przeszkolony w zakresie wykonywania wszelkich operacji na TOE, za które jest odpowiedzialny: wykonuje stałą obsługę systemu teleinformatycznego, w tym tworzy kopie zapasowe, zdalnie umieszcza kopie archiwów oraz bieżące kopie zapasowe poza podstawowym obszarem lokalizacji TOE. Podmiot posiada pełne zaufanie w odniesieniu do każdej polityki bezpieczeństwa wdrażanej do systemu. Jednostka jest przeszkolona w zakresie wykonywanych operacji na TOE.
+
+
+## Założenia
+
+### Konfiguracja TOE
+Zakłada się, że TOE jest poprawnie zainstalowany i skonfigurowany (zainstalowana najnowsza wersja systemu operacyjnego, odpowiednio skonfigurowana polityka bezpieczeństwa, aktualna wersja oprogramowania antywirusowego).
+
+### Uwierzytelnienie
+Zakłada się, że środowisko związane z TOE umożliwia użytkownikom na uwierzytelnienie się poprzez wprowadzenie indywidualnych danych uwierzytelniających.
+
+### Bezpieczna komunikacja
+Zakłada się, że zapewniona jest poufność i integralność przesyłanych danych w komunikacji między serwerem a klientem.
+
+### Rejestracja zdarzeń
+Zakłada się, że środowisko TOE rejestruje w dzienniku zdarzeń wszystkie niepoufne zdarzenia istotne z punktu widzenia bezpieczeństwa.
+
+### Ochrona danych
+Zakłada się, że dane utworzone przez środowisko są zabezpieczone oraz archiwizowane w sposób ciągły.
+
+### Aktualizacje zabezpieczeń
+Zakłada się, że środowisko jest regularnie aktualizowane w celu wyeliminowania defektów w zabezpieczeniach wykrytych w oprogramowaniu wchodzących w skład środowiska.
 
 
 ## Zagrożenia
@@ -153,22 +184,22 @@ Przypadkowe uszkodzenie funkcji i/lub parametrów TOE może nastąpić na przyk�
 
 Atakujący może uzyskać nieautoryzowany dostęp do zasobów serwera bazodanowego w sposób bezpośredni (poprzez interfejs apache sql) bądź z wykorzystaniem luk w aplikacji serwerowej polegającym na modyfikacji zapytania bazodanowego - sql injection.
 
+### Atak słownikowy i atak metodą pełnego przeglądu
+Atakujący może uzyskać hasło do konta użytkownika serwisu, co pozwoli mu na korzystanie ze wszystkich funkcjonalności TOE bez wiedzy i zgody użytkownika.
+
 ### Nieautoryzowane przejęcie sesji użytkownika
 
 Atakujący może uzyskać i przejąć od zalogowanego użytkownika id sesji zalogowania przez co uzyskuje dostęp do udostępnionych plików innym użytkownikom.
 
-### Słaby zestaw algorytmów
+### Nieupoważniony dostęp
+Atakujący może korzystać ze wszystkich funkcjonalności TOE pomimo braku zalogowania do systemu.
 
+### Słaby zestaw algorytmów
 Zastosowanie słabych algorytmów szyfrowych podczas tworzenia szyfrogramu.
 
 
 ### Nieautoryzowany dostęp do prywatnych plików
-
 Atakujący może pobrać prywatne pliki, które nie były dla niego udostępnione.
-
-### Przypadkowe udostępnienie pliku użytkownikowi
-
-Użytkownik przypadkowo udostępnia plik i kod deszyfrujący innemu użytkownikowi - na skutek pomyłki bądź popełnienia błędu przy wpisywaniu nazwy docelowego użytkownika.
 
 
 ### Przypadkowe usunięcie pliku
@@ -197,7 +228,7 @@ W wyniku awarii systemu może dojść do wycieku poufnych i wrażliwych danych -
 Atakujący może przejąć konto administracyjne poprzez odgadnięcie danych dostępu, np: za pomocą metody brute-force albo w wyniku działania odkrycia luki systemowej.
 
 
-## Polityki bezpieczeństwa instytucji
+## Polityki bezpieczeństwa
 W tym rozdziale określono zasady natury organizacyjnej, mające zastosowanie do TOE.
 
 ### Przerwanie procesu
@@ -212,7 +243,6 @@ Po zakończeniu procesu szyfrowania powstały w jego wyniku szyfrogram dokumentu
 ### Zarządzanie
 TOE musi pozwolić podmiotowi szyfrującemu/deszyfrującemu oraz administratorowi na zarządzanie politykami szyfrowania oraz tabelą wiążącą format dokumentu z jego przeglądarką.
 
-
 ### Algorytmy kryptograficzne
 Do zarządzania kluczami (tj. generowania, udostępniania, niszczenia, korzystania i przechowywania kluczy) oraz udostępniania algorytmów szyfrowych (funkcji szyfrowania, deszyfrowania, podpisywania, obliczania skrótów, wymiany kluczy oraz generowania liczb losowych) stosowane mogą być tylko te algorytmy kryptograficzne (metody i ich implementacje), które spełniają wymagania określone w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.) oraz w Ustawie z dnia 22 stycznia 1999 r. o ochronie informacji niejawnych (Dz.U. 1999 nr 11 poz. 95, wersja ujednolicona) i zatwierdzona przez odpowiednie instytucje certyfikujące przy wysokim poziomie siły funkcji zabezpieczającej lub przynajmniej zgodne z FIPS 140 poziom 2 lub wyższy.
 
@@ -221,6 +251,9 @@ Do zarządzania kluczami (tj. generowania, udostępniania, niszczenia, korzystan
 
 ### Cele zabezpieczeń dla TOE
 
+
+### Ochrona kanału komunikacyjnego
+TOE zapewnia, że dane przesyłane między serwerem WWW a przeglądarką są chronione przed nieautoryzowanym dostępem. TOE musi zagwarantować, że nie ulegną modyfikacji w trakcie przbywania drobi między węzłami końcowymi kanału komunikacyjnego.
 
 #### Uwierzytelnienie użytkownika
 TOE powinien zapewnić, aby użytkownik miał możliwość wprowadzenia danych uwierzytelniających (uwierzytelnienia się) przed uzyskaniem dostępu do prywatnych oraz udostępnionych plików.
@@ -232,14 +265,12 @@ TOE musi zapewnić integralność różnych reprezentacji danych przeznaczonych 
 #### Ochrona procesów
 TOE musi zapewnić ochronę przed ingerencją dowolnych niezaufanych procesów, urządzeń peryferyjnych i kanałów komunikacyjnych oraz intruzuów w pracę tych procesów, które wykorzystywane są podczas szyfrowania/deszyfrowania, zgodnie ze wskazaniem zawartym w żądaniu utworzenia szyfrogramu.
 
-
 #### Poufność danych uwierzytelniających
 TOE musi zapewnić poufność danych uwierzytelniających należących do podmiotu szyfrującego/deszyfrującego.
 
 #### Zatwierdzone algorytmy
 
 TOE powinien zapewnić, aby były stosowane tylko te algorytmy szyfrowe, które należą do zbioru zatwierdzonych algorytmów i parametrów stosowanych podczas tworzenia szyfrogramu; w szczególności, aby format  był zgodny z formatami wskazanymi w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.). 
-
 
 #### Zgoda użytkownika
 
@@ -272,6 +303,8 @@ TOE musi zapewnić zgodność, która potwierdza uprawnienia użytkownika do pob
 
 ### Cele zabezpieczeń dla środowiska
 
+#### Bezpieczna komunikacja
+W celu ustanowienia bezpiecznego kanału komunikacji, komunikacja pomiędzy serwerem WWW, a przeglądarką WWW odbywa się z zastosowaniem protokołu HTTPS z TLS.
 
 #### Wiarygodni użytkownicy
 
@@ -303,10 +336,113 @@ Podmiot szyfrujący/deszyfrujący powinien pozostać obecny między momentem wyr
 #### Przeglądanie danych rejestrowanych na potrzeby audytu
 Środowisko związane z TOE zapewni możliwość selektywnego przeglądania informacji zgromadzonej w rejestrze zdarzeń.
 
+#### Aktualizacje zabezpieczeń
+Środowisko jest automatycznie aktualizowane w celu wyeliminowania defektów w zabezpieczeniach wykrytych w oprogramowaniu wchodzących w skład środowiska.
+
 
 ## Wymagania bezpieczeństwa
-<i>Todo</i>
+
+### Funkcjonalne wymagania bezpieczeństwa
+
+W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzowane pod kątem bezpieczeństwa.
+
+#### Dane audytowe
+
+1. Rejestrowanie zagrożeń bezpieczeństwa
+1.1. Generowanie danych na temat bezpieczeństwa
+System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
+1.2. Przypisywanie zdarzeń do konkretnych podmiotów
+Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
+
+2. Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa
+2.1. Alarmy bezpieczeństwa
+W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
+2.2. System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
+
+#### Uwierzytelnianie i kontrola dostępu
+
+1. Błędy uwierzytelniania
+1.1. Obsługa błędów uwierzytelniania
+System musi wykrywać błędne próby logowania uzytkowników i rejestrować je w postaci logów systemowych, dostępnych dla administratora.
+1.2. Blokowanie dostępu
+W przypadku wykrycia trzech niepoprawnych prób logowania, system powinien zablokować możliwość dostępu do konta na jedną godzinę (dla danej sesji - nie dla danego użytkownika).
+2. Uwierzytelnianie uzytkowników
+2.1. Uwierzytelnianie użytkowników przed każdym działaniem
+System wymaga pomyślnego uwierzytelnienia użytkownika przed wykonaniem przez niego jakiejkolwiek akcji w aplikacji.
+2.2. Podział na role
+System pozwala użytkownikowi tylko na wykonywanie akcji dostępnych dla jego roli (użytkownik bądź administrator).
+3. Identyfikacja użytkowników
+3.1. Login i hasło
+Aby zalogować się do systemu, użytkownik musi podać poprawny identyfikator (adres e-mail) i poprawne hasło.
+
+#### Ochrona
+1. Podział na role
+1.1. Role bezpieczeństwa
+System musi przechowywać następujące role użytkowników aplikacji:
+- użytkownik
+- administrator
+1.2. Ograniczenia bezpieczeństwa dla ról
+System musi być w stanie powiązać użytkowników aplikacji z wyżej wymienionymi rolami.
+2. Znaczniki czasu
+2.1. System musi niezawodnie generować znaczniki czasu.
+2.2. System powinien rejestrować wszystkie akcje użytkowników w postaci logów systemowych i przypisywać im znaczniki czasu.
 
 
 ## Uzasadnienie celów zabezpieczenia
-<i>Todo</i>
+W niniejszym rozdziale zawarto uzasadnienie, dlaczego zidentyfikowane cele zabezpieczeń są odpowiednie do przeciwdziałania zidentyfikowanym zagrożeniom i spełniają określone polityki bezpieczeństwa.
+
+### Odwzorowanie zagrożeń TOE na cele zabezpieczeń
+
+|  Zagrożenie	|   Cele zabezpieczeń TOE	| 
+|---	|---	|
+|Uszkodzenie TOE				| Konfiguracja TOE, Bezpieczeństwo fizyczne, Aktualizacje zabezpieczeń
+|Nieautoryzowany dostęp do zasobów serwera bazodanowego		| Ochrona procesów, Aktualizacje zabezpieczeń
+|Nieautoryzowane przejęcie sesji użytkownika		| Wiarygodni administratorzy, Wiarygodni użytkownicy, Uwierzytelnienie użytkownika
+|Nieupoważniony dostęp							|Uwierzytelnienie użytkownika, Ochrona procesów
+|Słaby zestaw algorytmów						|Integralność danych do szyfrowania, Zatwierdzone algorytmy, Moduły kryptograficzne
+|Nieautoryzowany dostęp do prywatnych plików	|Uwierzytelnienie użytkownika, Zgodność uprawnień do dokumentów
+|Przypadkowe usunięcie pliku					| Zgoda użytkownika, Obecność użytkownika
+|Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym	|Ochrona kanału komunikacyjnego, Uwierzytelnienie użytkownika
+|Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu |Ochrona kanału komunikacyjnego
+|Modyfikacja uprawnień do zasobów		| Konfiguracja TOE, Bezpieczeństwo fizyczne, Aktualizacje zabezpieczeń
+|Wyciek danych							| Ochrona procesów, Aktualizacje zabezpieczeń
+|Przejęcie konta administratora			| Wiarygodni administratorzy, Uwierzytelnienie użytkownika, Aktualizacje zabezpieczeń
+
+
+### Odwzorowanie polityki zabezpieczeń TOE na cele zabezpieczeń
+|  Polityka	|   Cele zabezpieczeń TOE	| 
+|---	|---	|
+| Przerwanie procesu								|	Ochrona procesów, Konfiguracja TOE, Bezpieczeństwo fizyczne
+| Integralność danych użytkownika					|	Zgodność uprawnień do dokumentów, Wiarygodni użytkownicy, Zbiór dokumentów 
+| Eksport szyfrogramu								|	Poufność danych uwierzytelniających, Bezpieczeństwo fizyczne, Obecność użytkownika,
+| Zarządzanie										|	Ochrona kanału komunikacyjnego, Udostępnienie pliku innemu użytkownikowi, Ustawienie czasu wygaśnięcia pliku, Zbiór dokumentów, Tworzenie danych na potrzeby audytu, Ochrona danych rejestrowanych na potrzeby audytu, Przeglądanie danych rejestrowanych na potrzeby audytu, Aktualizacje zabezpieczeń
+| Algorytmy kryptograficzne							|	Zatwierdzone algorytmy, Moduły kryptograficzne
+
+
+### Odwzorowanie celów zabezpieczń TOE na politykę i zagrożenie
+|  Cele zabezpieczeń TOE	|  Polityka/Zagrożenia  	| 
+|---	|---	|
+| Ochrona kanału komunikacyjnego								|	Zarządzanie; Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu, Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, Przejęcie konta administratora
+| Uwierzytelnienie użytkownika									|	Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieupoważniony dostęp, Przejęcie konta administratora
+| Integralność danych do szyfrowania							| Algorytmy kryptograficzne, Integralność danych użytkownika, Eksport szyfrogramu; Uszkodzenie TOE, Słaby zestaw algorytmów, Przypadkowe usunięcie pliku, Wyciek danych 
+| Ochrona procesów												| Przerwanie procesu; Uszkodzenie TOE, Nieautoryzowany dostęp do zasobów serwera bazodanowego, Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Przypadkowe usunięcie pliku, Wyciek danych
+| Poufność danych uwierzytelniających							|	Algorytmy kryptograficzne, Zarządzanie; Nieautoryzowane przejęcie sesji użytkownika, Nieupoważniony dostęp, Przypadkowe usunięcie pliku, Wyciek danych
+| Zatwierdzone algorytmy										|	Algorytmy kryptograficzne; Uszkodzenie TOE 
+| Ochrona procesów												|	Integralność danych danych użytkownika, Zarządzanie; Modyfikacja uprawnień do zasobów, Wyciek danych, Przypadkowe usunięcie pliku
+| Zgoda użytkownika												| Integralność danych użytkownika, Zarządzanie; Przypadkowe usunięcie pliku, Przejęcie konta administratora
+| Udostępnienie pliku innemu użytkownikowi						| Eksport szyfrogramu, Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Przypadkowe usunięcie pliku, Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, Wyciek danych 
+| Przesyłanie klucza deszyfrującego								| Eksport szyfrogramu; Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem, Modyfikacja uprawnień do zasobów
+| Ustawienie czasu wygaśnięcia pliku							| Zarządzanie; Przypadkowe usunięcie pliku, Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Modyfikacja uprawnień do zasobów
+| Zbiór dokumentów												| Zarządzanie, Integralność danych użytkownika; Wyciek danych, Przypadkowe usunięcie pliku, Nieupoważniony dostęp 
+| Zgodność uprawnień do dokumentów								| Zarządzanie, Integralność danych użytkownika;  Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Przypadkowe usunięcie pliku 
+| Bezpieczna komunikacja										| Zarządzanie, Eksport szyfrogramu; Nieautoryzowane przejęcie sesji użytkownika, Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+| Wiarygodni użytkownicy										| Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+| Wiarygodni administratorzy									| Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+| Konfiguracja TOE												| Zarządzanie; Uszkodzenie TOE
+| Moduły kryptograficzne										| Algorytmy kryptograficzne; Słaby zestaw algorytmów; Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym 
+| Bezpieczeństwo fizyczne										| Zarządzanie; Wyciek danych, Modyfikacja uprawnień do zasobów
+| Obecność użytkownika											| Integralność danych użytkownika, Zarządzanie; Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Nieautoryzowane przejęcie sesji użytkownika
+| Tworzenie danych na potrzeby audytu							| Zarządzanie, Integralność danych użytkownika; Uszkodzenie TOE, Nieautoryzowany dostęp do zasobów serwera bazodanowego, Nieupoważniony dostęp
+| Ochrona danych rejestrowanych na potrzeby audytu				| Zarządzanie; Uszkodzenie TOE, Wyciek danych
+| Przeglądanie danych rejestrowanych na potrzeby audytu			| Zarządzanie; Nieautoryzowany dostęp do prywatnych plików
+| Aktualizacje zabezpieczeń										| Zarządzanie; Uszkodzenie TOE, Modyfikacja uprawnień do zasobów, Wyciek danych

@@ -49,7 +49,7 @@ router
       │    └── bound dispatch                      /                                                           _ALL
       │         ├── checkPolicies                  /                                                           
       │         ├── validate                       /                                                           
-      │         └── putDocument                    /                                                           
+      │         └── handler                        /                                                           
       │        
       │   
       ├── router                                   /^\/documents\/?(?=\/|$)/                                   
