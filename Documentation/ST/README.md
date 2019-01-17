@@ -348,24 +348,85 @@ W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzo
 
 #### Dane audytowe
 
-1. Rejestrowanie zagrożeń bezpieczeństwa
-1.1. Generowanie danych na temat bezpieczeństwa
-System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
-1.2. Przypisywanie zdarzeń do konkretnych podmiotów
-Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
+<b>FAU_GEN</b> - Rejestrowanie zagrożeń bezpieczeństwa
 
-2. Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa
-2.1. Alarmy bezpieczeństwa
-W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
-2.2. System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
+<b>FAU_GEN.1</b> - Generowanie danych na temat bezpieczeństwa
+<b>FAU_GEN.1.1</b> - System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
+
+<b>FAU_GEN.2</b> - Przypisywanie zdarzeń do konkretnych 
+
+<b>FAU_GEN.2.1</b> - Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
+
+<b>FAU_ARP</b> - Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa.
+
+<b>FAU_ARP.1</b> -  Alarmy bezpieczeństwa.
+
+<b>FAU_ARP.1.1</b> - W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
+
+<b>FAU_ARP.1.2</b> -  System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
+
+
+<b>FAU_SAR</b> - Wymagania dotyczące narzędzi audytu, dostępnych dla osób uprawnionych w celu przeglądu danych.
+
+<b>FAU_SAR.1</b> - Przegląd audytu, możliwość odczytywania rejestrowanych danych
+
+
+<b>FAU_SAA</b> - Automatyczna analiza zachowań systemu oraz analiza danych
+w poszukiwaniu potencjalnych luk w zabezpieczeniach.
+
+<b>FAU_SAA.1</b> - Analiza możliwych naruszeń bezpieczeństwa.
+
+<b>FAU_SAA.1.1</b> - System musi być w stanie wykrywać potencjalne zagrożenia
+bezpieczeństwa na podstawie predefniowanych reguł (np. ataki typu bruteforce).
+
+<b>FAU_SAA.1.2</b> - System musi być w stanie wykrywać potencjalne zagrożenia
+bezpieczeństwa kombinacji wielu reguł i oznaczać je w prawidłowy sposób.
+
+<b>FAU_SAR</b> -  Wymagania dotyczące narzędzi audytu, dostępnych dla osób
+uprawnionych w celu przeglądu danych.
+
+<b>FAU_SAR.1</b> Przegląd audytu, możliwość odczytywania rejestrowanych
+danych.
+
+<b>FAU_SAR.1.1</b> - System musi zapewnić mo»liwość odczytu zarejestrowanych
+danych audytu.
+
+<b>FAU_SAR.1.2</b> - System musi zapewnić możliwość odczytu danych w formie
+możliwej do interpretacji przez użytkownika.
+
+<b>FAU_SAR.2</b> - Systemowa kontrola dostępu do danych audytu.
+
+<b>FAU_SAR.2.1</b> - System musi zapewnić kontrolę odczytu danych audytu.
+Dane audytowe mogą być odczytywane tylko przez podmioty do tego uprawnione.
+
+
+
+<b>FAU_STG</b> - Wymagania TSF dotycz¡ce przechowywania zbioru rejestrowanych
+zdarzeń.
+
+<b>FAU_STG.1</b> - Miejsce przechowywania rejestrowanych danych.
+
+<b>FAU_STG.1.1</b> - System musi być w stanie wykonać kopię zapasową oraz
+ewentualne przywrócenie danych audytu.
+
+<b>FAU_STG.2</b> - Gwarancja dostępności rejestrowanych danych przez system.
+
+<b>FAU_STG.2.1</b> - System musi zapewnić kopiowanie danych (w ramach kopii
+zapasowej) do innej części TOE.
+
+
 
 #### Uwierzytelnianie i kontrola dostępu
 
 1. Błędy uwierzytelniania
-1.1. Obsługa błędów uwierzytelniania
-System musi wykrywać błędne próby logowania uzytkowników i rejestrować je w postaci logów systemowych, dostępnych dla administratora.
-1.2. Blokowanie dostępu
-W przypadku wykrycia trzech niepoprawnych prób logowania, system powinien zablokować możliwość dostępu do konta na jedną godzinę (dla danej sesji - nie dla danego użytkownika).
+
+	1.1. Obsługa błędów uwierzytelniania
+
+	System musi wykrywać błędne próby logowania uzytkowników i rejestrować je w postaci logów systemowych, dostępnych dla administratora.
+
+	1.2. Blokowanie dostępu
+	
+	W przypadku wykrycia trzech niepoprawnych prób logowania, system powinien zablokować możliwość dostępu do konta na jedną godzinę (dla danej sesji - nie dla danego użytkownika).
 2. Uwierzytelnianie uzytkowników
 2.1. Uwierzytelnianie użytkowników przed każdym działaniem
 System wymaga pomyślnego uwierzytelnienia użytkownika przed wykonaniem przez niego jakiejkolwiek akcji w aplikacji.
