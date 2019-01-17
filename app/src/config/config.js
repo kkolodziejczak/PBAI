@@ -57,13 +57,22 @@ exports.optional = {
     "CRYPTO_MOCKED": true,
     "USERS_CAN_READ_LOGS": true,
     "PRINT_CONFIG": true, // level debug
-    "CREATE_ADMIN": true
+    "CREATE_ADMIN": true,
+    "EMAILS": true,
+    "EMAIL_SERVICE": "gmail",
+    "EMAIL_LOGIN": "pbai.audyt@gmail.com",
+    "EMAIL_PASSWORD": "YUQpRRj1OprtzGoVWAxU",
+    "SEND_EMAIL_ON_VALIDATION_ERROR": true,
+    "SEND_EMAIL_ON_POLICY_ERROR": true
 }
 
 exports.parsers = {
     "NODE_ENV": toLower,
     "LOG_LEVEL": toLower,
+    "SEND_EMAIL_ON_POLICY_ERROR": toBoleanOrString,
+    "SEND_EMAIL_ON_VALIDATION_ERROR": toBoleanOrString,
     "LOG_BODY": toBoleanOrString,
+    "EMAILS": toBoleanOrString,
     "PRINT_CONFIG": toBoleanOrString,
     "STORE_SESSION_ON_MONGO": toBoleanOrString,
     "HTTPS": toBoleanOrString,
@@ -88,6 +97,7 @@ exports.parsers = {
 }
 
 exports.validators = {
+    "EMAILS": isBolean,
     "LOG_BODY": isBolean,
     "HTTPS": isBolean,
     "NO_CACHE": isBolean,
@@ -108,4 +118,6 @@ exports.validators = {
     "SERVE_LOGS":  isFilePathValidIfTrue,
     "SSL_CERT_FILE": fileExistsIfTrue, 
     "SSL_KEY_FILE": fileExistsIfTrue,
+    "SEND_EMAIL_ON_POLICY_ERROR": isBolean,
+    "SEND_EMAIL_ON_VALIDATION_ERROR": isBolean
 }

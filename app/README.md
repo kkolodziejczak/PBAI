@@ -93,7 +93,13 @@ po dwukropku ich domyślne wartości
 "PRINT_CONFIG": true, // level debug 
 "CREATE_ADMIN": true,
 "AUTH_LIMITER": true,
-"AUTH_LIMITER_RESET_PASSWORD": "sorry mr. server for bothering your awesomeness"
+"AUTH_LIMITER_RESET_PASSWORD": "sorry mr. server for bothering your awesomeness",
+"EMAILS": true,
+"EMAIL_SERVICE": "gmail",
+"EMAIL_LOGIN": "pbai.audyt@gmail.com",
+"EMAIL_PASSWORD": "YUQpRRj1OprtzGoVWAxU",
+"SEND_EMAIL_ON_VALIDATION_ERROR": true,
+"SEND_EMAIL_ON_POLICY_ERROR": true
 ```
 
 # 5. Routes
