@@ -346,82 +346,68 @@ Podmiot szyfrujący/deszyfrujący powinien pozostać obecny między momentem wyr
 
 W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzowane pod kątem bezpieczeństwa.
 
-#### Dane audytowe
+### Dane audytowe
 
-##### <b>FAU_GEN</b> - Rejestrowanie zagrożeń bezpieczeństwa
+#### <b>FAU_GEN</b> - Rejestrowanie zagrożeń bezpieczeństwa
 
-###### <b>FAU_GEN.1</b> - Generowanie danych na temat bezpieczeństwa
+##### <b>FAU_GEN.1</b> - Generowanie danych na temat bezpieczeństwa
 
-###### <b>FAU_GEN.1.1</b> - System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
+##### <b>FAU_GEN.1.1</b> - System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
 
-##### <b>FAU_GEN.2</b> - Przypisywanie zdarzeń do konkretnych podmiotów
+#### <b>FAU_GEN.2</b> - Przypisywanie zdarzeń do konkretnych podmiotów
 
-###### <b>FAU_GEN.2.1</b> - Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
-
-
-##### <b>FAU_ARP</b> - Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa.
-
-###### <b>FAU_ARP.1</b> -  Alarmy bezpieczeństwa.
-
-###### <b>FAU_ARP.1.1</b> - W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
-
-###### <b>FAU_ARP.1.2</b> -  System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
+##### <b>FAU_GEN.2.1</b> - Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
 
 
-##### <b>FAU_SAR</b> -  Wymagania dotyczące narzędzi audytu, dostępnych dla osób
-uprawnionych w celu przeglądu danych.
+#### <b>FAU_ARP</b> - Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa.
 
-###### <b>FAU_SAR.1</b> Przegląd audytu, możliwość odczytywania rejestrowanych
-danych.
+##### <b>FAU_ARP.1</b> -  Alarmy bezpieczeństwa.
 
-###### <b>FAU_SAR.1.1</b> - System musi zapewnić możliwość odczytu zarejestrowanych
-danych audytu.
+##### <b>FAU_ARP.1.1</b> - W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
 
-###### <b>FAU_SAR.1.2</b> - System musi zapewnić możliwość odczytu danych w formie
-możliwej do interpretacji przez użytkownika.
-
-##### <b>FAU_SAR.2</b> - Systemowa kontrola dostępu do danych audytu.
-
-###### <b>FAU_SAR.2.1</b> - System musi zapewnić kontrolę odczytu danych audytu.
-Dane audytowe mogą być odczytywane tylko przez podmioty do tego uprawnione.
+##### <b>FAU_ARP.1.2</b> -  System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
 
 
-##### <b>FAU_STG</b> - Wymagania System dotycz¡ce przechowywania zbioru rejestrowanych
-zdarzeń.
+#### <b>FAU_SAR</b> -  Wymagania dotyczące narzędzi audytu, dostępnych dla osób uprawnionych w celu przeglądu danych.
 
-###### <b>FAU_STG.1</b> - Miejsce przechowywania rejestrowanych danych.
+##### <b>FAU_SAR.1</b> Przegląd audytu, możliwość odczytywania rejestrowanych danych.
 
-###### <b>FAU_STG.1.1</b> - System musi być w stanie wykonać kopię zapasową oraz
-ewentualne przywrócenie danych audytu.
+##### <b>FAU_SAR.1.1</b> - System musi zapewnić możliwość odczytu zarejestrowanych danych audytu.
 
-###### <b>FAU_STG.2</b> - Gwarancja dostępności rejestrowanych danych przez system.
+##### <b>FAU_SAR.1.2</b> - System musi zapewnić możliwość odczytu danych w formie możliwej do interpretacji przez użytkownika.
 
-###### <b>FAU_STG.2.1</b> - System musi zapewnić kopiowanie danych (w ramach kopii
-zapasowej) do innej części TOE.
+#### <b>FAU_SAR.2</b> - Systemowa kontrola dostępu do danych audytu.
+
+##### <b>FAU_SAR.2.1</b> - System musi zapewnić kontrolę odczytu danych audytu. Dane audytowe mogą być odczytywane tylko przez podmioty do tego uprawnione.
 
 
-#### Weryfikacja
+#### <b>FAU_STG</b> - Wymagania System dotyczące przechowywania zbioru rejestrowanych zdarzeń.
 
-##### <b>FDP_ACC</b> - Polityka kontroli dostępu.
+##### <b>FAU_STG.1</b> - Miejsce przechowywania rejestrowanych danych.
 
-###### <b>FDP_ACC.1</b> - kontrola dostępu do poszczególnych funkcjonalności TOE.
+##### <b>FAU_STG.1.1</b> - System musi być w stanie wykonać kopię zapasową oraz ewentualne przywrócenie danych audytu.
 
-###### <b>FDP_ACC.1.1</b> - System na podstawie kontroli dostępu SFP (ang. Security
-Function Policies, zbiór zasad bezpieczeństwa które muszą być przestrzegane
-w ramach TOE) musi egzekwować kontrolę dostępu do poszczególnych funkcji
-oraz zasobów TOE zdefiniowanych w SFP.
+##### <b>FAU_STG.2</b> - Gwarancja dostępności rejestrowanych danych przez system.
 
-##### <b>FDP_ACF</b> - funkcje kontroli dostępu.
+##### <b>FAU_STG.2.1</b> - System musi zapewnić kopiowanie danych (w ramach kopii zapasowej) do innej części TOE.
 
-###### <b>FDP_ACF.1</b> - atrybuty kontroli dostępu.
 
-###### <b>FDP_ACF.1.1</b> - System musi wymuszać kontrolę dostępu zdefiniowaną w SFP
-bazującą na rolach przypisanych do poszczególnych podmiotów w ramach
-TOE.
+### Weryfikacja
 
-###### <b>FDP_ACF.1.2</b> - System musi egzekwować poniższe zasady w celu weryfikacji
-czy dany podmiot powinien uzyskać dostęp do wybranej funkcjonalności:
- - podmiot musi być autoryzowanym podmiotem występującym w ramach
+#### <b>FDP_ACC</b> - Polityka kontroli dostępu.
+
+##### <b>FDP_ACC.1</b> - kontrola dostępu do poszczególnych funkcjonalności TOE.
+
+##### <b>FDP_ACC.1.1</b> - System na podstawie kontroli dostępu SFP (ang. Security. Function Policies, zbiór zasad bezpieczeństwa które muszą być przestrzegane w ramach TOE) musi egzekwować kontrolę dostępu do poszczególnych funkcji oraz zasobów TOE zdefiniowanych w SFP.
+
+#### <b>FDP_ACF</b> - funkcje kontroli dostępu.
+
+##### <b>FDP_ACF.1</b> - atrybuty kontroli dostępu.
+
+##### <b>FDP_ACF.1.1</b> - System musi wymuszać kontrolę dostępu zdefiniowaną w SFP bazującą na rolach przypisanych do poszczególnych podmiotów w ramach TOE.
+
+##### <b>FDP_ACF.1.2</b> - System musi egzekwować poniższe zasady w celu weryfikacji czy dany podmiot powinien uzyskać dostęp do wybranej funkcjonalności:
+- podmiot musi być autoryzowanym podmiotem występującym w ramach
 TOE,
  - System musi zweryfikować rolę danego podmiotu,
  - na podstawie atrybutów dostępu przypisanych do poszczególnych ról,
@@ -429,18 +415,16 @@ System powinien udzieli lub odmówić dostępu do danej funkcji TOE dla
 danego podmiotu.
 
 
-#### Uwierzytelnianie i identyfikacja
+### Uwierzytelnianie i identyfikacja
 
-##### <b>FIA_AFL</b> - błędy uwierzytelniania.
+#### <b>FIA_AFL</b> - błędy uwierzytelniania.
 
-###### <b>FIA_AFL.1</b> - obsługa błędów uwierzytelniania.
+##### <b>FIA_AFL.1</b> - obsługa błędów uwierzytelniania.
 
-###### <b>FIA_AFL.1.1</b> - System musi wykrywać błędne próby logowania użytkowników
+##### <b>FIA_AFL.1.1</b> - System musi wykrywać błędne próby logowania użytkowników
  (w ilości zdefiniowanej przez administratora).
 
-###### <b>FIA_AFL.1.2</b> - w przypadku wykrycia zdefiniowanej ilości niepoprawnych
-prób logowania danego użytkownika, system musi wykonać następujące czynno
-ści:
+##### <b>FIA_AFL.1.2</b> - w przypadku wykrycia zdefiniowanej ilości niepoprawnych prób logowania danego użytkownika, system musi wykonać następujące czynności:
  - zapisać dokładne informacje na temat adresu logowania, ilości niepoprawnych
 prób logowania, oraz podmiotu którego dotyczyły zdarzenie
 w logach systemu,
@@ -448,75 +432,98 @@ w logach systemu,
 zdefiniowany przez administratora okres czasu,
  - poinformować podmiot o nieudanych próbach logowania.
 
-##### <b>FIA_UAU</b> - uwierzytelnianie użytkowników.
+#### <b>FIA_UAU</b> - uwierzytelnianie użytkowników.
 
-###### <b>FIA_UAU.1</b> - uwierzytelnianie użytkowników przed każdym działaniem.
+##### <b>FIA_UAU.1</b> - uwierzytelnianie użytkowników przed każdym działaniem.
 
-###### <b>FIA_UAU.1.1</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej
-i serwer został pomyślnie uwierzytelniony, zanim zdecyduje się na inne operacje
-związane z systemem w imieniu tego użytkownika.
+##### <b>FIA_UAU.1.1</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej i serwer został pomyślnie uwierzytelniony, zanim zdecyduje się na inne operacje związane z systemem w imieniu tego użytkownika.
 
-###### <b>FIA_UAU.1.2</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej
-i serwer został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika
-jakichkolwiek innych działań z udziałem systemu.
+##### <b>FIA_UAU.1.2</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej i serwer został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika jakichkolwiek innych działań z udziałem systemu.
 
-##### <b>FIA_UID</b> - identyfikacja użytkowników.
+#### <b>FIA_UID</b> - identyfikacja użytkowników.
 
-###### <b>FIA_UID.1</b> - identyfikacja użytkownika przed jakimkolwiek działaniem.
+##### <b>FIA_UID.1</b> - identyfikacja użytkownika przed jakimkolwiek działaniem.
 
-###### <b>FIA_UID.1.1</b> - System wymaga, aby każdy użytkownik aplikacji został
-zidentyfikowany przed umożliwieniem w imieniu tego użytkownika
-jakichkolwiek innych działań z udziałem systemu.
+##### <b>FIA_UID.1.1</b> - System wymaga, aby każdy użytkownik aplikacji został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika jakichkolwiek innych działań z udziałem systemu.
 
 
 #### Ochrona
-1. Podział na role
-1.1. Role bezpieczeństwa
-System musi przechowywać następujące role użytkowników aplikacji:
+
+
+##### <b>FMT_MSA</b> - zarządzanie atrybutami bezpieczeństwa.
+
+<b>FMT_MSA.1</b> - inicjowanie atrybutu statycznego
+
+<b>FMT_MSA.1.1</b> - TSF musi egzekwować wirtualny i rozproszony przełącznik sterowania przepływem informacji SFP do ograniczania możliwości
+dodawania, modyfkowania i usuwania atrybutów bezpieczeństwa. TSF będzie wymuszać politykę wirtualnej i rozproszonej zasady kontroli przepływu informacji.
+
+
+
+
+##### <b>FMT_SMR</b> - podział na role
+
+<b>FMT_SMR.1</b> - role bezpieczeństwa
+
+<b>FMT_SMR.1.1</b> - system musi przechowywać następujące role użytkowników aplikacji:
 - użytkownik
 - administrator
-1.2. Ograniczenia bezpieczeństwa dla ról
-System musi być w stanie powiązać użytkowników aplikacji z wyżej wymienionymi rolami.
-2. Znaczniki czasu
-2.1. System musi niezawodnie generować znaczniki czasu.
+
+<b>FMT_SMR.1.2</b> - system musi zachowywać role użytkowników aplikacji takie ja:
+- administrator,
+- użytkownik.
+
+
+<b>FMT_SMR.2</b> - ograniczenia bezpieczeństwa dla ról.
+
+<b>FMT_SMR.2.1</b> - system musi być w stanie powiązać użytkowników aplikacji z wyżej wymienionymi rolami.
+
+<b>FMR_SMR.2.1</b> - system musi być w stanie powiązać użytkownika serwera z wyżej wymienionymi rolami.
+
+<b>FMR_SMR.2.2</b> - system musi być w stanie powiązać użytkowników aplikacji klienckiej z wyżej wymienionymi rolami.
+
+<b>FPT_STM</b> - znaczniki czasu.
+
+<b>FPT_STM.1</b> - niezawodność znaczników czasu.
+
+<b>FPT_STM.1.1</b> - system musi niezawodnie generować znaczniki czasu.
 2.2. System powinien rejestrować wszystkie akcje użytkowników w postaci logów systemowych i przypisywać im znaczniki czasu.
 
-FCS_CKM Zarządzanie klucza kryptograficznego
 
-	FCS_CKM.1 Cryptographic key generation, requires cryptographic keys to
-	be generated in accordance with a specified algorithm and key sizes which
-	can be based on an assigned standard.
+<b>FCS_CKM</b> - zarządzanie klucza kryptograficznego.
 
-	FCS_CKM.2 Cryptographic key distribution, requires cryptographic keys to
-	be distributed in accordance with a specified distribution method which can
-	be based on an assigned standard.
+<b>FCS_CKM.1</b> - generowanie kluczy kryptograficznych; wymaga wygenerowanie klucza kryptograficznego zgodnie z określonym algorytmem i rozmiarem klucza zgodnie ze standardami.
 
-	FCS_CKM.3 Cryptographic key access, requires access to cryptographic
-	keys to be performed in accordance with a specified access method which
-	can be based on an assigned standard.
+<b>FCS_CKM.2</b> - dostarczanie klucza kryptograficznego; wymaga klucza kryptograficznego, który będzie dostarczony zgodnie z określoną metodą przesyłu zgodną z przyjętymi standardami.
 
-	FCS_CKM.4 Cryptographic key destruction, requires cryptographic keys to
-	be destroyed in accordance with a specified destruction method which can be
-	based on an assigned standard.
+<b>FCS_CKM.3</b> -  dostęp do klucza kryptograficznego; wymagany dostęp do klucza zgodnego z określoną metodą dostępu zgodną z przyjętymi standardami.
 
-FCS_COP Operacja szyfrowania
+<b>FCS_CKM.4</b> - usuwanie klucza kryptograficznego; wymagane niszczenie klucza kryptograficznego zgodnej z przyjętymi standarami.
 
-	FCS_COP.1 The TSF shall perform [assignment: list of cryptographic operations] in
-	accordance with a specified cryptographic algorithm [assignment:
-	cryptographic algorithm] and cryptographic key sizes [assignment:
-	cryptographic key sizes] that meet the following: [assignment: list of
-	standards]. 
+<b>FCS_COP</b> Operacja szyfrowania
 
-FIA_AFL: Identification and authentication 
-	 Authentication failures (FIA_AFL) 
+<b>FCS_COP.1</b> - TSF powinien zapewnić zgodnie z określonym algorytmem kryptograficznym i rozmiaru klucza operację szyfrowania zgodną z przyjętymi standardami.
 
 
-FIA_SOS: Specification of secrets
-	
-	FIA_SOS.1 Verification of secrets
-		FIA_SOS.1.1 The TSF shall provide a mechanism to verify that secrets meet requirement.
-	FIA_SOS.2 TSF Generation of secrets:
-	The TSF shall be able to enforce the use of TSF generated secrets for functions.
+## Specyfikacja funkcjonalna TOE
+
+W tym rozdziale zawarto opis funkcji TOE spełniających wymagania zdefiniowane w poprzednich rozdziałach dokumentu.
+
+
+### Funkcje bezpieczeństwa TOE
+
+Każde wymaganie bezpieczeństwa i związane z nimi opisy odpowiadają funkcjom bezpieczeństwa. Każda funkcja jest opisywana przez to, w jaki sposób spełnia swoje wymagania.
+
+
+|  Funkcja bezpieczeństwa TOE	|   SFR ID	| Opis
+|---	|---	|---	|
+| Alarm bezpieczeństwa	|		| Automatyczna odpowiedź systemu na zdarzenia
+| Audyt bezpieczeństwa  |		| 
+| Idetyfikacja i uwierzytelnianie 
+| Ochrona danych użytkownika
+| Zarządzanie bezpieczeństwem
+
+
+
 
 ## Uzasadnienie celów zabezpieczenia
 W niniejszym rozdziale zawarto uzasadnienie, dlaczego zidentyfikowane cele zabezpieczeń są odpowiednie do przeciwdziałania zidentyfikowanym zagrożeniom i spełniają określone polityki bezpieczeństwa.
