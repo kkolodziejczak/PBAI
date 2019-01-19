@@ -402,7 +402,7 @@ W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzo
 ### <b>Uwierzytelnianie i identyfikacja</b>
 
 	FIA_AFL - błędy uwierzytelniania.
-	
+
 	FIA_AFL.1- obsługa błędów uwierzytelniania.
 		FIA_AFL.1.1 - System musi wykrywać błędne próby logowania użytkowników (w ilości zdefiniowanej przez administratora).
 		FIA_AFL.1.2 - w przypadku wykrycia zdefiniowanej ilości niepoprawnych prób logowania danego użytkownika, system musi wykonać następujące czynności:
@@ -415,10 +415,27 @@ W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzo
 		FIA_UAU.1.1 - System wymaga, aby każdy użytkownik aplikacji klienckiej i serwer został pomyślnie uwierzytelniony, zanim zdecyduje się na inne operacje związane z systemem w imieniu tego użytkownika.
 		FIA_UAU.1.2 - System wymaga, aby każdy użytkownik aplikacji klienckiej i serwer został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika jakichkolwiek innych działań z udziałem systemu.
 
+
+#### <b>EXT_FIA_VC_LOGIN</b> - logowanie użytkowników.
+	EXT_FIA_VC_LOGIN.1 - żądanie logowania użytkownika serwera.
+		EXT_FIA_VC_LOGIN.1.1 - serwer bazy danych musi zażądać identyfikacji i uwierzytelniania z środowiska serwera dla użytkownika serwera i otrzymać powiadomienie o sukcesie, przed wykonaniem w imieniu u»ytkownika jakichkolwiek innych działań z udziałem TSF.
+
+
 #### <b>FIA_UID</b> - identyfikacja użytkowników.
 
 	FIA_UID.1 - identyfikacja użytkownika przed jakimkolwiek działaniem.
 		FIA_UID.1.1 - System wymaga, aby każdy użytkownik aplikacji został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika jakichkolwiek innych działań z udziałem systemu.
+
+
+### <b>Przerwanie procesu</b>
+
+#### <b>FDP_IFF</b> - funkcje kontrolujące przepływ informacji.
+
+	FDP_IFF.1 - proste atrybuty zabezpieczeń
+		FDP_IFF.1.1 - TSF zezwala na przepływ informacji pomiędzy kontrolowanym podmiotem a kontrolowanymi informacjami za po±rednictwem kontrolowanej operacji, jeżli spełnione są następujące warunki:
+		1. jeżeli pakiet danych pochodzi z uznanego i autoryzowanego interfejsu sieci fizycznej lub wirtualnego interfejsu sieciowego VM,
+		2. identyfikowanego przez identyfikator interfejsu lub Identyfikator sieci VLAN (jeżli ma to zastosowanie) wskazany przez identyfikator źródłowy zdefiniowany w tej specyfikacji SFP i jest adresowany do uznanego i autoryzowanego odbiorcy wskazanego przez identyfikator docelowy zdefiniowany w tej SFP,
+		3. a następnie umo»liwia przepływ informacji, w przeciwnym razie odmawia przepływu informacji.
 
 
 ### <b>Ochrona</b>
@@ -473,13 +490,13 @@ W tym rozdziale zawarto opis funkcji TOE spełniających wymagania zdefiniowane 
 Każde wymaganie bezpieczeństwa i związane z nimi opisy odpowiadają funkcjom bezpieczeństwa. Każda funkcja jest opisywana przez to, w jaki sposób spełnia swoje wymagania.
 
 
-|  Funkcja bezpieczeństwa TOE	|   SFR ID	| Opis
-|---	|---	|---	|
-| Alarm bezpieczeństwa	|		| Automatyczna odpowiedź systemu na zdarzenia
-| Audyt bezpieczeństwa  |		| 
-| Idetyfikacja i uwierzytelnianie 
-| Ochrona danych użytkownika
-| Zarządzanie bezpieczeństwem
+|  Funkcja bezpieczeństwa TOE	|   SFR ID
+|---	|---	|
+| Alarm bezpieczeństwa	| FAU_ARP.1
+| Audyt bezpieczeństwa  | FAU_GEN.1, FAU_GEN.2, FAU_SAR.1, FAU_SAR.2, FAU_STG.1, FAU_STG.2  		| 
+| Idetyfikacja i uwierzytelnianie	|	FIA_AFL.1, FIA_UAU.1, FIA_UID.1, EXT_FIA_VC_LOGIN
+| Ochrona danych użytkownika		| 	FDP_IFF.1
+| Zarządzanie bezpieczeństwem		|	FMT_MSA.1, FMT_SMR.1, FMT_SMR.2, FPT_STM.1,  FCS_CKM.1, FCS_CKM.2, FCS_CKM.3, FCS_CKM.4, FCS_COP.1	
 
 
 
@@ -491,54 +508,197 @@ W niniejszym rozdziale zawarto uzasadnienie, dlaczego zidentyfikowane cele zabez
 
 |  Zagrożenie	|   Cele zabezpieczeń TOE	| 
 |---	|---	|
-|Uszkodzenie TOE				| Konfiguracja TOE, Bezpieczeństwo fizyczne, Aktualizacje zabezpieczeń
-|Nieautoryzowany dostęp do zasobów serwera bazodanowego		| Ochrona procesów, Aktualizacje zabezpieczeń
-|Nieautoryzowane przejęcie sesji użytkownika		| Wiarygodni administratorzy, Wiarygodni użytkownicy, Uwierzytelnienie użytkownika
-|Nieupoważniony dostęp							|Uwierzytelnienie użytkownika, Ochrona procesów
-|Słaby zestaw algorytmów						|Integralność danych do szyfrowania, Zatwierdzone algorytmy, Moduły kryptograficzne
-|Nieautoryzowany dostęp do prywatnych plików	|Uwierzytelnienie użytkownika, Zgodność uprawnień do dokumentów
-|Przypadkowe usunięcie pliku					| Zgoda użytkownika, Obecność użytkownika
-|Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym	|Ochrona kanału komunikacyjnego, Uwierzytelnienie użytkownika
-|Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu |Ochrona kanału komunikacyjnego
-|Modyfikacja uprawnień do zasobów		| Konfiguracja TOE, Bezpieczeństwo fizyczne, Aktualizacje zabezpieczeń
-|Wyciek danych							| Ochrona procesów, Aktualizacje zabezpieczeń
-|Przejęcie konta administratora			| Wiarygodni administratorzy, Uwierzytelnienie użytkownika, Aktualizacje zabezpieczeń
+|T. Uszkodzenie TOE				| O. Konfiguracja TOE, O. Bezpieczeństwo fizyczne, Aktualizacje zabezpieczeń
+|T. Nieautoryzowany dostęp do zasobów serwera bazodanowego		| O. Ochrona procesów, O. Aktualizacje zabezpieczeń
+|T. Nieautoryzowane przejęcie sesji użytkownika		| O. Wiarygodni administratorzy, O. Wiarygodni użytkownicy, O. Uwierzytelnienie użytkownika
+|T. Nieupoważniony dostęp							|O. Uwierzytelnienie użytkownika, O. Ochrona procesów
+|T. Słaby zestaw algorytmów						|O. Integralność danych do szyfrowania, O. Zatwierdzone algorytmy, O. Moduły kryptograficzne
+|T. Nieautoryzowany dostęp do prywatnych plików	|O. Uwierzytelnienie użytkownika, O. Zgodność uprawnień do dokumentów
+|T. Przypadkowe usunięcie pliku					| O. Zgoda użytkownika, O. Obecność użytkownika
+|T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym	|O. Ochrona kanału komunikacyjnego, O. Uwierzytelnienie użytkownika
+|T. Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu |O. Ochrona kanału komunikacyjnego
+|T. Modyfikacja uprawnień do zasobów		| O. Konfiguracja TOE, O. Bezpieczeństwo fizyczne, O. Aktualizacje zabezpieczeń
+|T. Wyciek danych							| O. Ochrona procesów, O. Aktualizacje zabezpieczeń
+|T. Przejęcie konta administratora			| O. Wiarygodni administratorzy, O. Uwierzytelnienie użytkownika, O. Aktualizacje zabezpieczeń
 
 
 ### Odwzorowanie polityki zabezpieczeń TOE na cele zabezpieczeń
 |  Polityka	|   Cele zabezpieczeń TOE	| 
 |---	|---	|
-| Przerwanie procesu								|	Ochrona procesów, Konfiguracja TOE, Bezpieczeństwo fizyczne
-| Integralność danych użytkownika					|	Zgodność uprawnień do dokumentów, Wiarygodni użytkownicy, Zbiór dokumentów 
-| Eksport szyfrogramu								|	Poufność danych uwierzytelniających, Bezpieczeństwo fizyczne, Obecność użytkownika,
-| Zarządzanie										|	Ochrona kanału komunikacyjnego, Udostępnienie pliku innemu użytkownikowi, Ustawienie czasu wygaśnięcia pliku, Zbiór dokumentów, Tworzenie danych na potrzeby audytu, Ochrona danych rejestrowanych na potrzeby audytu, Przeglądanie danych rejestrowanych na potrzeby audytu, Aktualizacje zabezpieczeń
-| Algorytmy kryptograficzne							|	Zatwierdzone algorytmy, Moduły kryptograficzne
+| P. Przerwanie procesu								|	O. Ochrona procesów, O. Konfiguracja TOE, O. Bezpieczeństwo fizyczne
+| P. Integralność danych użytkownika					|	O. Zgodność uprawnień do dokumentów, O. Wiarygodni użytkownicy, O. Zbiór dokumentów 
+| P. Eksport szyfrogramu								|	O. Poufność danych uwierzytelniających, O. Bezpieczeństwo fizyczne, O. Obecność użytkownika,
+| P. Zarządzanie										|	O. Ochrona kanału komunikacyjnego, O. Udostępnienie pliku innemu użytkownikowi, O. Ustawienie czasu wygaśnięcia pliku, O. Zbiór dokumentów, O. Tworzenie danych na potrzeby audytu, O. Ochrona danych rejestrowanych na potrzeby audytu, O. Przeglądanie danych rejestrowanych na potrzeby audytu, O. Aktualizacje zabezpieczeń
+| P. Algorytmy kryptograficzne							|	O. Zatwierdzone algorytmy, O. Moduły kryptograficzne
 
 
 ### Odwzorowanie celów zabezpieczń TOE na politykę i zagrożenie
 |  Cele zabezpieczeń TOE	|  Polityka/Zagrożenia  	| 
 |---	|---	|
-| Ochrona kanału komunikacyjnego								|	Zarządzanie; Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu, Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, Przejęcie konta administratora
-| Uwierzytelnienie użytkownika									|	Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieupoważniony dostęp, Przejęcie konta administratora
-| Integralność danych do szyfrowania							| Algorytmy kryptograficzne, Integralność danych użytkownika, Eksport szyfrogramu; Uszkodzenie TOE, Słaby zestaw algorytmów, Przypadkowe usunięcie pliku, Wyciek danych 
-| Ochrona procesów												| Przerwanie procesu; Uszkodzenie TOE, Nieautoryzowany dostęp do zasobów serwera bazodanowego, Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Przypadkowe usunięcie pliku, Wyciek danych
-| Poufność danych uwierzytelniających							|	Algorytmy kryptograficzne, Zarządzanie; Nieautoryzowane przejęcie sesji użytkownika, Nieupoważniony dostęp, Przypadkowe usunięcie pliku, Wyciek danych
-| Zatwierdzone algorytmy										|	Algorytmy kryptograficzne; Uszkodzenie TOE 
-| Ochrona procesów												|	Integralność danych danych użytkownika, Zarządzanie; Modyfikacja uprawnień do zasobów, Wyciek danych, Przypadkowe usunięcie pliku
-| Zgoda użytkownika												| Integralność danych użytkownika, Zarządzanie; Przypadkowe usunięcie pliku, Przejęcie konta administratora
-| Udostępnienie pliku innemu użytkownikowi						| Eksport szyfrogramu, Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Przypadkowe usunięcie pliku, Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, Wyciek danych 
-| Przesyłanie klucza deszyfrującego								| Eksport szyfrogramu; Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem, Modyfikacja uprawnień do zasobów
-| Ustawienie czasu wygaśnięcia pliku							| Zarządzanie; Przypadkowe usunięcie pliku, Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Modyfikacja uprawnień do zasobów
-| Zbiór dokumentów												| Zarządzanie, Integralność danych użytkownika; Wyciek danych, Przypadkowe usunięcie pliku, Nieupoważniony dostęp 
-| Zgodność uprawnień do dokumentów								| Zarządzanie, Integralność danych użytkownika;  Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Przypadkowe usunięcie pliku 
-| Bezpieczna komunikacja										| Zarządzanie, Eksport szyfrogramu; Nieautoryzowane przejęcie sesji użytkownika, Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
-| Wiarygodni użytkownicy										| Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
-| Wiarygodni administratorzy									| Integralność danych użytkownika; Nieautoryzowane przejęcie sesji użytkownika, Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
-| Konfiguracja TOE												| Zarządzanie; Uszkodzenie TOE
-| Moduły kryptograficzne										| Algorytmy kryptograficzne; Słaby zestaw algorytmów; Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym 
-| Bezpieczeństwo fizyczne										| Zarządzanie; Wyciek danych, Modyfikacja uprawnień do zasobów
-| Obecność użytkownika											| Integralność danych użytkownika, Zarządzanie; Nieupoważniony dostęp, Nieautoryzowany dostęp do prywatnych plików, Nieautoryzowane przejęcie sesji użytkownika
-| Tworzenie danych na potrzeby audytu							| Zarządzanie, Integralność danych użytkownika; Uszkodzenie TOE, Nieautoryzowany dostęp do zasobów serwera bazodanowego, Nieupoważniony dostęp
-| Ochrona danych rejestrowanych na potrzeby audytu				| Zarządzanie; Uszkodzenie TOE, Wyciek danych
-| Przeglądanie danych rejestrowanych na potrzeby audytu			| Zarządzanie; Nieautoryzowany dostęp do prywatnych plików
-| Aktualizacje zabezpieczeń										| Zarządzanie; Uszkodzenie TOE, Modyfikacja uprawnień do zasobów, Wyciek danych
+| Ochrona kanału komunikacyjnego								|	P. Zarządzanie; Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu, T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, T. Przejęcie konta administratora
+| Uwierzytelnienie użytkownika									|	P. Integralność danych użytkownika; T. Nieautoryzowane przejęcie sesji użytkownika, T. Nieupoważniony dostęp, T. Przejęcie konta administratora
+| Integralność danych do szyfrowania							| P. Algorytmy kryptograficzne, P. Integralność danych użytkownika, P. Eksport szyfrogramu; T. Uszkodzenie TOE, T. Słaby zestaw algorytmów, T. Przypadkowe usunięcie pliku, T. Wyciek danych 
+| Ochrona procesów												| P. Przerwanie procesu; T. Uszkodzenie TOE, T. Nieautoryzowany dostęp do zasobów serwera bazodanowego, T. Nieupoważniony dostęp, T. Nieautoryzowany dostęp do prywatnych plików, T. Przypadkowe usunięcie pliku, T. Wyciek danych
+| Poufność danych uwierzytelniających							|	P. Algorytmy kryptograficzne, P. Zarządzanie; Nieautoryzowane przejęcie sesji użytkownika, T. Nieupoważniony dostęp, T. Przypadkowe usunięcie pliku, T. Wyciek danych
+| Zatwierdzone algorytmy										|	P. Algorytmy kryptograficzne; T. Uszkodzenie TOE 
+| Ochrona procesów												|	P. Integralność danych danych użytkownika, P. Zarządzanie; T. Modyfikacja uprawnień do zasobów, T. Wyciek danych, T. Przypadkowe usunięcie pliku
+| Zgoda użytkownika												| P. Integralność danych użytkownika, P. Zarządzanie; T. Przypadkowe usunięcie pliku, T. Przejęcie konta administratora
+| Udostępnienie pliku innemu użytkownikowi						| P. Eksport szyfrogramu, P. Integralność danych użytkownika; T. Nieautoryzowane przejęcie sesji użytkownika, T. Nieupoważniony dostęp, T. Nieautoryzowany dostęp do prywatnych plików, T. Przypadkowe usunięcie pliku, T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, T. Wyciek danych 
+| Przesyłanie klucza deszyfrującego								| P. Eksport szyfrogramu; T. Nieautoryzowane T. podsłuchanie użytkowników podczas operacji dzielenia się kluczem, T. Modyfikacja uprawnień do zasobów
+| Ustawienie czasu wygaśnięcia pliku							| P. Zarządzanie; T. Przypadkowe usunięcie pliku, T. Nieupoważniony dostęp, T. Nieautoryzowany dostęp do prywatnych plików, T. Modyfikacja uprawnień do zasobów
+| Zbiór dokumentów												| P. Zarządzanie, P. Integralność danych użytkownika; T. Wyciek danych, T. Przypadkowe usunięcie pliku, T. Nieupoważniony dostęp 
+| Zgodność uprawnień do dokumentów								| P. Zarządzanie, P. Integralność danych użytkownika;  T. Nieupoważniony dostęp, T. Nieautoryzowany dostęp do prywatnych plików, T. Przypadkowe usunięcie pliku 
+| Bezpieczna komunikacja										| P. Zarządzanie, P. Eksport szyfrogramu; T. Nieautoryzowane przejęcie sesji użytkownika, T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym, T. Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+| Wiarygodni użytkownicy										| P. Integralność danych użytkownika; T. Nieautoryzowane przejęcie sesji użytkownika, T. Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+| Wiarygodni administratorzy									| P. Integralność danych użytkownika; T. Nieautoryzowane przejęcie sesji użytkownika, T. Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+| Konfiguracja TOE												| P. Zarządzanie; T. Uszkodzenie TOE
+| Moduły kryptograficzne										| P. Algorytmy kryptograficzne; T. Słaby zestaw algorytmów; T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym 
+| Bezpieczeństwo fizyczne										| P. Zarządzanie; T. Wyciek danych, T. Modyfikacja uprawnień do zasobów
+| Obecność użytkownika											| P. Integralność danych użytkownika, P. Zarządzanie; T. Nieupoważniony dostęp, T. Nieautoryzowany dostęp do prywatnych plików, T. Nieautoryzowane przejęcie sesji użytkownika
+| Tworzenie danych na potrzeby audytu							| P. Zarządzanie, P. Integralność danych użytkownika; T. Uszkodzenie TOE, T. Nieautoryzowany dostęp do zasobów serwera bazodanowego, T. Nieupoważniony dostęp
+| Ochrona danych rejestrowanych na potrzeby audytu				| P. Zarządzanie; T. Uszkodzenie TOE, T. Wyciek danych
+| Przeglądanie danych rejestrowanych na potrzeby audytu			| P. Zarządzanie; T. Nieautoryzowany dostęp do prywatnych plików
+| Aktualizacje zabezpieczeń										| P. Zarządzanie; T. Uszkodzenie TOE, T. Modyfikacja uprawnień do zasobów, T. Wyciek danych
+
+
+### Zapobieganie zagrożeń
+
+#### T. Uszkodzenie TOE
+
+##### O. Konfiguracja TOE
+
+##### O. Bezpieczeństwo fizyczne
+
+##### O. Aktualizacje zabezpieczeń
+
+
+#### T. Nieautoryzowany dostęp do zasobów serwera bazodanowego
+
+##### Ochrona procesów
+
+##### Aktualizacje zabezpieczeń
+
+#### T. Atak słownikowy i atak metodą pełnego przeglądu
+
+DODAĆ
+
+
+#### T. Nieautoryzowane przejęcie sesji użytkownika
+
+##### O. Wiarygodni administratorzy
+
+##### O. Wiarygodni użytkownicy
+
+##### O. Uwierzytelnienie użytkownika
+
+
+#### T. Nieupoważniony dostęp
+
+##### O. Uwierzytelnienie użytkownika
+
+##### O. Ochrona procesów
+
+
+#### T. Słaby zestaw algorytmów
+
+##### O. Integralność danych do szyfrowania
+
+##### O. Zatwierdzone algorytmy
+
+##### O. Moduły kryptograficzne
+
+
+#### T. Nieautoryzowany dostęp do prywatnych plików
+
+##### O. Uwierzytelnienie użytkownika
+
+##### O. Zgodność uprawnien do dokumentów
+
+
+#### T. Przypadkowe usunięcie pliku
+
+##### O. Zgoda użytkownika
+
+##### O. Obecność użytkownika
+
+
+#### T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym
+
+##### O. Ochrona kanału komunikacyjnego
+
+##### O. Uwierzytelnienie użytkownika
+
+
+#### T. Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+
+##### O. Ochrona kanału komunikacyjnego
+
+
+#### T. Modyfikacja uprawnień do zasobów
+
+##### O. Konfiguracja TOE
+
+##### O. Bezpieczeństwo fizyczne
+
+##### O. Aktualizacje zabezpieczeń
+
+
+#### T. Wyciek danych
+
+##### O. Ochrona procesów
+
+##### O. Aktualizacje zabezpieczeń
+
+
+#### T. Przejęcie konta administratora
+
+##### O. Wiarygodni administratorzy
+
+##### O. Uwierzytelnienie użytkownika
+
+##### O. Aktualizacje zabezpieczeń
+
+
+### Uzasadnienie funkcjonalnych wymagań bezpieczeństwa
+|  Cele zabezpieczeń TOE	|  Wymagania funkcjonalne dla TOE 	| 
+|---	|---	|
+|O. Ochrona kanału komunikacyjnego
+|O. Uwierzytelnienie użytkownika
+|O. Integralność danych do szyfrowania
+|O. Ochrona procesów
+|O. Poufność danych uwierzytelniających
+|O. Zatwierdzone algorytmy
+|O. Zgoda użytkownika
+|O. Udostępnienie pliku innemu użytkownikowi
+|O. Przesyłanie klucza deszyfrującego
+|O. Ustawienie czasu wygaśnięcia pliku
+|O. Zbiór dokumentów
+|O. Zgodność uprawnień do dokumentów
+
+
+### Cele zabezpieczeń
+
+
+#### O. Ochrona kanału komunikacyjnego
+
+#### O. Uwierzytelnienie użytkownika
+
+#### O. Integralność danych do szyfrowania
+
+#### O. Ochrona procesów
+
+#### O. Poufność danych uwierzytelniających
+
+#### O. Zatwierdzone algorytmy
+
+#### O. Zgoda użytkownika
+
+#### O. Udostępnienie pliku innemu użytkownikowi
+
+#### O. Przesyłanie klucza deszyfrującego
+
+#### O. Ustawienie czasu wygaśnięcia pliku
+
+#### O. Zbiór dokumentów
+
+#### O. Zgodność uprawnień do dokumentów
