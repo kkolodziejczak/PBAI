@@ -78,28 +78,28 @@ Przedmiotem oceny, rozważanym w niniejszym dokumencie, jest pięć komponentów
 
 W tej sekcji opisano wszystko aktywa chronione przez TOE.
 
-### Dokument
+### A. Dokument
 Dokument do szyfrowania/deszyfrowania, który może się składać z:
 * pojedynczego dokumentu elektronicznego,
 * wielu dokumentów elektronicznych.
 
 Dane zawarte w dokumencie muszą być chronione przed utratą integralności i/lub poufności.
 
-### Dane do szyfrowania
+### A. Dane do szyfrowania
 
 Dane do szyfrowania są informacją, z którą związany jest szyfrogram. Zawierają one szyfrowany dokument i informacje o atrybutach szyfrogramu.
 
-### Atrybuty szyfrowane
+### A. Atrybuty szyfrowane
 
 Atrybuty szyfrowane są to dane, które zostały szyfrowane w tym samym czasie, co dokument. Atrybuty te dostarczają weryfikatorowi informację odnośnie szyfrogramu oraz okoliczności, w jakich został on zrealizowany.
 
 Atrybuty te muszą być chronione przed utratą integralności lub poufności.
 
-### Rejestr zdarzeń
+### A. Rejestr zdarzeń
 
 Informacje zapisane chronologicznie o zdarzeniach i działaniach dotyczących TOE. Wpis w dzienniku zawiera informacje o kodzie błędu, daty i godziny wystąpienia błędu, identyfikator użytkownika i dodatkowe informacje.
 
-### Szyfrogram
+### A. Szyfrogram
 
 Szyfrogram jest zagregowanym zbiorem danych, zawierającym:
 * komplet danych do szyfrowania;
@@ -108,7 +108,7 @@ Szyfrogram jest zagregowanym zbiorem danych, zawierającym:
 Aktywa te muszą być chronione przez TOE w trakcie ich tworzenia i przed ich przekazaniem podmiotowi szyfrującemu.
 
 
-### Dane logowania
+### A. Dane logowania
 
 Informacje możliwe do uwierzytelnienia osoby, które są podawane podczas rejestracji/logowania podmiotu. TOE musi zapewnić ochronę przetwarzanych danych przed ich udostępnieniem osobom nieupoważnionym, zabraniem przez osobę nieuprawnioną. Bezpieczeństwo informacji należy rozumieć jako zachowanie:
 * poufności - zapewnia, że informacja nie jest udostępniania lub ujawniana nieautoryzowanym osobom, podmiotom, procesom;
@@ -120,19 +120,19 @@ Informacje możliwe do uwierzytelnienia osoby, które są podawane podczas rejes
 * niezawodności - zapewnia spójność zamierzonych zachowań i skutków.
 
 
-### Polityka szyfrowania
+### A. Polityka szyfrowania
 
 Polityki szyfrowania definiują reguły, które powinny być stosowane podczas składania szyfrowania danych i ich deszyfrowania. Lista polityk udostępniania, przesyłania klucza deszyfrującego lub szyfrowania przez użytkownika, zarządzana przez administratora TOE, musi być chroniona przed utratą integralności. 
 
 Dane te muszą być chronione przed utratą integralności.
 
-### Zgodność formatu dokumentu z jego przeglądarką
+### A. Zgodność formatu dokumentu z jego przeglądarką
 Mechanizmy zaimplementowane w TOE zarządzają parametrami, które pozwalają TOE na uruchomienie właściwej przeglądarki, obsługującej format wskazanego dokumentu i poprawne zaprezentowanie jego treści podmiotowi korzystającemu z systemu, udostępnianemu zasobów, szyfrującemu lub deszyfrującemu. 
 
 Parametry te muszą być chronione przed utratą integralności. 
 
 
-### Dane uwierzytelniające podmiotu systemu
+### A. Dane uwierzytelniające podmiotu systemu
 Są to dane, które pozwalają podmiotowi na uwierzytelnienie się (po zalogowaniu się do systemu za pomocą loginu i hasła). Pomyślnie zakończenie uwierzytelnienia upoważnia do korzystania z zasobów dostępnych w systemie.
 
 Dane te muszą być chronione przed utratą integralności i poufności 
@@ -140,31 +140,31 @@ Dane te muszą być chronione przed utratą integralności i poufności
 
 ## Podmioty systemu
 
-### Użytkownicy
+### S. Użytkownicy
 Podmiot udostępniający zaszyfrowane zasoby do sieci, przekazujący uprawnienia jak i klucz deszyfrujący innym podmiotom do pobrania dzielonych zasobów w systemie, wykonywanych zgodnie z polityką szyfrowania dla jednego lub kilku dokumentów.
 
-### Administrator
+### S. Administrator
 Administrator posiada niezbędne środki i jest przeszkolony w zakresie wykonywania wszelkich operacji na TOE, za które jest odpowiedzialny: wykonuje stałą obsługę systemu teleinformatycznego, w tym tworzy kopie zapasowe, zdalnie umieszcza kopie archiwów oraz bieżące kopie zapasowe poza podstawowym obszarem lokalizacji TOE. Podmiot posiada pełne zaufanie w odniesieniu do każdej polityki bezpieczeństwa wdrażanej do systemu. Jednostka jest przeszkolona w zakresie wykonywanych operacji na TOE.
 
 
 ## Założenia
 
-### Konfiguracja TOE
+### AE. Konfiguracja TOE
 Zakłada się, że TOE jest poprawnie zainstalowany i skonfigurowany (zainstalowana najnowsza wersja systemu operacyjnego, odpowiednio skonfigurowana polityka bezpieczeństwa, aktualna wersja oprogramowania antywirusowego).
 
-### Uwierzytelnienie
+### AE. Uwierzytelnienie
 Zakłada się, że środowisko związane z TOE umożliwia użytkownikom na uwierzytelnienie się poprzez wprowadzenie indywidualnych danych uwierzytelniających.
 
-### Bezpieczna komunikacja
+### AE. Bezpieczna komunikacja
 Zakłada się, że zapewniona jest poufność i integralność przesyłanych danych w komunikacji między serwerem a klientem.
 
-### Rejestracja zdarzeń
+### AE. Rejestracja zdarzeń
 Zakłada się, że środowisko TOE rejestruje w dzienniku zdarzeń wszystkie niepoufne zdarzenia istotne z punktu widzenia bezpieczeństwa.
 
-### Ochrona danych
+### AE. Ochrona danych
 Zakłada się, że dane utworzone przez środowisko są zabezpieczone oraz archiwizowane w sposób ciągły.
 
-### Aktualizacje zabezpieczeń
+### AE. Aktualizacje zabezpieczeń
 Zakłada się, że środowisko jest regularnie aktualizowane w celu wyeliminowania defektów w zabezpieczeniach wykrytych w oprogramowaniu wchodzących w skład środowiska.
 
 
@@ -172,7 +172,7 @@ Zakłada się, że środowisko jest regularnie aktualizowane w celu wyeliminowan
 
 Ta sekcja opisuje zagrożenia mające wpływ na TOE.
 
-### Uszkodzenie TOE
+### T. Uszkodzenie TOE
 Jeszcze przed rozpoczęciem procesu szyfrowania bądź deszyfrowania pliku uszkodzeniu bądź awarii może ulec jedna lub kilka funkcji i/lub jeden lub kilka parametrów TOE.
 
 Przypadkowe uszkodzenie funkcji i/lub parametrów TOE może nastąpić na przykład wtedy, gdy przesłany plik był niekompletny bądź nastąpiła awaria algorytmu odpowiedzialnego za szyfrowanie. Uszkodzenie może prowadzić do:
@@ -180,50 +180,50 @@ Przypadkowe uszkodzenie funkcji i/lub parametrów TOE może nastąpić na przyk�
 - uszkodzenia deszyfrowanych danych;
 - modyfikacji zawartości pliku bez zgody i wiedzy użytkownika.
 
-### Nieautoryzowany dostęp do zasobów serwera bazodanowego
+### T. Nieautoryzowany dostęp do zasobów serwera bazodanowego
 
 Atakujący może uzyskać nieautoryzowany dostęp do zasobów serwera bazodanowego w sposób bezpośredni (poprzez interfejs apache sql) bądź z wykorzystaniem luk w aplikacji serwerowej polegającym na modyfikacji zapytania bazodanowego - sql injection.
 
-### Atak słownikowy i atak metodą pełnego przeglądu
+### T. Atak słownikowy i atak metodą pełnego przeglądu
 Atakujący może uzyskać hasło do konta użytkownika serwisu, co pozwoli mu na korzystanie ze wszystkich funkcjonalności TOE bez wiedzy i zgody użytkownika.
 
-### Nieautoryzowane przejęcie sesji użytkownika
+### T. Nieautoryzowane przejęcie sesji użytkownika
 
 Atakujący może uzyskać i przejąć od zalogowanego użytkownika id sesji zalogowania przez co uzyskuje dostęp do udostępnionych plików innym użytkownikom.
 
-### Nieupoważniony dostęp
+### T. Nieupoważniony dostęp
 Atakujący może korzystać ze wszystkich funkcjonalności TOE pomimo braku zalogowania do systemu.
 
-### Słaby zestaw algorytmów
+### T. Słaby zestaw algorytmów
 Zastosowanie słabych algorytmów szyfrowych podczas tworzenia szyfrogramu.
 
 
-### Nieautoryzowany dostęp do prywatnych plików
+### T. Nieautoryzowany dostęp do prywatnych plików
 Atakujący może pobrać prywatne pliki, które nie były dla niego udostępnione.
 
 
-### Przypadkowe usunięcie pliku
+### T. Przypadkowe usunięcie pliku
 
 Użytkownik przypadkowo usuwa udostępniany plik, na skutek czego reszta użytkowników traci dostęp do dzielonych zasobów.
 
-### Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym
+### T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym
 
 Atakujący podsłuchuje komunikaty pomiędzy użytkownikami, którzy dzielą się kluczem deszyfrującym służącym do odszyfrowania pliku.
 
 
-### Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+### T. Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
 
 Atakujący śledzi dane wprowadzane przez użytkownika podczas logowania - login, hasło; które może przechwycić i wykorzystać do nieuprawnionego zalogowania się do systemu.
 
-### Modyfikacja uprawnień do zasobów
+### T. Modyfikacja uprawnień do zasobów
 
 Złośliwy użytkownik może w niedozwolony sposób dodać lub usunąć jednego bądź kilku użytkowników uprawnionych do pobrania określonego pliku. 
 
-### Wyciek danych
+### T. Wyciek danych
 
 W wyniku awarii systemu może dojść do wycieku poufnych i wrażliwych danych - dane logowania, udostępniane pliki, itp.
 
-### Przejęcie konta administratora
+### T. Przejęcie konta administratora
 
 Atakujący może przejąć konto administracyjne poprzez odgadnięcie danych dostępu, np: za pomocą metody brute-force albo w wyniku działania odkrycia luki systemowej.
 
@@ -231,19 +231,19 @@ Atakujący może przejąć konto administracyjne poprzez odgadnięcie danych dos
 ## Polityki bezpieczeństwa
 W tym rozdziale określono zasady natury organizacyjnej, mające zastosowanie do TOE.
 
-### Przerwanie procesu
+### P. Przerwanie procesu
 Podmiot szyfrujący/deszyfrujący musi mieć możliwość przerwania procesu szyfrowania/deszyfrowania przed aktywacją klucza szyfrującego/deszyfrującego.
 
-### Integralność danych użytkownika
+### P. Integralność danych użytkownika
 TOE musi chronić integralność wszystkich danych (lista zaszyfrowanych dokumentów, lista uprawnionych do pobrania zasobów), przychodzących od użytkownika.
 
-### Eksport szyfrogramu
+### P. Eksport szyfrogramu
 Po zakończeniu procesu szyfrowania powstały w jego wyniku szyfrogram dokumentu musi zostać przekazany przez TOE podmiotowi szyfrującemu/deszyfrującemu.
 
-### Zarządzanie
+### P. Zarządzanie
 TOE musi pozwolić podmiotowi szyfrującemu/deszyfrującemu oraz administratorowi na zarządzanie politykami szyfrowania oraz tabelą wiążącą format dokumentu z jego przeglądarką.
 
-### Algorytmy kryptograficzne
+### P. Algorytmy kryptograficzne
 Do zarządzania kluczami (tj. generowania, udostępniania, niszczenia, korzystania i przechowywania kluczy) oraz udostępniania algorytmów szyfrowych (funkcji szyfrowania, deszyfrowania, podpisywania, obliczania skrótów, wymiany kluczy oraz generowania liczb losowych) stosowane mogą być tylko te algorytmy kryptograficzne (metody i ich implementacje), które spełniają wymagania określone w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.) oraz w Ustawie z dnia 22 stycznia 1999 r. o ochronie informacji niejawnych (Dz.U. 1999 nr 11 poz. 95, wersja ujednolicona) i zatwierdzona przez odpowiednie instytucje certyfikujące przy wysokim poziomie siły funkcji zabezpieczającej lub przynajmniej zgodne z FIPS 140 poziom 2 lub wyższy.
 
 
@@ -251,92 +251,91 @@ Do zarządzania kluczami (tj. generowania, udostępniania, niszczenia, korzystan
 
 ### Cele zabezpieczeń dla TOE
 
-
-### Ochrona kanału komunikacyjnego
+### O. Ochrona kanału komunikacyjnego
 TOE zapewnia, że dane przesyłane między serwerem WWW a przeglądarką są chronione przed nieautoryzowanym dostępem. TOE musi zagwarantować, że nie ulegną modyfikacji w trakcie przbywania drobi między węzłami końcowymi kanału komunikacyjnego.
 
-#### Uwierzytelnienie użytkownika
+#### O. Uwierzytelnienie użytkownika
 TOE powinien zapewnić, aby użytkownik miał możliwość wprowadzenia danych uwierzytelniających (uwierzytelnienia się) przed uzyskaniem dostępu do prywatnych oraz udostępnionych plików.
 
-#### Integralność danych do szyfrowania
+#### O. Integralność danych do szyfrowania
 
 TOE musi zapewnić integralność różnych reprezentacji danych przeznaczonych do zaszyfrowanie od momentu ich sformatowania do momentu utworzenia szyfrogramu.
 
-#### Ochrona procesów
+#### O. Ochrona procesów
 TOE musi zapewnić ochronę przed ingerencją dowolnych niezaufanych procesów, urządzeń peryferyjnych i kanałów komunikacyjnych oraz intruzuów w pracę tych procesów, które wykorzystywane są podczas szyfrowania/deszyfrowania, zgodnie ze wskazaniem zawartym w żądaniu utworzenia szyfrogramu.
 
-#### Poufność danych uwierzytelniających
+#### O. Poufność danych uwierzytelniających
 TOE musi zapewnić poufność danych uwierzytelniających należących do podmiotu szyfrującego/deszyfrującego.
 
-#### Zatwierdzone algorytmy
+#### O. Zatwierdzone algorytmy
 
 TOE powinien zapewnić, aby były stosowane tylko te algorytmy szyfrowe, które należą do zbioru zatwierdzonych algorytmów i parametrów stosowanych podczas tworzenia szyfrogramu; w szczególności, aby format  był zgodny z formatami wskazanymi w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.). 
 
-#### Zgoda użytkownika
+#### O. Zgoda użytkownika
 
 TOE powinien udostępnić podmiotowi szyfrującemu/deszyfrującemu mechanizm umożliwiający mu (w sposób dobrowolny i jednoznaczny) wyrażenie zgody na zainicjowanie procesu wyboru dokumentu w celu utworzenia szyfrogramu bądź pobrania i odszyfrowania.
 
 TOE powinien zażądać od podmiotu szyfrującego/deszyfrującego nietrywialnego zainicjowania procesu, wykluczającego jakąkolwiek przypadkowość tej decyzji; żaden inny proces w systemie nie może zainicjować tego procesu.
 
-#### Udostępnienie pliku innemu użytkownikowi
+#### O. Udostępnienie pliku innemu użytkownikowi
 
 TOE powinien zapewnić podmiotowi będącemu właścicielem danego pliku na udostępnienie wybranego zasobu odbiorcy wskazanego przez nadawcę.
 
-#### Przesyłanie klucza deszyfrującego
+#### O. Przesyłanie klucza deszyfrującego
 
 TOE powienien zapewnić bezpieczne przekazanie klucza szyfrującego wskazanemu przez niego odbiorcy. Proces przekazania klucza powinien być uzgadniany pomiędzy nadawcą a odbiorcą algorytmem Diffie-Hellmana, natomiast TOE ma zapewnić bezpieczny kanał transmisyjny.
 
 
-#### Ustawienie czasu wygaśnięcia pliku
+#### O. Ustawienie czasu wygaśnięcia pliku
 
 TOE powinien zapewnić uprawnienia właściciela pliku na jednoznaczne wskazanie terminu wygaśnięcia pliku. Po upływie czasu wygaśnięcia TOE powinien przeprowadzić operację trwałego usunięcia pliku.
 
-#### Zbiór dokumentów
+#### O. Zbiór dokumentów
 
 Po wyrażeniu przez podmiot szyfrujący zgody na szyfrowanie, TOE musi gwarantować, że przetwarzany dokument rzeczywiście odpowiada dokładnie wybranemu dokumentowi przeznaczonego do szyfrowania.
 
 
-#### Zgodność uprawnień do dokumentów
+#### O. Zgodność uprawnień do dokumentów
 
 TOE musi zapewnić zgodność, która potwierdza uprawnienia użytkownika do pobrania wybranego dokumentu.
 
 
 ### Cele zabezpieczeń dla środowiska
 
-#### Bezpieczna komunikacja
+#### OE. Bezpieczna komunikacja
 W celu ustanowienia bezpiecznego kanału komunikacji, komunikacja pomiędzy serwerem WWW, a przeglądarką WWW odbywa się z zastosowaniem protokołu HTTPS z TLS.
 
-#### Wiarygodni użytkownicy
+#### OE. Wiarygodni użytkownicy
 
 Upoważnieni użytkownicy rzetelnie wykonują swoje zadania.
 
-#### Wiarygodni administratorzy
+#### OE. Wiarygodni administratorzy
 
 Upoważnieni administratorzy rzetelnie wykonują swoje zadania.
 
 
-#### Konfiguracja TOE
+#### OE. Konfiguracja TOE
 TOE musi być poprawnie zainstalowany i skonfigurowany tak, aby zaraz po uruchomieniu przechodził w bezpieczny stan.
 
-#### Moduły kryptograficzne
+#### OE. Moduły kryptograficzne
 TOE musi korzystać tylko z tych usług kryptograficznych, udostępnianych przez środowisko teleinformatyczne, które spełniają wymagania określone w  Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.) oraz Ustawie z dnia 22 stycznia 1999 r. o ochronie informacji niejawnych (Dz.U. 1999 nr 11 poz. 95, wersja ujednolicona) i zatwierdzone przez odpowiednie instytucje certyfikujące przy wysokim poziomie siły funkcji zabezpieczającej lub przynajmniej zgodne z FIPS 140 poziom 2 lub wyższy. 
 
-#### Bezpieczeństwo fizyczne
+#### OE. Bezpieczeństwo fizyczne
 Środowisko musi zapewniać akceptowalny poziom bezpieczeństwa fizycznego tak, aby nie było możliwe manipulowanie TOE. 
 
-#### Obecność użytkownika
+#### OE. Obecność użytkownika
 Podmiot szyfrujący/deszyfrujący powinien pozostać obecny między momentem wyrażenia przez niego zamiaru szyfrowania, a momentem kiedy wprowadza dane szyfrujące.
 
-#### Tworzenie danych na potrzeby audytu
+#### OE. Tworzenie danych na potrzeby audytu
 Środowisko związane z TOE zapewni możliwość zapisywania zdarzeń związanych z bezpieczeństwem TOE w rejestrze zdarzeń w sposób jednoznacznie wiążący zdarzenie z użytkownikiem, który był przyczyną wystąpienia tego zdarzenia lub zdarzenie nastąpiło podczas korzystania przez niego z TOE.
 
-#### Ochrona danych rejestrowanych na potrzeby audytu
+#### OE. Ochrona danych rejestrowanych na potrzeby audytu
 Środowisko związane z TOE zapewni możliwość ochrony informacji gromadzonej na potrzeby audytu.
 
-#### Przeglądanie danych rejestrowanych na potrzeby audytu
+#### OE. Przeglądanie danych rejestrowanych na potrzeby audytu
 Środowisko związane z TOE zapewni możliwość selektywnego przeglądania informacji zgromadzonej w rejestrze zdarzeń.
 
-#### Aktualizacje zabezpieczeń
+#### OE. Aktualizacje zabezpieczeń
 Środowisko jest automatycznie aktualizowane w celu wyeliminowania defektów w zabezpieczeniach wykrytych w oprogramowaniu wchodzących w skład środowiska.
 
 
@@ -350,158 +349,118 @@ W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzo
 
 #### <b>FAU_GEN</b> - Rejestrowanie zagrożeń bezpieczeństwa
 
-##### <b>FAU_GEN.1</b> - Generowanie danych na temat bezpieczeństwa
+	FAU_GEN.1 - Generowanie danych na temat bezpieczeństwa
+		FAU_GEN.1.1 - System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
 
-##### <b>FAU_GEN.1.1</b> - System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
-
-#### <b>FAU_GEN.2</b> - Przypisywanie zdarzeń do konkretnych podmiotów
-
-##### <b>FAU_GEN.2.1</b> - Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
+	FAU_GEN.2 - Przypisywanie zdarzeń do konkretnych podmiotów
+		FAU_GEN.2.1 - Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
 
 
 #### <b>FAU_ARP</b> - Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa.
 
-##### <b>FAU_ARP.1</b> -  Alarmy bezpieczeństwa.
-
-##### <b>FAU_ARP.1.1</b> - W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
-
-##### <b>FAU_ARP.1.2</b> -  System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
+	FAU_ARP.1 -  Alarmy bezpieczeństwa.
+		FAU_ARP.1.1 - W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
+		FAU_ARP.1.2 - System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
 
 
 #### <b>FAU_SAR</b> -  Wymagania dotyczące narzędzi audytu, dostępnych dla osób uprawnionych w celu przeglądu danych.
 
-##### <b>FAU_SAR.1</b> Przegląd audytu, możliwość odczytywania rejestrowanych danych.
-
-##### <b>FAU_SAR.1.1</b> - System musi zapewnić możliwość odczytu zarejestrowanych danych audytu.
-
-##### <b>FAU_SAR.1.2</b> - System musi zapewnić możliwość odczytu danych w formie możliwej do interpretacji przez użytkownika.
+	FAU_SAR.1 Przegląd audytu, możliwość odczytywania rejestrowanych danych.
+		FAU_SAR.1.1 - System musi zapewnić możliwość odczytu zarejestrowanych danych audytu.
+		FAU_SAR.1.2 - System musi zapewnić możliwość odczytu danych w formie możliwej do interpretacji przez użytkownika.
 
 #### <b>FAU_SAR.2</b> - Systemowa kontrola dostępu do danych audytu.
 
-##### <b>FAU_SAR.2.1</b> - System musi zapewnić kontrolę odczytu danych audytu. Dane audytowe mogą być odczytywane tylko przez podmioty do tego uprawnione.
-
+	FAU_SAR.2.1 - System musi zapewnić kontrolę odczytu danych audytu. Dane audytowe mogą być odczytywane tylko przez podmioty do tego uprawnione.
 
 #### <b>FAU_STG</b> - Wymagania System dotyczące przechowywania zbioru rejestrowanych zdarzeń.
 
-##### <b>FAU_STG.1</b> - Miejsce przechowywania rejestrowanych danych.
+	FAU_STG.1 - Miejsce przechowywania rejestrowanych danych.
+		FAU_STG.1.1 - System musi być w stanie wykonać kopię zapasową oraz ewentualne przywrócenie danych audytu.
 
-##### <b>FAU_STG.1.1</b> - System musi być w stanie wykonać kopię zapasową oraz ewentualne przywrócenie danych audytu.
-
-##### <b>FAU_STG.2</b> - Gwarancja dostępności rejestrowanych danych przez system.
-
-##### <b>FAU_STG.2.1</b> - System musi zapewnić kopiowanie danych (w ramach kopii zapasowej) do innej części TOE.
+	FAU_STG.2 - Gwarancja dostępności rejestrowanych danych przez system.
+		FAU_STG.2.1 - System musi zapewnić kopiowanie danych (w ramach kopii zapasowej) do innej części TOE.
 
 
-### Weryfikacja
+### <b>Weryfikacja</b>
 
 #### <b>FDP_ACC</b> - Polityka kontroli dostępu.
 
-##### <b>FDP_ACC.1</b> - kontrola dostępu do poszczególnych funkcjonalności TOE.
-
-##### <b>FDP_ACC.1.1</b> - System na podstawie kontroli dostępu SFP (ang. Security. Function Policies, zbiór zasad bezpieczeństwa które muszą być przestrzegane w ramach TOE) musi egzekwować kontrolę dostępu do poszczególnych funkcji oraz zasobów TOE zdefiniowanych w SFP.
+	FDP_ACC.1 - kontrola dostępu do poszczególnych funkcjonalności TOE.
+		FDP_ACC.1.1 - System na podstawie kontroli dostępu SFP (ang. Security. Function Policies, zbiór zasad bezpieczeństwa które muszą być przestrzegane w ramach TOE) musi egzekwować kontrolę dostępu do poszczególnych funkcji oraz zasobów TOE zdefiniowanych w SFP.
 
 #### <b>FDP_ACF</b> - funkcje kontroli dostępu.
 
-##### <b>FDP_ACF.1</b> - atrybuty kontroli dostępu.
-
-##### <b>FDP_ACF.1.1</b> - System musi wymuszać kontrolę dostępu zdefiniowaną w SFP bazującą na rolach przypisanych do poszczególnych podmiotów w ramach TOE.
-
-##### <b>FDP_ACF.1.2</b> - System musi egzekwować poniższe zasady w celu weryfikacji czy dany podmiot powinien uzyskać dostęp do wybranej funkcjonalności:
-- podmiot musi być autoryzowanym podmiotem występującym w ramach
-TOE,
- - System musi zweryfikować rolę danego podmiotu,
- - na podstawie atrybutów dostępu przypisanych do poszczególnych ról,
-System powinien udzieli lub odmówić dostępu do danej funkcji TOE dla
-danego podmiotu.
+	FDP_ACF.1 - atrybuty kontroli dostępu.
+		FDP_ACF.1.1 - System musi wymuszać kontrolę dostępu zdefiniowaną w SFP bazującą na rolach przypisanych do poszczególnych podmiotów w ramach TOE.
+		FDP_ACF.1.2 - System musi egzekwować poniższe zasady w celu weryfikacji czy dany podmiot powinien uzyskać dostęp do wybranej funkcjonalności:
+		- podmiot musi być autoryzowanym podmiotem występującym w ramach TOE,
+		- system musi zweryfikować rolę danego podmiotu,
+		- na podstawie atrybutów dostępu przypisanych do poszczególnych ról, System powinien udzieli lub odmówić dostępu do danej funkcji TOE dla danego podmiotu.
 
 
-### Uwierzytelnianie i identyfikacja
+### <b>Uwierzytelnianie i identyfikacja</b>
 
-#### <b>FIA_AFL</b> - błędy uwierzytelniania.
-
-##### <b>FIA_AFL.1</b> - obsługa błędów uwierzytelniania.
-
-##### <b>FIA_AFL.1.1</b> - System musi wykrywać błędne próby logowania użytkowników
- (w ilości zdefiniowanej przez administratora).
-
-##### <b>FIA_AFL.1.2</b> - w przypadku wykrycia zdefiniowanej ilości niepoprawnych prób logowania danego użytkownika, system musi wykonać następujące czynności:
- - zapisać dokładne informacje na temat adresu logowania, ilości niepoprawnych
-prób logowania, oraz podmiotu którego dotyczyły zdarzenie
-w logach systemu,
- - zablokować możliwość logowania dla danego użytkownika na określony,
-zdefiniowany przez administratora okres czasu,
- - poinformować podmiot o nieudanych próbach logowania.
+	FIA_AFL - błędy uwierzytelniania.
+	
+	FIA_AFL.1- obsługa błędów uwierzytelniania.
+		FIA_AFL.1.1 - System musi wykrywać błędne próby logowania użytkowników (w ilości zdefiniowanej przez administratora).
+		FIA_AFL.1.2 - w przypadku wykrycia zdefiniowanej ilości niepoprawnych prób logowania danego użytkownika, system musi wykonać następujące czynności:
+		- zapisać dokładne informacje na temat adresu logowania, ilości niepoprawnych prób logowania, oraz podmiotu którego dotyczyły zdarzenie w logach systemu,
+		- zablokować możliwość logowania dla danego użytkownika na określony, zdefiniowany przez administratora okres czasu,
+		- poinformować podmiot o nieudanych próbach logowania.
 
 #### <b>FIA_UAU</b> - uwierzytelnianie użytkowników.
-
-##### <b>FIA_UAU.1</b> - uwierzytelnianie użytkowników przed każdym działaniem.
-
-##### <b>FIA_UAU.1.1</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej i serwer został pomyślnie uwierzytelniony, zanim zdecyduje się na inne operacje związane z systemem w imieniu tego użytkownika.
-
-##### <b>FIA_UAU.1.2</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej i serwer został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika jakichkolwiek innych działań z udziałem systemu.
+	FIA_UAU.1 - uwierzytelnianie użytkowników przed każdym działaniem.
+		FIA_UAU.1.1 - System wymaga, aby każdy użytkownik aplikacji klienckiej i serwer został pomyślnie uwierzytelniony, zanim zdecyduje się na inne operacje związane z systemem w imieniu tego użytkownika.
+		FIA_UAU.1.2 - System wymaga, aby każdy użytkownik aplikacji klienckiej i serwer został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika jakichkolwiek innych działań z udziałem systemu.
 
 #### <b>FIA_UID</b> - identyfikacja użytkowników.
 
-##### <b>FIA_UID.1</b> - identyfikacja użytkownika przed jakimkolwiek działaniem.
-
-##### <b>FIA_UID.1.1</b> - System wymaga, aby każdy użytkownik aplikacji został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika jakichkolwiek innych działań z udziałem systemu.
-
-
-#### Ochrona
+	FIA_UID.1 - identyfikacja użytkownika przed jakimkolwiek działaniem.
+		FIA_UID.1.1 - System wymaga, aby każdy użytkownik aplikacji został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika jakichkolwiek innych działań z udziałem systemu.
 
 
-##### <b>FMT_MSA</b> - zarządzanie atrybutami bezpieczeństwa.
+### <b>Ochrona</b>
 
-<b>FMT_MSA.1</b> - inicjowanie atrybutu statycznego
-
-<b>FMT_MSA.1.1</b> - TSF musi egzekwować wirtualny i rozproszony przełącznik sterowania przepływem informacji SFP do ograniczania możliwości
-dodawania, modyfkowania i usuwania atrybutów bezpieczeństwa. TSF będzie wymuszać politykę wirtualnej i rozproszonej zasady kontroli przepływu informacji.
-
+#### <b>FMT_MSA</b> - zarządzanie atrybutami bezpieczeństwa.
+	FMT_MSA.1 - inicjowanie atrybutu statycznego.
+		FMT_MSA.1.1 - TSF musi egzekwować wirtualny i rozproszony przełącznik sterowania przepływem informacji SFP do ograniczania możliwości dodawania, modyfkowania i usuwania atrybutów bezpieczeństwa. TSF będzie wymuszać politykę wirtualnej i rozproszonej zasady kontroli przepływu informacji.
 
 
+#### <b>FMT_SMR</b> - podział na role
 
-##### <b>FMT_SMR</b> - podział na role
+	FMT_SMR.1 - role bezpieczeństwa
+		FMT_SMR.1.1 - system musi przechowywać następujące role użytkowników aplikacji:
+		- użytkownik,
+		- administrator.
 
-<b>FMT_SMR.1</b> - role bezpieczeństwa
+		FMT_SMR.1.2</b> - system musi zachowywać role użytkowników aplikacji takie jak: 
+		- administrator,
+		- użytkownik.
 
-<b>FMT_SMR.1.1</b> - system musi przechowywać następujące role użytkowników aplikacji:
-- użytkownik
-- administrator
+	FMT_SMR.2 - ograniczenia bezpieczeństwa dla ról.
+		FMT_SMR.2.1 - system musi być w stanie powiązać użytkowników aplikacji z wyżej wymienionymi rolami.
+		FMR_SMR.2.2 - system musi być w stanie powiązać użytkowników aplikacji klienckiej z wyżej wymienionymi rolami.
 
-<b>FMT_SMR.1.2</b> - system musi zachowywać role użytkowników aplikacji takie ja:
-- administrator,
-- użytkownik.
+#### <b>FPT_STM</b> - znaczniki czasu.
 
-
-<b>FMT_SMR.2</b> - ograniczenia bezpieczeństwa dla ról.
-
-<b>FMT_SMR.2.1</b> - system musi być w stanie powiązać użytkowników aplikacji z wyżej wymienionymi rolami.
-
-<b>FMR_SMR.2.1</b> - system musi być w stanie powiązać użytkownika serwera z wyżej wymienionymi rolami.
-
-<b>FMR_SMR.2.2</b> - system musi być w stanie powiązać użytkowników aplikacji klienckiej z wyżej wymienionymi rolami.
-
-<b>FPT_STM</b> - znaczniki czasu.
-
-<b>FPT_STM.1</b> - niezawodność znaczników czasu.
-
-<b>FPT_STM.1.1</b> - system musi niezawodnie generować znaczniki czasu.
-2.2. System powinien rejestrować wszystkie akcje użytkowników w postaci logów systemowych i przypisywać im znaczniki czasu.
+	FPT_STM.1 - niezawodność znaczników czasu.
+		FPT_STM.1.1 - system musi niezawodnie generować znaczniki czasu.
+	
+	FPT_STM.2 System powinien rejestrować wszystkie akcje użytkowników w postaci logów systemowych i przypisywać im znaczniki czasu.
 
 
-<b>FCS_CKM</b> - zarządzanie klucza kryptograficznego.
+#### <b>FCS_CKM</b> - zarządzanie klucza kryptograficznego.
 
-<b>FCS_CKM.1</b> - generowanie kluczy kryptograficznych; wymaga wygenerowanie klucza kryptograficznego zgodnie z określonym algorytmem i rozmiarem klucza zgodnie ze standardami.
+	FCS_CKM.1 - generowanie kluczy kryptograficznych; wymaga wygenerowanie klucza kryptograficznego zgodnie z określonym algorytmem i rozmiarem klucza zgodnie ze standardami.
+	FCS_CKM.2 - dostarczanie klucza kryptograficznego; wymaga klucza kryptograficznego, który będzie dostarczony zgodnie z określoną metodą przesyłu zgodną z przyjętymi standardami.
+	FCS_CKM.3 -  dostęp do klucza kryptograficznego; wymagany dostęp do klucza zgodnego z określoną metodą dostępu zgodną z przyjętymi standardami.
+	FCS_CKM.4 - usuwanie klucza kryptograficznego; wymagane niszczenie klucza kryptograficznego zgodnej z przyjętymi standarami.
 
-<b>FCS_CKM.2</b> - dostarczanie klucza kryptograficznego; wymaga klucza kryptograficznego, który będzie dostarczony zgodnie z określoną metodą przesyłu zgodną z przyjętymi standardami.
+#### <b>FCS_COP</b> Operacja szyfrowania
 
-<b>FCS_CKM.3</b> -  dostęp do klucza kryptograficznego; wymagany dostęp do klucza zgodnego z określoną metodą dostępu zgodną z przyjętymi standardami.
-
-<b>FCS_CKM.4</b> - usuwanie klucza kryptograficznego; wymagane niszczenie klucza kryptograficznego zgodnej z przyjętymi standarami.
-
-<b>FCS_COP</b> Operacja szyfrowania
-
-<b>FCS_COP.1</b> - TSF powinien zapewnić zgodnie z określonym algorytmem kryptograficznym i rozmiaru klucza operację szyfrowania zgodną z przyjętymi standardami.
+	FCS_COP.1 - TSF powinien zapewnić zgodnie z określonym algorytmem kryptograficznym i rozmiaru klucza operację szyfrowania zgodną z przyjętymi standardami.
 
 
 ## Specyfikacja funkcjonalna TOE
