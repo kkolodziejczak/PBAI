@@ -564,19 +564,26 @@ W niniejszym rozdziale zawarto uzasadnienie, dlaczego zidentyfikowane cele zabez
 ### Zapobieganie zagrożeń
 
 #### T. Uszkodzenie TOE
+Zagrożeniu T. Uszkodzenie TOE zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Konfiguracja TOE
+Konfiguracja wymaga, by były prawidłowo skonfigurowane ustawienia aplikacji, uprawnień użytkowników oraz
 
 ##### O. Bezpieczeństwo fizyczne
+Bezpieczeństwo wymaga, aby TOE zapewnił bezpieczeństwo znajdującego się w obrębie środowiska aplikacji, tak aby infrastruktura była zabezpieczona przed atakami wewnątrz.
 
 ##### O. Aktualizacje zabezpieczeń
-
+Bezpieczeństwo wymaga, aby TOE zapewnił aktualizację zabezpieczeń mającej na celu załatanie wykrytych luk i błędów w systemie.
 
 #### T. Nieautoryzowany dostęp do zasobów serwera bazodanowego
+Zagrożeniu T. Nieautoryzowany dostęp do zasobów serwera bazodanowego zapobiegają następujące cele zabezpieczeń:
 
 ##### Ochrona procesów
+Ochrona procesów wymaga, aby TOE zapewnił ochronę procesów w celu zniwelowania ryzyka związanego z wyciekiem danych. Spreparowane zapywania bazodanowe powinny być zweryfikowane i zwalidowane pod względem podatności na atak typu SQL-injection. Ochrona procesów wymaga, aby TOE był odporny na atak typu SQL-injection.
 
 ##### Aktualizacje zabezpieczeń
+Aktualizacje zabezpieczeń wymagają, aby TOE zapewnił automatyczną aktualizację serwera bazodanowego do najnowszej wersji oprogramowania w celu eliminacji wykrytych błędów i luk w systemie bazodanowym.
+
 
 #### T. Atak słownikowy i atak metodą pełnego przeglądu
 
@@ -584,80 +591,103 @@ DODAĆ
 
 
 #### T. Nieautoryzowane przejęcie sesji użytkownika
+Zagrożeniu T. Nieautoryzowane przejęcie sesji użytkownika zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Wiarygodni administratorzy
-
+Środowisko TOE wymaga by, upoważnieni administratorzy rzetelnie wykonują swoje zadania oraz byli przeszkoleni w zakresie bezpieczeństwa przechowywania danych.
 ##### O. Wiarygodni użytkownicy
-
+Środowisko TOE wymaga, by użytkownicy znali zasady związane z bezpieczeństwem przechowywania danych.
 ##### O. Uwierzytelnienie użytkownika
-
+TOE musi zapewnić poprawne uwierzytelnienie się użytkownika przed wykonaniem określonej akcji użytkownika.
 
 #### T. Nieupoważniony dostęp
+Zagrożeniu T. Nieupoważniony dostęp zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Uwierzytelnienie użytkownika
-
+TOE musi zapewnić poprawne uwierzytelnienie się użytkownika przed wykonaniem określonej akcji użytkownika.
 ##### O. Ochrona procesów
-
+Ochrona procesów wymaga, aby TOE zapewnił ochronę przed ingerencją dowolnych, niezaufanych procesów, kanałów komunikacyjnych oraz intruzów w działanie tych procesów, które wykorzystywane są podczas wysyłania poufnych danych.
 
 #### T. Słaby zestaw algorytmów
+Zagrożeniu T. Słaby zestaw algorytmów zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Integralność danych do szyfrowania
+TOE musi zapewnić integralność różnych reprezentacji danych przeznaczonych do zaszyfrowanie od momentu ich sformatowania do momentu utworzenia szyfrogramu.
 
 ##### O. Zatwierdzone algorytmy
+TOE powinien zapewnić, aby były stosowane tylko te algorytmy szyfrowe, które należą do zbioru zatwierdzonych algorytmów i parametrów stosowanych podczas tworzenia szyfrogramu; w szczególności, aby format był zgodny z formatami wskazanymi w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.).
 
 ##### O. Moduły kryptograficzne
-
+TOE musi korzystać tylko z tych usług kryptograficznych, udostępnianych przez środowisko teleinformatyczne, które spełniają wymagania określone w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.) oraz Ustawie z dnia 22 stycznia 1999 r. o ochronie informacji niejawnych (Dz.U. 1999 nr 11 poz. 95, wersja ujednolicona) i zatwierdzone przez odpowiednie instytucje certyfikujące przy wysokim poziomie siły funkcji zabezpieczającej lub przynajmniej zgodne z FIPS 140 poziom 2 lub wyższy.
 
 #### T. Nieautoryzowany dostęp do prywatnych plików
+Zagrożeniu T. Nieautoryzowany dostęp do prywatnych plików zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Uwierzytelnienie użytkownika
+TOE musi zapewnić poprawne uwierzytelnienie się użytkownika przed uzyskaniem dostępu do prywatnych bądź udostępnionych jemu dokumentów.
 
 ##### O. Zgodność uprawnien do dokumentów
-
+TOE musi zapewnić zgodność, która potwierdza uprawnienia użytkownika do pobrania wybranego dokumentu.
 
 #### T. Przypadkowe usunięcie pliku
+Zagrożeniu T. Przypadkowe usunięcie pliku zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Zgoda użytkownika
+TOE musi zapewnić, że operacja usunięcia pliku przez użytkownika jest poprzedzona odpowiednim komunikatem: "Czy chcesz usunąć plik XXXXXX", wraz z opcjami do wyboru "TAK", "NIE". Po świadomym uzyskaniu zgodny przez użytkownika plik jest kasowany z systemu.
 
 ##### O. Obecność użytkownika
-
+TOE wymaga, by operacja usuwania pliku należącego do użytkownika odbywała się przy jego udziale.
 
 #### T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym
+Zagrożeniu T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym zapobiegają następujące cele zabezpieczeń:
+
 
 ##### O. Ochrona kanału komunikacyjnego
+TOE musi zapewnić bezpieczne połączenie pomiędzy użytkownikami podczas operacji dzielenia się kluczem deszyfrującym. W tym celu zastosowany jest Protokół Diffie-Hellmana oraz protokół HTTPS.
 
 ##### O. Uwierzytelnienie użytkownika
-
+Przed przeprowadzeniem operacji dzielenia się kluczem deszyfrującym, TOE wymaga aby każda ze stron przeszła pomyślnie operację uwierzytelnienia się.
 
 #### T. Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu
+Zagrożeniu T. Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Ochrona kanału komunikacyjnego
-
+TOE musi zapewnić bezpieczny kanał komunikacyjny systemu z użytkownikiem. W tym celu zastosowano protokół HTTPS.
 
 #### T. Modyfikacja uprawnień do zasobów
+Zagrożeniu T. Modyfikacja uprawnień do zasobów zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Konfiguracja TOE
+Prawidłowa konfiguracja uprawnień, polityki dostępowej TOE zapobiega nieupoważnionym modifikacjom uprawnień do zasobów.
 
 ##### O. Bezpieczeństwo fizyczne
+Środowisko musi zapewniać akceptowalny poziom bezpieczeństwa fizycznego tak, aby nie było możliwe manipulowanie TOE.
 
 ##### O. Aktualizacje zabezpieczeń
-
+TOE musi zapewnić automatycznie aktualizowanie zabezpieczeń w celu wyeliminowania defektów w zabezpieczeniach wykrytych w oprogramowaniu wchodzących w skład środowiska.
 
 #### T. Wyciek danych
+Zagrożeniu T. Wyciek danych zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Ochrona procesów
+Ochrona procesów wymaga, aby TOE zapewnił ochronę przed ingerencją dowolnych, niezaufanych procesów, kanałów komunikacyjnych oraz intruzów w działanie tych procesów, które wykorzystywane są podczas wysyłania poufnych danych.
+
+W przypadku awarii systemu i wycieku danych wrażliwe dane są zabezpieczone przed nieuprawnionym dostępem:
+- hasło - zabezpieczone hashem <b>bcrypt</b> z domieszką salt;
+- dokumenty - zaszyfrowane kluczem symetrycznym AES-256, klucz deszyfrujący nie jest przechowywany w systemie.
 
 ##### O. Aktualizacje zabezpieczeń
-
+TOE musi zapewnić automatycznie aktualizowanie zabezpieczeń w celu wyeliminowania defektów w zabezpieczeniach wykrytych w oprogramowaniu wchodzących w skład środowiska.
 
 #### T. Przejęcie konta administratora
+Zagrożeniu T. Przejęcie konta administratora zapobiegają następujące cele zabezpieczeń:
 
 ##### O. Wiarygodni administratorzy
-
+Środowisko TOE wymaga by, upoważnieni administratorzy rzetelnie wykonują swoje zadania oraz byli przeszkoleni w zakresie bezpieczeństwa przechowywania danych.
 ##### O. Uwierzytelnienie użytkownika
-
+TOE musi zapewnić poprawne uwierzytelnienie się użytkownika przed wykonaniem określonej akcji użytkownika.
 ##### O. Aktualizacje zabezpieczeń
-
+TOE musi zapewnić automatycznie aktualizowanie zabezpieczeń w celu wyeliminowania defektów w zabezpieczeniach wykrytych w oprogramowaniu wchodzących w skład środowiska.
 
 ### Uzasadnienie funkcjonalnych wymagań bezpieczeństwa
 |  Cele zabezpieczeń TOE	|  Wymagania funkcjonalne dla TOE 	| 
