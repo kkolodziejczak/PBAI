@@ -348,83 +348,78 @@ W niniejszej części dokumentu wymagania funkcjonalne systemu zostały sprecyzo
 
 #### Dane audytowe
 
-<b>FAU_GEN</b> - Rejestrowanie zagrożeń bezpieczeństwa
+##### <b>FAU_GEN</b> - Rejestrowanie zagrożeń bezpieczeństwa
 
-<b>FAU_GEN.1</b> - Generowanie danych na temat bezpieczeństwa
+###### <b>FAU_GEN.1</b> - Generowanie danych na temat bezpieczeństwa
 
-<b>FAU_GEN.1.1</b> - System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
+###### <b>FAU_GEN.1.1</b> - System musi rejestrować wszystkie potencjalnie niebezpieczne zdarzenia, takich jak nieudane próby logowania, nieoczekiwane wywołania funkcji systemowych, nieobsłużone wyjątki i zapisywać je w postaci logów systemowych.
 
-<b>FAU_GEN.2</b> - Przypisywanie zdarzeń do konkretnych podmiotów
+##### <b>FAU_GEN.2</b> - Przypisywanie zdarzeń do konkretnych podmiotów
 
-<b>FAU_GEN.2.1</b> - Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
-
-
-<b>FAU_ARP</b> - Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa.
-
-<b>FAU_ARP.1</b> -  Alarmy bezpieczeństwa.
-
-<b>FAU_ARP.1.1</b> - W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
-
-<b>FAU_ARP.1.2</b> -  System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
+###### <b>FAU_GEN.2.1</b> - Każde zdarzenie rejestrowane przez system powinno posiadać znacznik czasu, typ zdarzenia, oraz identyfikator podmiotu, który wywołał dane zdarzenie.
 
 
-<b>FAU_SAR</b> - Wymagania dotyczące narzędzi audytu, dostępnych dla osób uprawnionych w celu przeglądu danych.
+##### <b>FAU_ARP</b> - Powiadomienia systemu w przypadku wykrycia potencjalnych zagrożeń bezpieczeństwa.
 
-<b>FAU_SAR.1</b> - Przegląd audytu, możliwość odczytywania rejestrowanych danych
+###### <b>FAU_ARP.1</b> -  Alarmy bezpieczeństwa.
+
+###### <b>FAU_ARP.1.1</b> - W przypadku wykrycia przez system potencjalnego krytycznego zagrożenia bezpieczeństwa, powinien on powiadomić administratora za pomocą stosownego komunikatu oraz zapisać zdarzenie w rejestrze logów systemowych.
+
+###### <b>FAU_ARP.1.2</b> -  System powinien zablokować dostęp do systemu użytkownikowi, stwarzającemu krytyczne zagrożenie.
 
 
-<b>FAU_SAR</b> -  Wymagania dotyczące narzędzi audytu, dostępnych dla osób
+##### <b>FAU_SAR</b> -  Wymagania dotyczące narzędzi audytu, dostępnych dla osób
 uprawnionych w celu przeglądu danych.
 
-<b>FAU_SAR.1</b> Przegląd audytu, możliwość odczytywania rejestrowanych
+###### <b>FAU_SAR.1</b> Przegląd audytu, możliwość odczytywania rejestrowanych
 danych.
 
-<b>FAU_SAR.1.1</b> - System musi zapewnić możliwość odczytu zarejestrowanych
+###### <b>FAU_SAR.1.1</b> - System musi zapewnić możliwość odczytu zarejestrowanych
 danych audytu.
 
-<b>FAU_SAR.1.2</b> - System musi zapewnić możliwość odczytu danych w formie
+###### <b>FAU_SAR.1.2</b> - System musi zapewnić możliwość odczytu danych w formie
 możliwej do interpretacji przez użytkownika.
 
-<b>FAU_SAR.2</b> - Systemowa kontrola dostępu do danych audytu.
+##### <b>FAU_SAR.2</b> - Systemowa kontrola dostępu do danych audytu.
 
-<b>FAU_SAR.2.1</b> - System musi zapewnić kontrolę odczytu danych audytu.
+###### <b>FAU_SAR.2.1</b> - System musi zapewnić kontrolę odczytu danych audytu.
 Dane audytowe mogą być odczytywane tylko przez podmioty do tego uprawnione.
 
 
-<b>FAU_STG</b> - Wymagania System dotycz¡ce przechowywania zbioru rejestrowanych
+##### <b>FAU_STG</b> - Wymagania System dotycz¡ce przechowywania zbioru rejestrowanych
 zdarzeń.
 
-<b>FAU_STG.1</b> - Miejsce przechowywania rejestrowanych danych.
+###### <b>FAU_STG.1</b> - Miejsce przechowywania rejestrowanych danych.
 
-<b>FAU_STG.1.1</b> - System musi być w stanie wykonać kopię zapasową oraz
+###### <b>FAU_STG.1.1</b> - System musi być w stanie wykonać kopię zapasową oraz
 ewentualne przywrócenie danych audytu.
 
-<b>FAU_STG.2</b> - Gwarancja dostępności rejestrowanych danych przez system.
+###### <b>FAU_STG.2</b> - Gwarancja dostępności rejestrowanych danych przez system.
 
-<b>FAU_STG.2.1</b> - System musi zapewnić kopiowanie danych (w ramach kopii
+###### <b>FAU_STG.2.1</b> - System musi zapewnić kopiowanie danych (w ramach kopii
 zapasowej) do innej części TOE.
 
 
 #### Weryfikacja
 
-<b>FDP_ACC</b> - Polityka kontroli dostępu.
+##### <b>FDP_ACC</b> - Polityka kontroli dostępu.
 
-<b>FDP_ACC.1</b> - kontrola dostępu do poszczególnych funkcjonalności TOE.
+###### <b>FDP_ACC.1</b> - kontrola dostępu do poszczególnych funkcjonalności TOE.
 
-<b>FDP_ACC.1.1</b> - System na podstawie kontroli dostępu SFP (ang. Security
+###### <b>FDP_ACC.1.1</b> - System na podstawie kontroli dostępu SFP (ang. Security
 Function Policies, zbiór zasad bezpieczeństwa które muszą być przestrzegane
 w ramach TOE) musi egzekwować kontrolę dostępu do poszczególnych funkcji
 oraz zasobów TOE zdefiniowanych w SFP.
 
-<b>FDP_ACF</b> - funkcje kontroli dostępu.
+##### <b>FDP_ACF</b> - funkcje kontroli dostępu.
 
-<b>FDP_ACF.1</b> - atrybuty kontroli dostępu.
+###### <b>FDP_ACF.1</b> - atrybuty kontroli dostępu.
 
-<b>FDP_ACF.1.1</b> - System musi wymuszać kontrolę dostępu zdefiniowaną w SFP
+###### <b>FDP_ACF.1.1</b> - System musi wymuszać kontrolę dostępu zdefiniowaną w SFP
 bazującą na rolach przypisanych do poszczególnych podmiotów w ramach
 TOE.
 
-<b>FDP_ACF.1.2</b> - System musi egzekwować poniższe zasady w celu weryfikacji
+###### <b>FDP_ACF.1.2</b> - System musi egzekwować poniższe zasady w celu weryfikacji
 czy dany podmiot powinien uzyskać dostęp do wybranej funkcjonalności:
  - podmiot musi być autoryzowanym podmiotem występującym w ramach
 TOE,
@@ -436,14 +431,14 @@ danego podmiotu.
 
 #### Uwierzytelnianie i identyfikacja
 
-<b>FIA_AFL</b> - błędy uwierzytelniania.
+##### <b>FIA_AFL</b> - błędy uwierzytelniania.
 
-<b>FIA_AFL.1</b> - obsługa błędów uwierzytelniania.
+###### <b>FIA_AFL.1</b> - obsługa błędów uwierzytelniania.
 
-<b>FIA_AFL.1.1</b> - System musi wykrywać błędne próby logowania użytkowników
+###### <b>FIA_AFL.1.1</b> - System musi wykrywać błędne próby logowania użytkowników
  (w ilości zdefiniowanej przez administratora).
 
-<b>FIA_AFL.1.2</b> - w przypadku wykrycia zdefiniowanej ilości niepoprawnych
+###### <b>FIA_AFL.1.2</b> - w przypadku wykrycia zdefiniowanej ilości niepoprawnych
 prób logowania danego użytkownika, system musi wykonać następujące czynno
 ści:
  - zapisać dokładne informacje na temat adresu logowania, ilości niepoprawnych
@@ -453,23 +448,23 @@ w logach systemu,
 zdefiniowany przez administratora okres czasu,
  - poinformować podmiot o nieudanych próbach logowania.
 
-<b>FIA_UAU</b> - uwierzytelnianie użytkowników.
+##### <b>FIA_UAU</b> - uwierzytelnianie użytkowników.
 
-<b>FIA_UAU.1</b> - uwierzytelnianie użytkowników przed każdym działaniem.
+###### <b>FIA_UAU.1</b> - uwierzytelnianie użytkowników przed każdym działaniem.
 
-<b>FIA_UAU.1.1</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej
+###### <b>FIA_UAU.1.1</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej
 i serwer został pomyślnie uwierzytelniony, zanim zdecyduje się na inne operacje
 związane z systemem w imieniu tego użytkownika.
 
-<b>FIA_UAU.1.2</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej
+###### <b>FIA_UAU.1.2</b> - System wymaga, aby każdy użytkownik aplikacji klienckiej
 i serwer został zidentyfikowany przed umożliwieniem w imieniu tego użytkownika
 jakichkolwiek innych działań z udziałem systemu.
 
-<b>FIA_UID</b> - identyfikacja użytkowników.
+##### <b>FIA_UID</b> - identyfikacja użytkowników.
 
-<b>FIA_UID.1</b> - identyfikacja użytkownika przed jakimkolwiek działaniem.
+###### <b>FIA_UID.1</b> - identyfikacja użytkownika przed jakimkolwiek działaniem.
 
-<b>FIA_UID.1.1</b> - System wymaga, aby każdy użytkownik aplikacji został
+###### <b>FIA_UID.1.1</b> - System wymaga, aby każdy użytkownik aplikacji został
 zidentyfikowany przed umożliwieniem w imieniu tego użytkownika
 jakichkolwiek innych działań z udziałem systemu.
 
