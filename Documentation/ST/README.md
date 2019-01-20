@@ -271,6 +271,13 @@ TOE musi zapewnić poufność danych uwierzytelniających należących do podmio
 
 TOE powinien zapewnić, aby były stosowane tylko te algorytmy szyfrowe, które należą do zbioru zatwierdzonych algorytmów i parametrów stosowanych podczas tworzenia szyfrogramu; w szczególności, aby format  był zgodny z formatami wskazanymi w Rozporządzeniu Rady Ministrów z dnia 7 sierpnia 2002 r. (Dz. U. Nr 128, poz.1094 z dnia 12 sierpnia 2002 r.). 
 
+#### O. Hashowanie hasła wraz z domieszką
+
+TOE powinien szyfrować wrażliwe dane logowania użytkowników hashem bcrypt wraz z zastosowaniem domieszki (salt).
+
+#### O. Szyfrowane dokumenty
+TOE powinien przechowywać w bazie danych jedynie dokumenty w formie zaszyfrowanej za pomocą algorytmu AES-256. Klucz deszyfrujący znany jest jedynie użytkownikowi, który jest właścicielem pliku.
+
 #### O. Zgoda użytkownika
 
 TOE powinien udostępnić podmiotowi szyfrującemu/deszyfrującemu mechanizm umożliwiający mu (w sposób dobrowolny i jednoznaczny) wyrażenie zgody na zainicjowanie procesu wyboru dokumentu w celu utworzenia szyfrogramu bądź pobrania i odszyfrowania.
@@ -293,6 +300,10 @@ TOE powinien zapewnić uprawnienia właściciela pliku na jednoznaczne wskazanie
 #### O. Zbiór dokumentów
 
 Po wyrażeniu przez podmiot szyfrujący zgody na szyfrowanie, TOE musi gwarantować, że przetwarzany dokument rzeczywiście odpowiada dokładnie wybranemu dokumentowi przeznaczonego do szyfrowania.
+
+
+#### O. Blokowanie ataków na TOE 
+TOE musi zapewnić mechanizm blokowania ataków (wiele nieudanych prób logowania, DDoS) poprzez oflagowanie adresu IP bądź identyfikatora atakującego i zablokowanie kanału komunikacyjnego z podmiotem atakującym.
 
 
 #### O. Zgodność uprawnień do dokumentów
@@ -508,17 +519,18 @@ W niniejszym rozdziale zawarto uzasadnienie, dlaczego zidentyfikowane cele zabez
 
 |  Zagrożenie	|   Cele zabezpieczeń TOE	| 
 |---	|---	|
+|T. Atak słownikowy i atak metodą pełnego przeglądu | O. Hashowanie hasła wraz z domieszką, O. Blokowanie ataków na TOE
 |T. Uszkodzenie TOE				| O. Konfiguracja TOE, O. Bezpieczeństwo fizyczne, Aktualizacje zabezpieczeń
-|T. Nieautoryzowany dostęp do zasobów serwera bazodanowego		| O. Ochrona procesów, O. Aktualizacje zabezpieczeń
+|T. Nieautoryzowany dostęp do zasobów serwera bazodanowego		| O. Ochrona procesów, O. Aktualizacje zabezpieczeń, O. Hashowanie hasła wraz z domieszką, O. Szyfrowane dokumenty 
 |T. Nieautoryzowane przejęcie sesji użytkownika		| O. Wiarygodni administratorzy, O. Wiarygodni użytkownicy, O. Uwierzytelnienie użytkownika
-|T. Nieupoważniony dostęp							|O. Uwierzytelnienie użytkownika, O. Ochrona procesów
-|T. Słaby zestaw algorytmów						|O. Integralność danych do szyfrowania, O. Zatwierdzone algorytmy, O. Moduły kryptograficzne
-|T. Nieautoryzowany dostęp do prywatnych plików	|O. Uwierzytelnienie użytkownika, O. Zgodność uprawnień do dokumentów
+|T. Nieupoważniony dostęp							|O. Uwierzytelnienie użytkownika, O. Ochrona procesów, O. Szyfrowane dokumenty 
+|T. Słaby zestaw algorytmów						|O. Integralność danych do szyfrowania, O. Zatwierdzone algorytmy, O. Moduły kryptograficzne, O. Szyfrowane dokumenty, O. Hashowanie hasła wraz z domieszką 
+|T. Nieautoryzowany dostęp do prywatnych plików	|O. Uwierzytelnienie użytkownika, O. Zgodność uprawnień do dokumentów, O. Szyfrowane dokumenty
 |T. Przypadkowe usunięcie pliku					| O. Zgoda użytkownika, O. Obecność użytkownika
 |T. Nieautoryzowane podsłuchanie użytkowników podczas operacji dzielenia się kluczem deszyfrującym	|O. Ochrona kanału komunikacyjnego, O. Uwierzytelnienie użytkownika
 |T. Nieautoryzowane podsłuchiwanie operacji logowania użytkownika do systemu |O. Ochrona kanału komunikacyjnego
 |T. Modyfikacja uprawnień do zasobów		| O. Konfiguracja TOE, O. Bezpieczeństwo fizyczne, O. Aktualizacje zabezpieczeń
-|T. Wyciek danych							| O. Ochrona procesów, O. Aktualizacje zabezpieczeń
+|T. Wyciek danych							| O. Ochrona procesów, O. Aktualizacje zabezpieczeń, O. Szyfrowane dokumenty, O. Hashowanie hasła wraz z domieszką
 |T. Przejęcie konta administratora			| O. Wiarygodni administratorzy, O. Uwierzytelnienie użytkownika, O. Aktualizacje zabezpieczeń
 
 
@@ -578,17 +590,27 @@ Bezpieczeństwo wymaga, aby TOE zapewnił aktualizację zabezpieczeń mającej n
 #### T. Nieautoryzowany dostęp do zasobów serwera bazodanowego
 Zagrożeniu T. Nieautoryzowany dostęp do zasobów serwera bazodanowego zapobiegają następujące cele zabezpieczeń:
 
-##### Ochrona procesów
+##### O. Ochrona procesów
 Ochrona procesów wymaga, aby TOE zapewnił ochronę procesów w celu zniwelowania ryzyka związanego z wyciekiem danych. Spreparowane zapywania bazodanowe powinny być zweryfikowane i zwalidowane pod względem podatności na atak typu SQL-injection. Ochrona procesów wymaga, aby TOE był odporny na atak typu SQL-injection.
 
-##### Aktualizacje zabezpieczeń
+##### O. Aktualizacje zabezpieczeń
 Aktualizacje zabezpieczeń wymagają, aby TOE zapewnił automatyczną aktualizację serwera bazodanowego do najnowszej wersji oprogramowania w celu eliminacji wykrytych błędów i luk w systemie bazodanowym.
+
+#### O. Hashowanie hasła wraz z domieszką
+TOE powinien szyfrować wrażliwe dane logowania użytkowników hashem bcrypt wraz z zastosowaniem domieszki (salt).
+
+#### O. Szyfrowane dokumenty
+TOE powinien przechowywać w bazie danych jedynie dokumenty w formie zaszyfrowanej za pomocą algorytmu AES-256. Klucz deszyfrujący znany jest jedynie użytkownikowi, który jest właścicielem pliku.
 
 
 #### T. Atak słownikowy i atak metodą pełnego przeglądu
+Zagrożeniu T. Atak słownikowy i atak metodą pełnego przeglądu zapobiegają następujące cele zabezpieczeń:
 
-DODAĆ
+##### O. Hashowanie hasła wraz z domieszką
+TOE powinien szyfrować wrażliwe dane logowania użytkowników hashem bcrypt wraz z zastosowaniem domieszki (salt).
 
+##### O. Blokowanie ataków na TOE
+TOE musi zapewnić mechanizm blokowania ataków (wiele nieudanych prób logowania, DDoS) poprzez oflagowanie adresu IP bądź identyfikatora atakującego i zablokowanie kanału komunikacyjnego z podmiotem atakującym.
 
 #### T. Nieautoryzowane przejęcie sesji użytkownika
 Zagrożeniu T. Nieautoryzowane przejęcie sesji użytkownika zapobiegają następujące cele zabezpieczeń:
@@ -628,6 +650,9 @@ TOE musi zapewnić poprawne uwierzytelnienie się użytkownika przed uzyskaniem 
 
 ##### O. Zgodność uprawnien do dokumentów
 TOE musi zapewnić zgodność, która potwierdza uprawnienia użytkownika do pobrania wybranego dokumentu.
+
+#### O. Szyfrowane dokumenty
+TOE powinien przechowywać w bazie danych jedynie dokumenty w formie zaszyfrowanej za pomocą algorytmu AES-256. Klucz deszyfrujący znany jest jedynie użytkownikowi, który jest właścicielem pliku.
 
 #### T. Przypadkowe usunięcie pliku
 Zagrożeniu T. Przypadkowe usunięcie pliku zapobiegają następujące cele zabezpieczeń:
@@ -678,6 +703,12 @@ W przypadku awarii systemu i wycieku danych wrażliwe dane są zabezpieczone prz
 
 ##### O. Aktualizacje zabezpieczeń
 TOE musi zapewnić automatycznie aktualizowanie zabezpieczeń w celu wyeliminowania defektów w zabezpieczeniach wykrytych w oprogramowaniu wchodzących w skład środowiska.
+
+##### O. Hashowanie hasła wraz z domieszką
+TOE powinien szyfrować wrażliwe dane logowania użytkowników hashem bcrypt wraz z zastosowaniem domieszki (salt).
+
+##### O. Szyfrowane dokumenty
+TOE powinien przechowywać w bazie danych jedynie dokumenty w formie zaszyfrowanej za pomocą algorytmu AES-256. Klucz deszyfrujący znany jest jedynie użytkownikowi, który jest właścicielem pliku.
 
 #### T. Przejęcie konta administratora
 Zagrożeniu T. Przejęcie konta administratora zapobiegają następujące cele zabezpieczeń:
