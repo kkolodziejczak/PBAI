@@ -722,44 +722,16 @@ TOE musi zapewnić automatycznie aktualizowanie zabezpieczeń w celu wyeliminowa
 
 ### Uzasadnienie funkcjonalnych wymagań bezpieczeństwa
 |  Cele zabezpieczeń TOE	|  Wymagania funkcjonalne dla TOE 	| 
-|---	|---	|
-|O. Ochrona kanału komunikacyjnego
-|O. Uwierzytelnienie użytkownika
-|O. Integralność danych do szyfrowania
-|O. Ochrona procesów
-|O. Poufność danych uwierzytelniających
-|O. Zatwierdzone algorytmy
-|O. Zgoda użytkownika
-|O. Udostępnienie pliku innemu użytkownikowi
-|O. Przesyłanie klucza deszyfrującego
-|O. Ustawienie czasu wygaśnięcia pliku
-|O. Zbiór dokumentów
-|O. Zgodność uprawnień do dokumentów
-
-
-### Cele zabezpieczeń
-
-
-#### O. Ochrona kanału komunikacyjnego
-
-#### O. Uwierzytelnienie użytkownika
-
-#### O. Integralność danych do szyfrowania
-
-#### O. Ochrona procesów
-
-#### O. Poufność danych uwierzytelniających
-
-#### O. Zatwierdzone algorytmy
-
-#### O. Zgoda użytkownika
-
-#### O. Udostępnienie pliku innemu użytkownikowi
-
-#### O. Przesyłanie klucza deszyfrującego
-
-#### O. Ustawienie czasu wygaśnięcia pliku
-
-#### O. Zbiór dokumentów
-
-#### O. Zgodność uprawnień do dokumentów
+|---	|---
+|O. Ochrona kanału komunikacyjnego		|	FDP_IFF.1 - proste atrybuty zabezpieczeń, FMT_MSA.1 - inicjowanie atrybutu statycznego
+|O. Uwierzytelnienie użytkownika		| FIA_AFL.1- obsługa błędów uwierzytelniania, FIA_UAU.1 - uwierzytelnianie użytkowników przed każdym działaniem, EXT_FIA_VC_LOGIN.1 - żądanie logowania użytkownika serwera, FIA_UID.1 - identyfikacja użytkownika przed jakimkolwiek działaniem, FMT_SMR.1 - role bezpieczeństwa
+|O. Integralność danych do szyfrowania	| FPT_STM.1 - niezawodność znaczników czasu, FCS_CKM.1 - generowanie kluczy kryptograficznych, FCS_CKM.2 - dostarczanie klucza kryptograficznego, FCS_CKM.3 -  dostęp do klucza kryptograficznego, FCS_CKM.4 - usuwanie klucza kryptograficznego, FCS_COP.1 - operacja szyfrowania
+|O. Ochrona procesów		| FMT_MSA.1 - inicjowanie atrybutu statycznego, FMT_SMR.1 - role bezpieczeństwa, FMT_SMR.2 - ograniczenia bezpieczeństwa dla ról
+|O. Poufność danych uwierzytelniających		| FMT_SMR.2 - ograniczenia bezpieczeństwa dla ról, FDP_IFF.1 - proste atrybuty zabezpieczeń, FIA_UID.1 - identyfikacja użytkownika przed jakimkolwiek działaniem, FDP_ACC.1 - kontrola dostępu do poszczególnych funkcjonalności TOE
+|O. Zatwierdzone algorytmy		| FCS_COP.1 - operacja szyfrowania, FCS_CKM.1 - generowanie kluczy kryptograficznych
+|O. Zgoda użytkownika			| FIA_UID.1 - identyfikacja użytkownika przed jakimkolwiek działaniem, EXT_FIA_VC_LOGIN.1 - żądanie logowania użytkownika serwera,
+|O. Udostępnienie pliku innemu użytkownikowi | FIA_UAU.1 - uwierzytelnianie użytkowników przed każdym działaniem
+|O. Przesyłanie klucza deszyfrującego		| FCS_CKM.2 - dostarczanie klucza kryptograficznego, FCS_CKM.3 -  dostęp do klucza kryptograficznego, 
+|O. Ustawienie czasu wygaśnięcia pliku		| FPT_STM.1 - niezawodność znaczników czasu,
+|O. Zbiór dokumentów			| FIA_UAU.1 - uwierzytelnianie użytkowników przed każdym działaniem, EXT_FIA_VC_LOGIN.1 - żądanie logowania użytkownika serwera, FIA_UID.1 - identyfikacja użytkownika przed jakimkolwiek działaniem 
+|O. Zgodność uprawnień do dokumentów | FMT_SMR.1 - role bezpieczeństwa, FMT_SMR.2 - ograniczenia bezpieczeństwa dla ról 
