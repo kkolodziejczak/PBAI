@@ -35,6 +35,12 @@ docker-compose up
 pierwszy raz trwa okolo 5 min potem juz pare sec (trzeba pobrac imagsy). Nastepnie zagladamy na \<http|https\>://localhost:\<port\>/
 
 # 3. Testy
+Pamietaj aby spelniac [wymagania](#1-wymagania).  
+Przygotowanie  
+```
+npm i
+cd app 
+```
 Uruchomienie autotestow
 ```
 npm test
