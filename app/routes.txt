@@ -9,7 +9,7 @@ router
  ├── authenticate                                  *                                                           
  ├── jsonParser                                    *                                                           
  ├── urlencodedParser                              *                                                           
- ├── limiter                                       *                                                           
+ ├── rateLimit                                     *                                                           
  ├── nocache                                       *                                                           
  ├── cors                                          *                                                           
  ├── logger                                        *                                                           

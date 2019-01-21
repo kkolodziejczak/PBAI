@@ -47,6 +47,7 @@ passport.use('authorization', new LocalStrategy({
     try{
         const auth = await UsersCollection.findAndValidate(login, password)
         req.session.logger(auth ? `Authorization ok` : `Authorization failure`)
+        auth && req.session.resetPostAuthLimiter()
         return done(null, auth || false)
     }
     catch(err){

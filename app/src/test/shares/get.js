@@ -6,7 +6,7 @@ const agent = require('supertest').agent
 module.exports = function test(config){
     describe(path.parse(__filename).name, ()=>{
         it('user can get his shares', async ()=>{
-            const shares = await config.users[2].agent
+            await config.users[2].agent
             .get('/shares')
             .expect(200)
             .expect(hasProps(config.users[2].shares.map(s=>s._id.toString())))
@@ -17,14 +17,15 @@ module.exports = function test(config){
             .expect(401)
         })
         it('admin can get all shares', async ()=>{
-            const shares = await config.users[0].agent
+            const allShares = await SharesCollection.find({})
+            await config.users[0].agent
             .get('/shares')
             .expect(200)
-            .expect(hasProps(await SharesCollection.find({}).map(s=>s._id.toString())))
+            .expect(hasProps(allShares.map(e=>e._id.toString())))
         })
         it('user can get his share', async ()=>{
             const share = config.users[2].shares[0]
-            const s = await config.users[2].agent
+            await config.users[2].agent
             .get(`/shares/${share.id}`)
             .expect(200)
         })

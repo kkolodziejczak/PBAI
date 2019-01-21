@@ -35,10 +35,12 @@
     "mocha": "^5.2.0",
     "mongoose": "^5.1.7",
     "mongoose-type-email": "^1.0.10",
+    "nodemailer": "^5.1.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "portfinder": "^1.0.20",
     "randomstring": "^1.1.5",
+    "read-last-lines": "^1.6.0",
     "should": "^13.2.3",
     "supertest": "^3.1.0"
   },
