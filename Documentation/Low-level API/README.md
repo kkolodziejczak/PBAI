@@ -4,6 +4,13 @@
 
 
 ### AuthManager
+
+###### Funkcjonalne wymagania bezpieczeństwa:
+* FAU_GEN 
+* FAU_ARP
+* FAU_SAR
+* FAU_STG
+
 Klasa odpowiedzialna jest za kontrolę dostępu użytkownika, podejmuje próby logowania, rejestracji i zwraca wynik. Odpowiedzialna za pobranie danych nowego użytkownika (login, hasło) i weryfikuje je. Implementuje akcje związane z użytkownikami, łącznie z akcjami CRUD. 
 
 |  Metoda	|   Opis metody	| 
@@ -16,6 +23,10 @@ Klasa odpowiedzialna jest za kontrolę dostępu użytkownika, podejmuje próby l
 ### DocumentManager
 Klasa odpowiedzialna jest za zarządzanie dokumentami użytkownika. Podejmuje akcje związane z dodaniem nowego dokumentu dla użytkownika.  
 
+###### Funkcjonalne wymagania bezpieczeństwa:
+* FDP_ACC
+* FDP_ACF
+
 |  Metoda	|   Opis metody	| 
 |---	|---	|
 |  putDocument	|  Dostęp tylko dla zalogowanego użytkownika. Dodaje nowy dokument dla wskazanego użytkownika. Tworzy id danego dokumentu	| 
@@ -27,6 +38,11 @@ Klasa odpowiedzialna jest za zarządzanie dokumentami użytkownika. Podejmuje ak
 
 ### ShareManager
 Klasa odpowiedzialna jest za udostępnianie dokumentów pośród użytkowników. Podejmuje akcje związane z przypisaniem danego dokumentu dla użytkownika. 
+
+###### Funkcjonalne wymagania bezpieczeństwa:
+* FIA_UAU
+* FIA_UID
+* FIA_AFL
 
 |  Metoda	|   Opis metody	| 
 |---	|---	|
@@ -43,6 +59,11 @@ Klasa odpowiedzialna jest za udostępnianie dokumentów pośród użytkowników.
 ### PermissionManager
 Klasa odpowiedzialna jest za ustawianie praw dostępu dla użytkowników. Podejmuje akcje związane z przypisaniem roli dostępu danego użytkownika do dokumentu.
 
+###### Funkcjonalne wymagania bezpieczeństwa:
+* FMT_MSA
+* FMT_SMR 
+* FPT_STM
+
 |  Metoda	|   Opis metody	| 
 |---	|---	|
 |  deletePerm	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Usuwa dostep po id oraz obiekt share jesli premission dotyczy udostepnienia. Jesli dostep jest dostepem wlasciciela usunie on wszystkie dostepy do dokumentu.	| 
@@ -52,6 +73,9 @@ Klasa odpowiedzialna jest za ustawianie praw dostępu dla użytkowników. Podejm
 ### TimerManager
 Klasa odpowiedzialna jest za ustawianie czasu przechowywania dokumentu w serwisie. 
 
+###### Funkcjonalne wymagania bezpieczeństwa:
+* FPT_STM
+
 |  Metoda	|   Opis metody	| 
 |---	|---	|
 |  putTimer	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Ustawia timer który po aktywacji usunie dostęp dla użytkownika. Zwraca 409 jeśli timer jest już ustawiony dla tego dostępu	| 
@@ -59,7 +83,12 @@ Klasa odpowiedzialna jest za ustawianie czasu przechowywania dokumentu w serwisi
 | getTimerID	| Dostęp tylko dla zalogowanego użytkownika, właściciela dokumentu. Zwraca obiekt timera.	| 
 
 ### UserManager
-Klasa odpowiedzialna jest za obsługę użytkowników
+Klasa odpowiedzialna jest za obsługę użytkowników.
+
+###### Funkcjonalne wymagania bezpieczeństwa:
+* FIA_AFL
+* FIA_UID
+* FDP_IFF
 
 |  Metoda	|   Opis metody	| 
 |---	|---	|
@@ -71,12 +100,20 @@ Klasa odpowiedzialna jest za obsługę użytkowników
 ### DatabaseManager
 Klasa odpowiedzialna jest za zarządzanie bazą danych
 
+###### Funkcjonalne wymagania bezpieczeństwa:
+* FCS_CKM
+* FCS_COP
+
 |  Metoda	|   Opis metody	| 
 |---	|---	|
 |  getDB	| Brak dostępu, wysyła aplikacje do zarządzania bazą danych	| 
 
 ### LogsManager
 Klasa odpowiedzialna jest za zarządzanie logami.
+
+###### Funkcjonalne wymagania bezpieczeństwa:
+* FMT_MSA
+* FMT_SMR
 
 |  Metoda	|   Opis metody	| 
 |---	|---	|
@@ -147,3 +184,5 @@ Klasa odpowiedzialna jest za zarządzanie logami.
 | Boolean | IsAdmin | Default: false
 | Reference | Permissions | PERMISSIONS_DATABASE
 | Reference | Shares    | SHARES_DATABASE
+
+
