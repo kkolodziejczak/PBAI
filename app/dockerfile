@@ -23,6 +23,5 @@ RUN yarn && yarn run build
 WORKDIR /be/app
 
 #Expose port and start application
-EXPOSE 8080
-EXPOSE 8090
+EXPOSE 8080 8091
 CMD [ "npm", "run", "start" ]

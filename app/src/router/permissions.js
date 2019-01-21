@@ -70,7 +70,8 @@ module.exports = app => {
                 const user = await UsersCollection.findById(req.user._id)
                 return res.json(user.permissions)
             }
-            return res.json(await PermissionsCollection.find({type: permissionTypes.owner}))
+            const allPermissions = await PermissionsCollection.find({type: permissionTypes.owner})
+            return res.json(allPermissions.map(e=>e._id.toString()))
         }
     }])
 }

@@ -18,10 +18,11 @@ module.exports = function test(config){
             .expect(401)
         })
         it('admin can get all permissions', async ()=>{
-            let x = await config.users[0].agent
+            const allPermissions = await PermissionsCollection.find({type: "o"})
+            await config.users[0].agent
             .get('/permissions')
             .expect(200)
-            .expect(hasProps(await PermissionsCollection.find({}).map(s=>s._id.toString())))
+            .expect(hasProps(allPermissions.map(e=>e._id.toString())))
         })
         it('user can get his permission', async ()=>{
             const permissionId = config.users[2].documents[0].permissions[0]._id.toString()

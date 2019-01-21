@@ -14,6 +14,7 @@ export default function* root() {
   yield fork(document.getShares);
   yield fork(document.setCryptedPassword);
   yield fork(document.setTimer);
+  yield fork(document.updateShares);
 
   yield fork(permissions.getPermissionsAndDocuments);
 }
