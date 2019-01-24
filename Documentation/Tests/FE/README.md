@@ -244,6 +244,35 @@ wygasa. Wpis zostaje usunięty dla obu użytkowników. Użytkownik któremu
 został udostępniony plik może wykorzystać ten czas, aby odczytać jego
 zawartość plik pozostanie tam do czasu odświeżenia strony.
 
+## 6. Przeprowadzone ataki
+<table border="1">
+  <tr class="odd" style="font-weight: bold;text-align: center;">
+    <th>Przypadek</th>
+    <th>Wynik działania</th>
+    <th>Poprawność działania</th>
+  </tr>
+  <tr>
+    <td>Losowy akceptowalny login<br>Losowe akceptowalne hasło<br></td>
+    <td>Po trzech próbach dostajemy jednogodzinny timeout<br></td>
+    <td>Poprawne</td>
+  </tr>
+  <tr>
+    <td><br>Prawidłowy login<br>Złe hasło<br></td>
+    <td>Po trzech próbach dostajemy jednogodzinny timeout</td>
+    <td>Poprawne</td>
+  </tr>
+  <tr>
+    <td><br>Zły login<br>Prawidłowe hasło<br></td>
+    <td>Po trzech próbach dostajemy jednogodzinny timeout</td>
+    <td>Poprawne</td>
+  </tr>
+  <tr>
+    <td><br>Atak słownikowy<br>1. administrator:administrator<br><br>2. user:user<br>3. root:root<br></td>
+    <td>Po trzech próbach dostajemy jednogodzinny timeout</td>
+    <td>Poprawne</td>
+  </tr>
+</table>
+
 # Flow dzielenia dokumentu
 
 ## Założenia:
