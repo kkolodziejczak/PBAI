@@ -115,3 +115,63 @@ T20
 1. Wywołaj PUT /timer/permissions z argumentami: sec: 3, id: 1
 2. System zwraca 200 Success.
 
+### Testy bezpieczeństwa
+
+A1
+A2
+A3
+A4
+A5
+A6
+A7
+A8
+A9
+A10
+
+##### A1 - Masowe tworzenie kont
+1. Uruchom w pętli request PUT /auth z kolejnymi argumentami login, password, password_confirmation z https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt
+2. System wykonuje 302 Redirect i wywołuje GET /users za pierwszym razem
+3. System zwraca 200 Success.
+4. Przy trzecim requeście system wykonuje jednogodzinną blokadę.
+
+##### A2 - Logowanie bruteforce
+1. Wywołaj PUT /auth z kolejnymi argumentami login, password, password_confirmation z https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt
+2. System wykonuje 302 Redirect i wywołuje GET /users za pierwszym razem
+3. System zwraca 200 Success.
+4. Przy trzecim requeście system wykonuje jednogodzinną blokadę.
+
+##### A3 - Logowanie z atakiem NoSQL Injection z not equal ($ne) lub greater ($gt)
+1. Wywołaj PUT /auth z arguementami {"username": {"$ne": null}, "password": {"$ne": null} }
+2. System zwraca 401 Unauthorized.
+
+##### A4 - Logowanie z atakiem NoSQL Injection wydobywającym długość hasła dla użytkownika
+1. Wywołaj PUT /auth z arguementami {"username": {"$ne": "toto"}, "password": {"$regex": ".{1}"} }
+2. System zwraca 401 Unauthorized.
+
+##### A5 - Logowanie z atakiem NoSQL Injection dopasowującym hasło po wyrażeniu regularnym
+1. Wywołaj PUT /auth z arguementami {"username": {"$eq": "admin"}, "password": {"$regex": "^m" }}
+2. System zwraca 401 Unauthorized.
+
+##### A6 - Wywołanie ataku NoSQL Injection przy wrzucaniu pliku
+1. Przygotuj zakodowany aes-256-ctr dokument, który zawiera zapytanie DROP DATABASE databasename;.
+2. Wywołaj PUT /documents z argumentami name: test, content: zakodowana treść dokumentu.
+3. System zwraca 200 Success.
+4. Dowolny użytkownik odczytuje dokument - jest on wyescapowany.
+
+##### A7 - Atak XSS przy wywołaniu GET
+1. Wywołaj GET /permissions/<script src="http://test.tk/hack.js"></script>
+2. System zwraca 400 Bad Request.
+
+##### A8 - Atak DDoS
+1. Wywołaj GET /documents/1 kilkaset razy.
+2. System po kilkudziesięciu próbach zwraca z każdą kolejną 401 Unauthorized. 
+
+##### A9 - Wymuszenie niebezpiecznego połączenia
+1. Wywołaj POST /auth z argumentami login: test5, password: test5 na protokole HTTP.
+2. System przekierowuje do protokołu HTTPS.
+
+##### A10 - Deszyfruj wiadomość
+1. Wywołaj GET /shares.
+2. System zwraca 200 Success i obiekt shares.
+3. Deszyfruj shares.crypto używając https://codebeautify.org/encrypt-decrypt
+4. Nie można skutecznie deszyfrować pliku.
