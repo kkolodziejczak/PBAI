@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
             "stopOnEntry": false,
-            "args": ["src/test/test.js", "--exit", "--no-timeouts", "--reporter=nyan"],
+            "args": ["src/test/test.js", "--exit", "--no-timeouts"],
             "cwd": "${workspaceRoot}",
             "runtimeExecutable": null
         },
